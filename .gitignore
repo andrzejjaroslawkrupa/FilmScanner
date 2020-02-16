@@ -231,4 +231,4 @@ _Pvt_Extensions
 .fake/
 
 # Angular Enviroment
-./FilmScanner/ClientApp/src/environments/enviroment.ts
+FilmScanner/ClientApp/src/environments/environment.ts
