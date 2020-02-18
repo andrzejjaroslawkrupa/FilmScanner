@@ -232,3 +232,5 @@ _Pvt_Extensions
 
 # Angular Enviroment
 FilmScanner/ClientApp/src/environments/environment.ts
+.vscode/launch.json
+.vscode/tasks.json
