@@ -1,4 +1,10 @@
 <h1>List of movies</h1>
+<form>
+  <mat-form-field>
+    <mat-label>Look for a movie</mat-label>
+    <input matInput #search (keyup)="OnInput(search.value)">
+  </mat-form-field>
+</form>
 <ul *ngIf="movies">
   <li *ngFor="let movie of movies.Search">{{ movie.Title }}</li>
 </ul>
