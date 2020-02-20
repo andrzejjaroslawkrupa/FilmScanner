@@ -20,7 +20,7 @@ export class FetchDataComponent implements AfterViewInit, OnDestroy {
   }
 
   OnInput(value: string) {
-    this._moviesService.searchMovies(value)
+    this._moviesService.searchMovies(value.trim())
       .subscribe(data => this.movies = data);
    }
 
