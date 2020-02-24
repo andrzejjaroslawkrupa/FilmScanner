@@ -4,6 +4,17 @@
   >
     <div class="container">
       <a class="navbar-brand" [routerLink]="['/']">FilmScanner</a>
+      <form>
+        <mat-form-field>
+          <mat-label>Look for a movie</mat-label>
+          <input [matAutocomplete]="auto" matInput #search (keyup)="OnInput(search.value)">
+        </mat-form-field>
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-option *ngFor="let movie of movies.Search">
+            {{ movie.Title }}
+          </mat-option>
+        </mat-autocomplete>
+      </form>
       <button
         class="navbar-toggler"
         type="button"

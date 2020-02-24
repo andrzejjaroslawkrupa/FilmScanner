@@ -7,16 +7,14 @@ import { environment } from '../../environments/environment';
 @Injectable()
 export class MoviesService {
 
-  private _url: string;
-
   constructor(private http: HttpClient) {
   }
 
-  searchMovies(value: string): Observable<IMovie[]> {
-    return this.http.get<IMovie[]>(this.getUrl(value));
+  searchMovies(movieTitle: string): Observable<IMovie[]> {
+    return this.http.get<IMovie[]>(this.getUrl(movieTitle));
   }
 
-  private getUrl(value: string){
-    return environment.apiUrl + "/?s=" + value + "&apikey=" + environment.apiKey;
+  private getUrl(movieTitle: string){
+    return environment.apiUrl + "/?s=" + movieTitle + "&apikey=" + environment.apiKey;
   }
 }
