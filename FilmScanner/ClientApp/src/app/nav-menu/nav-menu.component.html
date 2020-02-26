@@ -11,7 +11,7 @@
         </mat-form-field>
         <mat-autocomplete #auto="matAutocomplete">
           <mat-option *ngFor="let movie of movies.Search">
-            {{ movie.Title }}
+            <img src={{movie.Poster}} height="25%" width="25%"/> {{ movie.Title }}
           </mat-option>
         </mat-autocomplete>
       </form>
