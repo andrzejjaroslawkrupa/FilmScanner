@@ -38,7 +38,3 @@ html {
   grid-area: menu;
   justify-self: end;
 }
-
-.mat-form-field {
-  width: 100%;
-}
