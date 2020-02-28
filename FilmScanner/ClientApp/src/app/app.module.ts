@@ -15,6 +15,7 @@ import { MoviesService } from "./movies/movie.service";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { OverlayModule } from '@angular/cdk/overlay';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { MovieOverviewComponent } from './movie-overview/movie-overview.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
     NavMenuComponent,
     HomeComponent,
     CounterComponent,
-    FetchDataComponent
+    FetchDataComponent,
+    MovieOverviewComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -32,6 +34,7 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent },
+      { path: 'movie-overview', component: MovieOverviewComponent },
     ]),
     BrowserAnimationsModule,
     TextFieldModule,
