@@ -4,7 +4,7 @@
   >
     <div class="container">
       <a class="navbar-brand" [routerLink]="['/']">FilmScanner</a>
-      <form>
+      <div class="searchbar">
         <mat-form-field>
           <mat-label>Look for a movie</mat-label>
           <input [matAutocomplete]="auto" matInput #search (keyup)="OnInput(search.value)">
@@ -14,7 +14,8 @@
             <img src="{{ movie.Poster }}" height="25%" width="25%"/> {{ movie.Title }} ({{ movie.Year }})
           </mat-option>
         </mat-autocomplete>
-      </form>
+      </div>
+      <div class="menu">
       <button
         class="navbar-toggler"
         type="button"
@@ -27,7 +28,7 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div
-        class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse"
+        class="navbar-collapse collapse"
         [ngClass]="{ show: isExpanded }"
       >
         <ul class="navbar-nav flex-grow">
@@ -50,6 +51,7 @@
           </li>
         </ul>
       </div>
+    </div>
     </div>
   </nav>
 </header>
