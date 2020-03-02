@@ -8,7 +8,7 @@
       </mat-form-field>
       <mat-autocomplete #auto="matAutocomplete">
         <mat-option *ngFor="let movie of movies.Search">
-          <img src="{{ movie.Poster }}" height="5%" width="5%"/> {{ movie.Title }} ({{ movie.Year }})
+          <img src="{{ movie.Poster }}" height="10%" width="10%"/> {{ movie.Title }} ({{ movie.Year }})
         </mat-option>
       </mat-autocomplete>
     </div>

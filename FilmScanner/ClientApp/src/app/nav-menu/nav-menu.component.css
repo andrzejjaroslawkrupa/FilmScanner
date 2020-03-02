@@ -20,3 +20,8 @@ html {
 .mat-form-field{
   width: 100%;
 }
+
+.mat-option{
+  min-height: 100px;
+  max-height: 200px;
+}
