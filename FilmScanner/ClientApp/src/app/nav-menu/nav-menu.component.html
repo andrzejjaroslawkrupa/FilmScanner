@@ -1,21 +1,21 @@
 <header>
+  <div class="row bg-white border-bottom box-shadow">
+    <a class="col-3" [routerLink]="['/']">FilmScanner</a>
+    <div class="col-6">
+      <mat-form-field>
+        <mat-label>Look for a movie</mat-label>
+        <input [matAutocomplete]="auto" matInput #search (keyup)="OnInput(search.value)">
+      </mat-form-field>
+      <mat-autocomplete #auto="matAutocomplete">
+        <mat-option *ngFor="let movie of movies.Search">
+          <img src="{{ movie.Poster }}" height="5%" width="5%"/> {{ movie.Title }} ({{ movie.Year }})
+        </mat-option>
+      </mat-autocomplete>
+    </div>
+    <div class="col-3">
   <nav
-    class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3"
+    class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light"
   >
-    <div class="container">
-      <a class="navbar-brand" [routerLink]="['/']">FilmScanner</a>
-      <div class="searchbar">
-        <mat-form-field>
-          <mat-label>Look for a movie</mat-label>
-          <input [matAutocomplete]="auto" matInput #search (keyup)="OnInput(search.value)">
-        </mat-form-field>
-        <mat-autocomplete #auto="matAutocomplete">
-          <mat-option *ngFor="let movie of movies.Search">
-            <img src="{{ movie.Poster }}" height="25%" width="25%"/> {{ movie.Title }} ({{ movie.Year }})
-          </mat-option>
-        </mat-autocomplete>
-      </div>
-      <div class="menu">
       <button
         class="navbar-toggler"
         type="button"
@@ -31,7 +31,7 @@
         class="navbar-collapse collapse"
         [ngClass]="{ show: isExpanded }"
       >
-        <ul class="navbar-nav flex-grow">
+        <ul class="navbar-nav">
           <li
             class="nav-item"
             [routerLinkActive]="['link-active']"
@@ -49,14 +49,9 @@
               >Fetch data</a
             >
           </li>
-          <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [routerLink]="['/movie-overview']"
-              >Srandrzej</a
-            >
-          </li>
         </ul>
       </div>
-    </div>
-    </div>
-  </nav>
+    </nav>
+  </div>
+</div>
 </header>

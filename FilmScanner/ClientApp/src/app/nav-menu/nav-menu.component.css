@@ -17,24 +17,6 @@ html {
   box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
 }
 
-.container {
-  display: grid;
-    grid-gap: 10px;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-areas: "logo searching menu";
-}
-
-.navbar-brand {
-  grid-area: logo;
-  justify-self: start;
-}
-
-.searchbar {
-  grid-area: searching;
-  justify-self: center;
-}
-
-.menu {
-  grid-area: menu;
-  justify-self: end;
+.mat-form-field{
+  width: 100%;
 }
