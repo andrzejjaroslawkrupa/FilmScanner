@@ -1,6 +1,5 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { MoviesService } from '../movies/movie.service';
-import {FormControl} from '@angular/forms';
 
 @Component({
   selector: 'app-nav-menu',

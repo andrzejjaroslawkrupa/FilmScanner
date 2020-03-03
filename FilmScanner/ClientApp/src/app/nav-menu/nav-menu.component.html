@@ -1,5 +1,5 @@
 <header>
-  <div class="row bg-white border-bottom box-shadow">
+  <div class="row bg-white border-bottom box-shadow text-center">
     <a class="col-3" [routerLink]="['/']">FilmScanner</a>
     <div class="col-6">
       <mat-form-field>
@@ -45,8 +45,8 @@
             >
           </li>
           <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [routerLink]="['/fetch-data']"
-              >Fetch data</a
+            <a class="nav-link text-dark" [routerLink]="['/profile']"
+              ><button type="button" class="btn btn-primary btn-circle btn-sm">Profile</button></a
             >
           </li>
         </ul>
