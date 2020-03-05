@@ -11,5 +11,7 @@ hr {
 }
 
 .arrow {
-     width: 50%;
+    width: 5vw;
+    max-width: 50%;
+    min-width: 20%;
 }

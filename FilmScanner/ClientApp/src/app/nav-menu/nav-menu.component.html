@@ -1,9 +1,9 @@
 <header>
   <div class="row bg-white border-bottom box-shadow text-center">
-    <a class="col-3" [routerLink]="['/']">FilmScanner</a>
-    <div class="col-6">
+    <a class="col-3" [routerLink]="['/']"><img src="assets/logo.png" id="logo"></a>
+    <div class="col-6 my-auto">
       <mat-form-field>
-        <mat-label>Look for a movie</mat-label>
+        <mat-label>Look for a film</mat-label>
         <input [matAutocomplete]="auto" matInput #search (keyup)="onInput(search.value)">
       </mat-form-field>
       <mat-autocomplete #auto="matAutocomplete">
@@ -12,7 +12,7 @@
         </mat-option>
       </mat-autocomplete>
     </div>
-    <div class="col-3">
+    <div class="col-3 my-auto">
   <nav
     class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light"
   >
