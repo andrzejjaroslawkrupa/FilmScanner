@@ -16,7 +16,7 @@ export class NavMenuComponent {
   }
 
   onInput(value: string) {
-    this._moviesService.searchMovies(value.trim())
+    this._moviesService.searchMoviesByTitle(value.trim())
       .subscribe(data => this.movies = data);
   }
 
