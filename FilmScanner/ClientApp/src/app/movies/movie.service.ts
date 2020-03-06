@@ -10,12 +10,12 @@ export class MoviesService {
   constructor(private http: HttpClient) {
   }
 
-  searchMoviesByTitle(movieTitle: string): Observable<IMovie[]> {
-    return this.http.get<IMovie[]>(this.getUrlWithTitle(movieTitle));
+  searchMoviesByTitle(movieTitle: string, page: number = 1): Observable<IMovie[]> {
+    return this.http.get<IMovie[]>(this.getUrlWithTitleAndPage(movieTitle, page));
   }
 
-  private getUrlWithTitle(movieTitle: string) {
-    return environment.apiUrl + "/?s=" + movieTitle + "&apikey=" + environment.apiKey;
+  private getUrlWithTitleAndPage(movieTitle: string, page: number) {
+    return environment.apiUrl + "/?s=" + movieTitle + "&page="+ page +"&apikey=" + environment.apiKey;
   }
 
   searchMovieByID(movieID: string): Observable<IMovie> {
