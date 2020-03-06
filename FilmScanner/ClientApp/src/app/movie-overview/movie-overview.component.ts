@@ -15,15 +15,19 @@ export class MovieOverviewComponent implements OnInit {
   public movie;
 
   ngOnInit() {
-    this.movieID = this.route.snapshot.queryParamMap.get("movieID");
-     this._moviesService.searchMovieByID(this.movieID)
+    this.route.queryParams.subscribe(params => {
+      this._moviesService.searchMovieByID(params['movieID'])
       .subscribe(data => {
         if (data)
-          this.movie = data
+        this.movie = data
       });
+      this.movieID = params['movieID'];
+  });
+
   }
 
   test() {
+    console.log(this.movieID);
 
   }
 }

@@ -23,7 +23,6 @@ export class NavMenuComponent {
   selectMovie(imdbID: string) {
     this.router.navigate(['/movie-overview'],
       { queryParams: { movieID: imdbID } })
-    console.log(imdbID);
   }
 
   collapse() {
