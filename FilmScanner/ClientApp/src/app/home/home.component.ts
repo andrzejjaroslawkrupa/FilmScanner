@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MoviesService } from '../movies/movie.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -7,32 +8,32 @@ import { MoviesService } from '../movies/movie.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  isPremieresChosen: boolean = true;
-  isMostPopularChosen: boolean = false;
-  isComediesChosen: boolean = false;
-  isThrillersChosen: boolean = false;
-  isActionChosen: boolean = false;
+  isPremieresChosen = true;
+  isMostPopularChosen = false;
+  isComediesChosen = false;
+  isThrillersChosen = false;
+  isActionChosen = false;
   movies = [];
-  sliceBottom: number = 0;
-  sliceTop: number = 5;
-  page: number = 1;
-  category: string = "spider-man"
+  sliceBottom = 0;
+  sliceTop = 5;
+  page = 1;
+  category = 'spider-man';
 
-  constructor(private _moviesService: MoviesService) {
+  constructor(private _moviesService: MoviesService, private router: Router) {
   }
 
   ngOnInit() {
     this.subscribeToSearchResult();
   }
 
-  changeCategory(category: string){
+  changeCategory(category: string) {
     this.resetAllBooleans();
     this.category = category;
     this.resetPageAndSlices();
     this.subscribeToSearchResult();
   }
 
-  resetPageAndSlices(){
+  resetPageAndSlices() {
     this.page = 1;
     this.sliceTop = 5;
     this.sliceBottom = 0;
@@ -46,12 +47,16 @@ export class HomeComponent implements OnInit {
     this.isActionChosen = false;
   }
 
+  selectMovie(imdbID: string) {
+    this.router.navigate(['/movie-overview'],
+      { queryParams: { movieID: imdbID } });
+  }
+
   leftArrowClick() {
-    if(this.sliceTop == 5){
+    if (this.sliceTop === 5) {
       this.sliceBottom += 5;
       this.sliceTop += 5;
-    }
-    else{
+    } else {
       this.sliceBottom = 0;
       this.sliceTop = 5;
       this.page++;
@@ -60,14 +65,13 @@ export class HomeComponent implements OnInit {
   }
 
   rightArrowClick() {
-    if( this.page == 1 && this.sliceTop == 5){
+    if ( this.page === 1 && this.sliceTop === 5) {
       return;
     }
-    if(this.sliceTop == 10){
+    if (this.sliceTop === 10) {
       this.sliceBottom -= 5;
       this.sliceTop -= 5;
-    }
-    else{
+    } else {
       this.sliceBottom = 5;
       this.sliceTop = 10;
       this.page--;
