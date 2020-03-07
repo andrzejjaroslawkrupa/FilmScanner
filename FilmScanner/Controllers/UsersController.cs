@@ -86,6 +86,13 @@ namespace FilmScanner.Controllers
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
 
+            var tableName = "films_" + user.ID.ToString();
+
+            using (var context = new UserContext())
+            {
+                await context.Database.ExecuteSqlRawAsync((string)$"CREATE TABLE {tableName} (ID int, ExternalID varchar(255), CreatedAt datetime2(7))");
+            }
+
             return CreatedAtAction("GetUser", new { id = user.ID }, user);
         }
 
@@ -114,47 +121,59 @@ namespace FilmScanner.Controllers
 
         #region Films
 
-        //// GET: api/Users/1/Films
-        //[HttpGet]
-        //public async Task<ActionResult<IEnumerable<Film>>> GetFilms()
-        //{
-        //    return await _context.Films.ToListAsync();
-        //}
-
-
-        // POST: api/Users/1/
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
-        // more details see https://aka.ms/RazorPagesCRUD.
-        [HttpPost("{id}/films")]
-        public async Task<ActionResult<Film>> PostFilm(int id, Film film)
+        // GET: api/Users/1/Films
+        [HttpGet("{id}/films")]
+        public async Task<ActionResult<IEnumerable<Film>>> GetFilms()
         {
-            User user;
+            //return await _context.Films.ToListAsync();
 
-            //try
-            //{
-            //    user = await GetUserById(id);
-            //}
-            //catch (InvalidOperationException)
-            //{
-            //    return NotFound("Specified user could not be found");
-            //}
+            //select* from Films
+            //CREATE TABLE Films_1(ID int, ExternalID varchar(255), CreatedAt datetime2(7));
 
-            //if (user == null)
-            //    user.Films = new Collection<Film>();
+            List<Film> films;
 
-            //if (user.Films.Any(p => ArePeriodsInSameDay(p, period)))
-            //{
-            //    ModelState.AddModelError("WorkTimeExists", "WorkTime for selected period already exists");
-            //    return BadRequest(ModelState);
-            //}
+            using (var context = new UserContext())
+            {
+                films = await context.Films.FromSqlRaw("SELECT * FROM Films").ToListAsync();
+            }
 
-            _context.Films.Add(film);
-            await _context.SaveChangesAsync();
-
-            //return CreatedAtAction("GetUser", new { id = user.ID }, user);
-            return Ok();
-
+            return films;
         }
+
+
+        //// POST: api/Users/1/
+        //// To protect from overposting attacks, please enable the specific properties you want to bind to, for
+        //// more details see https://aka.ms/RazorPagesCRUD.
+        //[HttpPost("{id}/films")]
+        //public async Task<ActionResult<Film>> PostFilm(int id, Film film)
+        //{
+        //    User user;
+
+        //    //try
+        //    //{
+        //    //    user = await GetUserById(id);
+        //    //}
+        //    //catch (InvalidOperationException)
+        //    //{
+        //    //    return NotFound("Specified user could not be found");
+        //    //}
+
+        //    //if (user == null)
+        //    //    user.Films = new Collection<Film>();
+
+        //    //if (user.Films.Any(p => ArePeriodsInSameDay(p, period)))
+        //    //{
+        //    //    ModelState.AddModelError("WorkTimeExists", "WorkTime for selected period already exists");
+        //    //    return BadRequest(ModelState);
+        //    //}
+
+        //    _context.Films.Add(film);
+        //    await _context.SaveChangesAsync();
+
+        //    //return CreatedAtAction("GetUser", new { id = user.ID }, user);
+        //    return Ok();
+
+        //}
 
         #endregion
     }

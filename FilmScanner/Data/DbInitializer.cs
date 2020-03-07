@@ -10,7 +10,7 @@ namespace FilmScanner.Data
         {
             context.Database.EnsureCreated();
 
-            // Look for any students.
+            // Look for any users.
             if (context.Users.Any())
             {
                 return;   // DB has been seeded
