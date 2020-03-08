@@ -86,7 +86,7 @@ namespace FilmScanner.Controllers
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
 
-            var tableName = "films_" + user.ID.ToString();
+            var tableName = "Films_" + user.ID.ToString();
 
             using (var context = new UserContext())
             {
@@ -122,58 +122,101 @@ namespace FilmScanner.Controllers
         #region Films
 
         // GET: api/Users/1/Films
-        [HttpGet("{id}/films")]
-        public async Task<ActionResult<IEnumerable<Film>>> GetFilms()
+        [HttpGet("{userId}/films")]
+        public async Task<ActionResult<IEnumerable<Film>>> GetFilms(int userId)
         {
-            //return await _context.Films.ToListAsync();
-
-            //select* from Films
-            //CREATE TABLE Films_1(ID int, ExternalID varchar(255), CreatedAt datetime2(7));
-
             List<Film> films;
+
+            if (!UserExists(userId))
+            {
+                return NotFound();
+            }
+
+            var tableName = "Films_" + userId.ToString();
 
             using (var context = new UserContext())
             {
-                films = await context.Films.FromSqlRaw("SELECT * FROM Films").ToListAsync();
+                films = await context.Films.FromSqlRaw((string)$"SELECT * FROM {tableName}").ToListAsync();
+            }
+
+            return films;
+        }
+
+        // GET: api/Users/1/Films/2
+        [HttpGet("{userId}/films/{id}")]
+        public async Task<ActionResult<IEnumerable<Film>>> GetFilm(int userId, int id)
+        {
+            List<Film> films;
+
+            if (!UserExists(userId))
+            {
+                return NotFound();
+            }
+
+            var tableName = "Films_" + userId.ToString();
+
+            using (var context = new UserContext())
+            {
+                films = await context.Films.FromSqlRaw((string)$"SELECT * FROM {tableName} WHERE ID = {id}").ToListAsync();
             }
 
             return films;
         }
 
 
-        //// POST: api/Users/1/
-        //// To protect from overposting attacks, please enable the specific properties you want to bind to, for
-        //// more details see https://aka.ms/RazorPagesCRUD.
-        //[HttpPost("{id}/films")]
-        //public async Task<ActionResult<Film>> PostFilm(int id, Film film)
+        // POST: api/Users/1/films
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
+        // more details see https://aka.ms/RazorPagesCRUD.
+        [HttpPost("{id}/films")]
+        public async Task<ActionResult<Film>> PostFilm(int id, Film film)
+        {
+            //await context.Database.ExecuteSqlRawAsync((string)$"CREATE TABLE {tableName} (ID int, ExternalID varchar(255), CreatedAt datetime2(7))");
+            //User user;
+            //try
+            //{
+            ////if (user == null)
+            ////    user.Films = new Collection<Film>();
+
+            ////if (user.Films.Any(p => ArePeriodsInSameDay(p, period)))
+            ////{
+            ////    ModelState.AddModelError("WorkTimeExists", "WorkTime for selected period already exists");
+            ////    return BadRequest(ModelState);
+            ////}
+            //    await _context.SaveChangesAsync();
+            //}
+            //catch
+            //{
+            //    if (!UserExists(id))
+            //    {
+            //        return NotFound();
+            //    }
+            //    else
+            //    {
+            //        throw;
+            //    }
+            //}
+
+
+            //return CreatedAtAction("GetFilm", new { id = user.ID }, user);
+            return Ok();
+        }
+
+        //// DELETE: api/Users/5
+        //[HttpDelete("{id}")]
+        //public async Task<ActionResult<User>> DeleteUser(int id)
         //{
-        //    User user;
+        //    var user = await _context.Users.FindAsync(id);
+        //    if (user == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-        //    //try
-        //    //{
-        //    //    user = await GetUserById(id);
-        //    //}
-        //    //catch (InvalidOperationException)
-        //    //{
-        //    //    return NotFound("Specified user could not be found");
-        //    //}
-
-        //    //if (user == null)
-        //    //    user.Films = new Collection<Film>();
-
-        //    //if (user.Films.Any(p => ArePeriodsInSameDay(p, period)))
-        //    //{
-        //    //    ModelState.AddModelError("WorkTimeExists", "WorkTime for selected period already exists");
-        //    //    return BadRequest(ModelState);
-        //    //}
-
-        //    _context.Films.Add(film);
+        //    _context.Users.Remove(user);
         //    await _context.SaveChangesAsync();
 
-        //    //return CreatedAtAction("GetUser", new { id = user.ID }, user);
-        //    return Ok();
-
+        //    return user;
         //}
+
 
         #endregion
     }
