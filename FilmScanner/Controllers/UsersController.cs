@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using FilmScanner.Data;
 using FilmScanner.Models;
 using System.Collections.ObjectModel;
+using Microsoft.EntityFrameworkCore.Internal;
+using System.Reflection;
 
 namespace FilmScanner.Controllers
 {
@@ -90,7 +92,7 @@ namespace FilmScanner.Controllers
 
             using (var context = new UserContext())
             {
-                await context.Database.ExecuteSqlRawAsync((string)$"CREATE TABLE {tableName} (ID int, ExternalID varchar(255), CreatedAt datetime2(7))");
+                await context.Database.ExecuteSqlRawAsync((string)$"CREATE TABLE {tableName} (ID int  IDENTITY(1,1) PRIMARY KEY, ExternalID varchar(255), CreatedAt datetime2(7) NOT NULL)");
             }
 
             return CreatedAtAction("GetUser", new { id = user.ID }, user);
@@ -167,38 +169,24 @@ namespace FilmScanner.Controllers
         // POST: api/Users/1/films
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
-        [HttpPost("{id}/films")]
-        public async Task<ActionResult<Film>> PostFilm(int id, Film film)
+        [HttpPost("{userId}/films")]
+        public async Task<ActionResult<Film>> PostFilm(int userId, Film film)
         {
-            //await context.Database.ExecuteSqlRawAsync((string)$"CREATE TABLE {tableName} (ID int, ExternalID varchar(255), CreatedAt datetime2(7))");
-            //User user;
-            //try
-            //{
-            ////if (user == null)
-            ////    user.Films = new Collection<Film>();
+            if (!UserExists(userId))
+            {
+                return NotFound();
+            }
 
-            ////if (user.Films.Any(p => ArePeriodsInSameDay(p, period)))
-            ////{
-            ////    ModelState.AddModelError("WorkTimeExists", "WorkTime for selected period already exists");
-            ////    return BadRequest(ModelState);
-            ////}
-            //    await _context.SaveChangesAsync();
-            //}
-            //catch
-            //{
-            //    if (!UserExists(id))
-            //    {
-            //        return NotFound();
-            //    }
-            //    else
-            //    {
-            //        throw;
-            //    }
-            //}
+            var tableName = "Films_" + userId.ToString();
 
+            using (var context = new UserContext())
+            {
+                await context.Database.ExecuteSqlRawAsync((string)$"INSERT INTO {tableName} (ExternalID, CreatedAt) VALUES ('{film.ExternalID}', '{film.CreatedAt}')");
+            }
 
-            //return CreatedAtAction("GetFilm", new { id = user.ID }, user);
-            return Ok();
+            return CreatedAtAction("GetFilm", film);
+
+            //return Ok();
         }
 
         //// DELETE: api/Users/5
