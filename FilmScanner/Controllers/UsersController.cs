@@ -146,9 +146,9 @@ namespace FilmScanner.Controllers
 
         // GET: api/Users/1/Films/2
         [HttpGet("{userId}/films/{id}")]
-        public async Task<ActionResult<IEnumerable<Film>>> GetFilm(int userId, int id)
+        public async Task<ActionResult<Film>> GetFilm(int userId, int id)
         {
-            List<Film> films;
+            Film film;
 
             if (!UserExists(userId))
             {
@@ -159,10 +159,10 @@ namespace FilmScanner.Controllers
 
             using (var context = new UserContext())
             {
-                films = await context.Films.FromSqlRaw((string)$"SELECT * FROM {tableName} WHERE ID = {id}").ToListAsync();
+                film = await context.Films.FromSqlRaw((string)$"SELECT * FROM {tableName} WHERE ID = {id}").FirstOrDefaultAsync();
             }
 
-            return films;
+            return film;
         }
 
 
@@ -184,27 +184,25 @@ namespace FilmScanner.Controllers
                 await context.Database.ExecuteSqlRawAsync((string)$"INSERT INTO {tableName} (ExternalID, CreatedAt) VALUES ('{film.ExternalID}', '{film.CreatedAt}')");
             }
 
-            return CreatedAtAction("GetFilm", film);
-
-            //return Ok();
+            return film;
         }
 
-        //// DELETE: api/Users/5
-        //[HttpDelete("{id}")]
-        //public async Task<ActionResult<User>> DeleteUser(int id)
-        //{
-        //    var user = await _context.Users.FindAsync(id);
-        //    if (user == null)
-        //    {
-        //        return NotFound();
-        //    }
+        // DELETE: api/Users/1/films/1
+        [HttpDelete("{userId}/films/{id}")]
+        public async Task<ActionResult<Film>> DeleteFilm(int userId, int id)
+        {
+            Film film;
 
-        //    _context.Users.Remove(user);
-        //    await _context.SaveChangesAsync();
+            var tableName = "Films_" + userId.ToString();
 
-        //    return user;
-        //}
+            using (var context = new UserContext())
+            {
+                film = await context.Films.FromSqlRaw((string)$"SELECT * FROM {tableName} WHERE ID = {id}").FirstOrDefaultAsync();
+                await context.Database.ExecuteSqlRawAsync((string)$"Delete FROM {tableName} WHERE ID = {id}");
+            }
 
+            return film;
+        }
 
         #endregion
     }
