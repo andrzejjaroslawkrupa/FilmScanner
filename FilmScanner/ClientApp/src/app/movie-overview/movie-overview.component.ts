@@ -23,11 +23,9 @@ export class MovieOverviewComponent implements OnInit {
       });
       this.movieID = params['movieID'];
   });
-
   }
 
-  test() {
+  addToCollection() {
     console.log(this.movieID);
-
   }
 }
