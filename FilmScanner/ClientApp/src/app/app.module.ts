@@ -1,21 +1,22 @@
+import { AppComponent } from './app.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { CounterComponent } from './counter/counter.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { RouterModule } from '@angular/router';
+import { HomeComponent } from './home/home.component';
+import { HttpClientModule } from '@angular/common/http';
+import { ImdbService } from './movies/imdb.service';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { TextFieldModule } from '@angular/cdk/text-field';
-import { AppComponent } from './app.component';
-import { NavMenuComponent } from './nav-menu/nav-menu.component';
-import { HomeComponent } from './home/home.component';
-import { CounterComponent } from './counter/counter.component';
-import { ProfileComponent } from './profile/profile.component';
-import { MoviesService } from "./movies/movie.service";
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { OverlayModule } from '@angular/cdk/overlay';
-import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { MovieOverviewComponent } from './movie-overview/movie-overview.component';
+import { MoviesService } from './movies/movie.service';
+import { NavMenuComponent } from './nav-menu/nav-menu.component';
+import { NgModule } from '@angular/core';
+import { OverlayModule } from '@angular/cdk/overlay';
+import { ProfileComponent } from './profile/profile.component';
+import { RouterModule } from '@angular/router';
+import { TextFieldModule } from '@angular/cdk/text-field';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,7 @@ import { MovieOverviewComponent } from './movie-overview/movie-overview.componen
     OverlayModule,
     ReactiveFormsModule
   ],
-  providers: [MoviesService],
+  providers: [ImdbService, MoviesService],
   bootstrap: [AppComponent],
 })
 export class AppModule { }

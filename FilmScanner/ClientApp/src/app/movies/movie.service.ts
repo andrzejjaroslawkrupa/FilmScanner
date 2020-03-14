@@ -1,8 +1,8 @@
-﻿import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http'
-import { Observable } from 'rxjs';
+﻿import { environment } from '../../environments/environment';
+import { HttpClient } from '@angular/common/http';
 import { IMovie } from './imovie';
-import { environment } from '../../environments/environment';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class MoviesService {
@@ -15,7 +15,7 @@ export class MoviesService {
   }
 
   private getUrlWithTitleAndPage(movieTitle: string, page: number) {
-    return environment.apiUrl + "/?s=" + movieTitle + "&page="+ page +"&apikey=" + environment.apiKey;
+    return environment.apiUrl + '/?s=' + movieTitle + '&page=' + page + '&apikey=' + environment.apiKey;
   }
 
   searchMovieByID(movieID: string): Observable<IMovie> {
@@ -23,6 +23,6 @@ export class MoviesService {
   }
 
   private getUrlWithID(movieID: string) {
-    return environment.apiUrl + "/?i=" + movieID + "&apikey=" + environment.apiKey;
+    return environment.apiUrl + '/?i=' + movieID + '&apikey=' + environment.apiKey;
   }
 }

@@ -9,6 +9,10 @@
     </div>
     <div class="col-md-7">
       <p>{{this.movie?.Plot}}</p>
+      <p>Where to watch:</p>
+      <ul>
+      <li *ngFor="let way of waysToWatch">{{ way.primaryText }} - <a href="{{ way.link.uri }}">{{ way.secondaryText }}</a></li>
+      </ul>
     </div>
   </div>
 </div>

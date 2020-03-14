@@ -1,4 +1,4 @@
-﻿export interface IMovie{
+﻿export interface IMovie {
   title: string;
   year: string;
   rated: string;
@@ -13,7 +13,7 @@
   country: string;
   awards: string;
   poster: string;
-//ratings: Ratings;
+// ratings: Ratings;
   metascore: string;
   imdbrating: string;
   imdbVotes: string;
