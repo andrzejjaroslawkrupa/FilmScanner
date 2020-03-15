@@ -4,11 +4,13 @@ import { BrowserModule } from '@angular/platform-browser';
 import { CounterComponent } from './counter/counter.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './home/home.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ImdbService } from './movies/imdb.service';
+import { InterceptorService } from './loading/interceptor.service';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatProgressSpinnerModule } from '@angular/material';
 import { MovieOverviewComponent } from './movie-overview/movie-overview.component';
 import { MoviesService } from './movies/movie.service';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
@@ -16,16 +18,18 @@ import { NgModule } from '@angular/core';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { ProfileComponent } from './profile/profile.component';
 import { RouterModule } from '@angular/router';
+import { SpinnerComponent } from './loading/spinner.component';
 import { TextFieldModule } from '@angular/cdk/text-field';
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavMenuComponent,
-    HomeComponent,
     CounterComponent,
+    HomeComponent,
+    MovieOverviewComponent,
+    NavMenuComponent,
     ProfileComponent,
-    MovieOverviewComponent
+    SpinnerComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -43,9 +47,14 @@ import { TextFieldModule } from '@angular/cdk/text-field';
     MatInputModule,
     MatAutocompleteModule,
     OverlayModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatProgressSpinnerModule
   ],
-  providers: [ImdbService, MoviesService],
+  providers: [ImdbService, MoviesService, {
+    provide: HTTP_INTERCEPTORS,
+    useClass: InterceptorService,
+    multi: true
+  }],
   bootstrap: [AppComponent],
 })
 export class AppModule { }

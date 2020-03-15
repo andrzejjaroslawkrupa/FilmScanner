@@ -9,7 +9,7 @@ export class ImdbService {
   constructor(private http: HttpClient) {
   }
 
-  getAvailability(movieId: string): Observable<Object> {
+  getMetaData(movieId: string): Observable<Object> {
     const headerDict = {
       'x-rapidapi-host': environment.imdbHost,
       'x-rapidapi-key': environment.imdbApiKey,
