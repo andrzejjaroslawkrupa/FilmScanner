@@ -20,11 +20,12 @@
 </div>
 <hr/>
 <div class="row">
+  <http-spinner></http-spinner>
   <div class="col-sm text-right my-auto">
     <button (click)="leftArrowClick()" class="btn btn-link"><img src="assets/left_arrow.png" class="arrow"/></button>
   </div>
   <div *ngFor="let movie of movies.Search | slice:sliceBottom:sliceTop let i=index" class="col text-center">
-    <http-spinner></http-spinner>
+    
     <a (click)="selectMovie(movie.imdbID)"><img src="{{ movie.Poster }}" width="150"/>
     {{ movie.Title }} ({{ movie.Year }})</a>
   </div>

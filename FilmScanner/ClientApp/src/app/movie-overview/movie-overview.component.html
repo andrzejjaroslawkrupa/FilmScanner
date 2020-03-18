@@ -1,17 +1,18 @@
 <div class="container">
+  <http-spinner></http-spinner>
   <div class="row justify-content-center" id="title">
     <h1>{{this.movie?.Title}} ({{this.movie?.Year}})</h1>
     <button (click) = "addToCollection()">Add to collection</button>
   </div>
   <div class="row">
     <div class="col-md-5">
+      
       <img src="{{ movie?.Poster }}" height="400px" width="300px"/>
     </div>
     <div class="col-md-7">
       <p>{{this.movie?.Plot}}</p>
       <p>Where to watch:</p>
       <ul>
-        <http-spinner></http-spinner>
       <li *ngFor="let way of waysToWatch">{{ way.primaryText }} - <a href="{{ way.link.uri }}">{{ way.secondaryText }}</a></li>
       </ul>
     </div>
