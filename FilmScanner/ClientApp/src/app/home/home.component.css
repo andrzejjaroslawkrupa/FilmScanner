@@ -19,3 +19,7 @@ a:hover {
     max-width: 50%;
     min-width: 20%;
 }
+
+#poster {
+    width: 150px;
+}

@@ -25,8 +25,13 @@
     <button (click)="leftArrowClick()" class="btn btn-link"><img src="assets/left_arrow.png" class="arrow"/></button>
   </div>
   <div *ngFor="let movie of movies.Search | slice:sliceBottom:sliceTop let i=index" class="col text-center">
-    
-    <a (click)="selectMovie(movie.imdbID)"><img src="{{ movie.Poster }}" width="150"/>
+    <a (click)="selectMovie(movie.imdbID)"><div *ngIf="movie.Poster!='N/A'; else default_poster">
+      <img src="{{ movie.Poster }}" id="poster"/>
+    </div>
+    <ng-template #default_poster>
+      <div [hidden]="!imageLoader">Loading...</div>
+      <img [hidden]="imageLoader" src="assets/camera.png" id="poster" (load)="this.imageLoader = false;">
+    </ng-template>
     {{ movie.Title }} ({{ movie.Year }})</a>
   </div>
   <div class="col-sm text-left my-auto">
