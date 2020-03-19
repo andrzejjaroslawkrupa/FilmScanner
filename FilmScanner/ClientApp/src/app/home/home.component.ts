@@ -29,12 +29,12 @@ export class HomeComponent implements OnInit {
   changeCategory(category: string) {
     this.resetAllBooleans();
     this.category = category;
-    this.resetPageAndSlices();
+    this.page = 1;
+    this.resetSlices();
     this.subscribeToSearchResult();
   }
 
-  resetPageAndSlices() {
-    this.page = 1;
+  resetSlices() {
     this.sliceTop = 5;
     this.sliceBottom = 0;
   }
@@ -57,8 +57,8 @@ export class HomeComponent implements OnInit {
       this.sliceBottom += 5;
       this.sliceTop += 5;
     } else {
-      this.sliceBottom = 0;
-      this.sliceTop = 5;
+      this.movies = [];
+      this.resetSlices();
       this.page++;
       this.subscribeToSearchResult();
     }
@@ -72,6 +72,7 @@ export class HomeComponent implements OnInit {
       this.sliceBottom -= 5;
       this.sliceTop -= 5;
     } else {
+      this.movies = [];
       this.sliceBottom = 5;
       this.sliceTop = 10;
       this.page--;

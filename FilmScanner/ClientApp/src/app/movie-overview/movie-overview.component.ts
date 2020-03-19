@@ -32,7 +32,7 @@ export class MovieOverviewComponent implements OnInit {
       this.movieID = params['movieID'];
   });
 
-  this._imdbService.getAvailability(this.movieID).subscribe(result =>
+  this._imdbService.getMetaData(this.movieID).subscribe(result =>
     this.waysToWatch = result[this.movieID].waysToWatch.optionGroups[0].watchOptions);
   }
 
