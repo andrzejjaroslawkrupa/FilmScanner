@@ -10,6 +10,7 @@ import { MoviesService } from '../movies/movie.service';
   styleUrls: ['./movie-overview.component.css']
 })
 export class MovieOverviewComponent implements OnInit {
+  imageLoader = true;
 
   constructor(
     private route: ActivatedRoute,

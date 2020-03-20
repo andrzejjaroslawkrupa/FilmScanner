@@ -12,7 +12,8 @@
           <img src="{{ movie.Poster }}" id="poster" />
         </div>
         <ng-template #default_poster>
-          <img src="assets/camera.png" id="poster">
+          <div [hidden]="!imageLoader"><mat-spinner></mat-spinner></div>
+          <img [hidden]="imageLoader" src="assets/camera.png" id="poster" (load)="this.imageLoader = false;">
         </ng-template>
       </div>
       <div class="col-md-7">
