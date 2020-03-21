@@ -12,19 +12,21 @@
           <img src="{{ movie.Poster }}" id="poster" />
         </div>
         <ng-template #default_poster>
-          <div [hidden]="!imageLoader"><mat-spinner></mat-spinner></div>
+          <div [hidden]="!imageLoader">
+            <mat-spinner></mat-spinner>
+          </div>
           <img [hidden]="imageLoader" src="assets/camera.png" id="poster" (load)="this.imageLoader = false;">
         </ng-template>
       </div>
       <div class="col-md-7">
         <p>{{this.movie?.Plot}}</p>
         <p>Where to watch:</p>
-        
-          <ul>
-            <li *ngFor="let way of waysToWatch">{{ way.primaryText }} - <a
+
+        <ul>
+          <li *ngFor="let way of waysToWatch">{{ way.primaryText }} - <a
               href="{{ way.link.uri }}">{{ way.secondaryText }}</a></li>
-            </ul>
-          </div>
+        </ul>
+      </div>
 
     </div>
   </div>
