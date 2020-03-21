@@ -4,10 +4,10 @@
     <div class="col-6 my-auto">
       <mat-form-field>
         <mat-label>Look for a film</mat-label>
-        <input [matAutocomplete]="auto" matInput #search (keyup)="onInput(search.value)">
+        <input [matAutocomplete]="auto" matInput #search (input)="onInput(search.value)">
       </mat-form-field>
       <mat-autocomplete #auto="matAutocomplete">
-        <mat-option *ngFor="let movie of movies.Search" (click)="selectMovie(movie.imdbID)">
+        <mat-option *ngFor="let movie of movies.Search" (onSelectionChange)="selectMovie(movie.imdbID)">
           <div *ngIf="movie.Poster!='N/A'; else default_poster">
             <img src="{{ movie.Poster }}" height="10%" width="10%" />
             {{ movie.Title }} ({{ movie.Year }})
