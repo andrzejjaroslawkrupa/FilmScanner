@@ -23,3 +23,7 @@ a:hover {
 #poster {
     width: 150px;
 }
+
+mat-spinner {
+    margin:0 auto;
+}

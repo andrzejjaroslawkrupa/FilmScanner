@@ -6,3 +6,7 @@ margin-bottom: 100px;
 #poster{
     width: 80%;
 }
+
+mat-spinner {
+    margin:0 auto;
+}

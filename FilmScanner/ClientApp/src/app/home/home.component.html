@@ -29,7 +29,7 @@
       <img src="{{ movie.Poster }}" id="poster"/>
     </div>
     <ng-template #default_poster>
-      <div [hidden]="!imageLoader" id="poster"><mat-spinner></mat-spinner></div>
+      <div [hidden]="!imageLoader"><mat-spinner></mat-spinner></div>
       <img [hidden]="imageLoader" src="assets/camera.png" id="poster" (load)="this.imageLoader = false;">
     </ng-template>
     {{ movie.Title }} ({{ movie.Year }})</a>
