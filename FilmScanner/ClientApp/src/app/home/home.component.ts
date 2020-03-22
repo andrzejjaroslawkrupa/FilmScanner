@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MoviesService } from '../movies/movie.service';
 import { Router } from '@angular/router';
+import { SearchResult } from '../movies/SearchResult';
 
 @Component({
   selector: 'app-home',
@@ -14,7 +15,7 @@ export class HomeComponent implements OnInit {
   isComediesChosen = false;
   isThrillersChosen = false;
   isActionChosen = false;
-  movies = [];
+  movies: SearchResult;
   sliceBottom = 0;
   sliceTop = 5;
   page = 1;
@@ -58,7 +59,7 @@ export class HomeComponent implements OnInit {
       this.sliceBottom += 5;
       this.sliceTop += 5;
     } else {
-      this.movies = [];
+      this.movies = null;
       this.resetSlices();
       this.page++;
       this.subscribeToSearchResult();
@@ -73,7 +74,7 @@ export class HomeComponent implements OnInit {
       this.sliceBottom -= 5;
       this.sliceTop -= 5;
     } else {
-      this.movies = [];
+      this.movies = null;
       this.sliceBottom = 5;
       this.sliceTop = 10;
       this.page--;

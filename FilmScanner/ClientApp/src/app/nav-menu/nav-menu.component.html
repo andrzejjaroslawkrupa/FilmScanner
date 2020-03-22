@@ -7,6 +7,7 @@
         <input [matAutocomplete]="auto" matInput #search (input)="onInput(search.value)">
       </mat-form-field>
       <mat-autocomplete #auto="matAutocomplete">
+        <div *ngIf="movies">
         <mat-option *ngFor="let movie of movies.Search" (onSelectionChange)="selectMovie(movie.imdbID)">
           <div *ngIf="movie.Poster!='N/A'; else default_poster">
             <img src="{{ movie.Poster }}" height="10%" width="10%" />
@@ -17,6 +18,7 @@
             {{ movie.Title }} ({{ movie.Year }})
           </ng-template>
         </mat-option>
+      </div>
       </mat-autocomplete>
     </div>
     <div class="col-3 my-auto">

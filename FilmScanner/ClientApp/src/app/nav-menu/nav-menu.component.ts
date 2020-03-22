@@ -1,6 +1,7 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { MoviesService } from '../movies/movie.service';
 import { Router } from '@angular/router';
+import { SearchResult } from '../movies/SearchResult';
 
 @Component({
   selector: 'app-nav-menu',
@@ -9,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class NavMenuComponent {
   @ViewChild('search', { static: true }) searchText: ElementRef<HTMLElement>;
-  public movies = [];
+  public movies: SearchResult;
   isExpanded = false;
 
   constructor(private _moviesService: MoviesService, private router: Router) {

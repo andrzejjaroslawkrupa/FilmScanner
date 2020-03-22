@@ -19,7 +19,7 @@
   </div>
 </div>
 <hr/>
-<div class="row">
+<div *ngIf="movies" class="row">
   <http-spinner></http-spinner>
   <div class="col-sm text-right my-auto">
     <button (click)="leftArrowClick()" class="btn btn-link"><img src="assets/left_arrow.png" class="arrow"/></button>

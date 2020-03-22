@@ -1,7 +1,7 @@
 import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { ImdbService } from '../movies/imdb.service';
-import { IMovie } from '../movies/imovie';
+import { IMovie } from '../movies/Movie';
 import { MoviesService } from '../movies/movie.service';
 
 @Component({
