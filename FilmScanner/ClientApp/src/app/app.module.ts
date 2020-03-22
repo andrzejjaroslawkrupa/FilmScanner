@@ -10,7 +10,7 @@ import { InterceptorService } from './loading/interceptor.service';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { MatProgressSpinnerModule } from '@angular/material';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MovieOverviewComponent } from './movie-overview/movie-overview.component';
 import { MoviesService } from './movies/movie.service';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
