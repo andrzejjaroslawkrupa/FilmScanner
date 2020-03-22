@@ -14,6 +14,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MovieOverviewComponent } from './movie-overview/movie-overview.component';
 import { MoviesService } from './movies/movie.service';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgModule } from '@angular/core';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { ProfileComponent } from './profile/profile.component';
@@ -48,7 +49,8 @@ import { TextFieldModule } from '@angular/cdk/text-field';
     MatAutocompleteModule,
     OverlayModule,
     ReactiveFormsModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    NgbModule
   ],
   providers: [ImdbService, MoviesService, {
     provide: HTTP_INTERCEPTORS,
