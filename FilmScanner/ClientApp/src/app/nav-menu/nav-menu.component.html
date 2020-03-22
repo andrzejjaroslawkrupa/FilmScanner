@@ -6,7 +6,7 @@
         <mat-label>Look for a film</mat-label>
         <input [matAutocomplete]="auto" matInput #search (input)="onInput(search.value)">
       </mat-form-field>
-      <mat-autocomplete #auto="matAutocomplete">
+      <mat-autocomplete class="search-dropdown" #auto="matAutocomplete">
         <div *ngIf="movies">
         <mat-option *ngFor="let movie of movies.Search" (onSelectionChange)="selectMovie(movie.imdbID)">
           <div *ngIf="movie.Poster!='N/A'; else default_poster">

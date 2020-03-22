@@ -36,3 +36,7 @@ body {
   top: 50%;
   left: 50%;
 }
+
+.search-dropdown{
+  max-height: 70vh !important; 
+}
