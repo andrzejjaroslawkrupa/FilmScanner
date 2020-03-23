@@ -1,4 +1,5 @@
 import { AppComponent } from './app.component';
+import { AppTitleService } from './services/appTitle.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { CounterComponent } from './counter/counter.component';
@@ -52,7 +53,7 @@ import { TextFieldModule } from '@angular/cdk/text-field';
     MatProgressSpinnerModule,
     NgbModule
   ],
-  providers: [ImdbService, MoviesService, {
+  providers: [AppTitleService, ImdbService, MoviesService, {
     provide: HTTP_INTERCEPTORS,
     useClass: InterceptorService,
     multi: true

@@ -1,3 +1,4 @@
+import { AppTitleService } from '../services/appTitle.service';
 import { Component, OnInit } from '@angular/core';
 import { MoviesService } from '../movies/movie.service';
 import { Router } from '@angular/router';
@@ -21,10 +22,11 @@ export class HomeComponent implements OnInit {
   page = 1;
   category = 'spider-man';
 
-  constructor(private _moviesService: MoviesService, private router: Router) {
+  constructor(private _appTitleService: AppTitleService, private _moviesService: MoviesService, private _router: Router) {
   }
 
   ngOnInit() {
+    this._appTitleService.setTitle('Home');
     this.subscribeToSearchResult();
   }
 
@@ -50,7 +52,7 @@ export class HomeComponent implements OnInit {
   }
 
   selectMovie(imdbID: string) {
-    this.router.navigate(['/movie-overview'],
+    this._router.navigate(['/movie-overview'],
       { queryParams: { movieID: imdbID } });
   }
 
