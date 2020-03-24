@@ -2,8 +2,24 @@
   width: 35%;
 }
 
-#miniPoster {
-  width: 10%;
+#margin-left{
+  padding-left: 40px;
+}
+
+img{
+  width: 80px;
+}
+
+.img{
+  height: 20px;
+}
+
+.ui-grid, .ui-grid-viewport {
+  height: auto !important;
+}
+
+.title{
+  vertical-align: middle; 
 }
 
 a.navbar-brand {
