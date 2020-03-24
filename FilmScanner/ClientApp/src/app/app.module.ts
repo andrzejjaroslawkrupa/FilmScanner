@@ -2,7 +2,6 @@ import { AppComponent } from './app.component';
 import { AppTitleService } from './services/appTitle.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
-import { CounterComponent } from './counter/counter.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './home/home.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -26,7 +25,6 @@ import { TextFieldModule } from '@angular/cdk/text-field';
 @NgModule({
   declarations: [
     AppComponent,
-    CounterComponent,
     HomeComponent,
     MovieOverviewComponent,
     NavMenuComponent,
@@ -39,7 +37,6 @@ import { TextFieldModule } from '@angular/cdk/text-field';
     FormsModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
-      { path: 'counter', component: CounterComponent },
       { path: 'profile', component: ProfileComponent },
       { path: 'movie-overview', component: MovieOverviewComponent },
     ]),
