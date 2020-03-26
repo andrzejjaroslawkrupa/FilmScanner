@@ -47,6 +47,7 @@ import { trigger, state, style, transition, animate, AnimationEvent } from '@ang
   ],
 })
 export class HomeComponent implements OnInit {
+  moviesLoader = true;
   imageLoader = true;
   isPremieresChosen = true;
   isMostPopularChosen = false;

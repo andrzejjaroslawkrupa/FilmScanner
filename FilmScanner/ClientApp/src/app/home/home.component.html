@@ -23,18 +23,17 @@
     <button class="btn btn-light">More...</button>
   </div>
 </div>
-<http-spinner></http-spinner>
 <hr />
 <div class="col-sm text-right my-auto">
   <button (click)="state = 'vanished-left'" class="btn btn-link"><img src="assets/left_arrow.png"
       class="arrow" /></button>
 </div>
-<div *ngIf="movies">
+<div *ngIf="movies; else loading_movies">
   <div [@transform]="state" (@transform.done)="rotateCarousel($event)" class="row">
     <div *ngFor="let movie of movies.Search | slice:sliceBottom:sliceTop let i=index" class="col text-center">
       <a (click)="selectMovie(movie.imdbID)">
         <div *ngIf="movie.Poster!='N/A'; else default_poster">
-          <img src="{{ movie.Poster }}" id="poster" />
+          <img src="{{ movie.Poster }}" id="poster" (load)="this.moviesLoader = false;"/>
         </div>
         <ng-template #default_poster>
           <div [hidden]="!imageLoader">
@@ -47,6 +46,7 @@
     </div>
   </div>
 </div>
+<mat-spinner #loading_movies [hidden]="!moviesLoader"></mat-spinner>
 <div class="col-sm text-left my-auto">
   <button (click)="state = 'vanished-right'" class="btn btn-link"><img src="assets/right_arrow.png"
       class="arrow" /></button>
