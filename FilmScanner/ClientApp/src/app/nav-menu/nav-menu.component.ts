@@ -33,4 +33,11 @@ export class NavMenuComponent {
   toggle() {
     this.isExpanded = !this.isExpanded;
   }
+
+  reset() {
+    this.router.navigate(['/'])
+      .then(() => {
+        window.location.reload();
+      });
+  }
 }

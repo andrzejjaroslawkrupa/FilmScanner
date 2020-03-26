@@ -2,16 +2,16 @@
   width: 35%;
 }
 
-#margin-left{
-  padding-left: 40px;
-}
-
 img{
   width: 80px;
 }
 
-.img{
-  height: 20px;
+img:hover {
+  cursor: pointer;
+}
+
+#margin-left{
+  padding-left: 40px;
 }
 
 .ui-grid, .ui-grid-viewport {
