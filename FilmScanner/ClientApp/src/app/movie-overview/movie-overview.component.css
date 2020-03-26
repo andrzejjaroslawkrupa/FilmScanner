@@ -11,3 +11,8 @@ margin-bottom: 100px;
 mat-spinner {
     margin:0 auto;
 }
+
+#loading_film{
+    width: 50%;
+    height: 50%;
+}

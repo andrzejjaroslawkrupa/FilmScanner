@@ -4,7 +4,6 @@ import { Component, OnInit } from '@angular/core';
 import { ImdbService } from '../movies/imdb.service';
 import { IMovie } from '../movies/Movie';
 import { MoviesService } from '../movies/movie.service';
-import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-movie-overview',
@@ -13,6 +12,7 @@ import { Title } from '@angular/platform-browser';
 })
 export class MovieOverviewComponent implements OnInit {
   imageLoader = true;
+  movieLoader = true;
 
   constructor(
     private _appTitleService: AppTitleService,

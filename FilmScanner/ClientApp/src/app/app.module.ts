@@ -4,9 +4,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './home/home.component';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { ImdbService } from './movies/imdb.service';
-import { InterceptorService } from './loading/interceptor.service';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -19,7 +18,6 @@ import { NgModule } from '@angular/core';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { ProfileComponent } from './profile/profile.component';
 import { RouterModule } from '@angular/router';
-import { SpinnerComponent } from './loading/spinner.component';
 import { TextFieldModule } from '@angular/cdk/text-field';
 
 @NgModule({
@@ -29,7 +27,6 @@ import { TextFieldModule } from '@angular/cdk/text-field';
     MovieOverviewComponent,
     NavMenuComponent,
     ProfileComponent,
-    SpinnerComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -50,11 +47,7 @@ import { TextFieldModule } from '@angular/cdk/text-field';
     MatProgressSpinnerModule,
     NgbModule
   ],
-  providers: [AppTitleService, ImdbService, MoviesService, {
-    provide: HTTP_INTERCEPTORS,
-    useClass: InterceptorService,
-    multi: true
-  }],
+  providers: [AppTitleService, ImdbService, MoviesService, ],
   bootstrap: [AppComponent],
 })
 export class AppModule { }
