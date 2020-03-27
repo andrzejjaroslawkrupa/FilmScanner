@@ -35,9 +35,8 @@ export class NavMenuComponent {
   }
 
   reset() {
-    this.router.navigate(['/'])
-      .then(() => {
-        window.location.reload();
-      });
+    if (this.router.url === '/')
+      window.location.reload();
+    this.router.navigate(['/']);
   }
 }
