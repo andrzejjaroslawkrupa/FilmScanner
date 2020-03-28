@@ -34,8 +34,9 @@
 
   <div class="row align-items-center">
     <div class="col-1">
-      <button (click)="state = 'vanished-left'" class="btn btn-link"><img src="assets/left_arrow.png"
-          class="arrow" /></button>
+      <!-- Icon made by Raj Dev from www.freeicons.io -->
+      <button (click)="state = 'vanished-left'" class="btn btn-link"><img src="assets/arrow_left.svg"
+        class="arrow" /></button>
     </div>
 
     <div class="col-10">
@@ -67,7 +68,7 @@
     <mat-spinner #loading_movies [hidden]="!moviesLoader"></mat-spinner>
 
     <div class="col-1">
-      <button (click)="state = 'vanished-right'" class="btn btn-link"><img src="assets/right_arrow.png"
+      <button (click)="state = 'vanished-right'" class="btn btn-link"><img src="assets/arrow_right.svg"
           class="arrow" /></button>
     </div>
   </div>

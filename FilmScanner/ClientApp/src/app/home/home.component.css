@@ -15,11 +15,16 @@ a:hover {
    }
 
 .arrow {
-    width: 5vw;
+    width: 3vw;
+    opacity: 80%;
 }
 
+.arrow:hover {
+    opacity: 40%;
+  }
+
 #poster {
-    width: 250px;
+    width: 220px;
     margin-bottom: 20px;
 }
 
