@@ -1,8 +1,8 @@
 ﻿using System.Threading.Tasks;
-using OmdbLibs.Models;
-using OmdbLibs.Omdb;
+using OmdbServicesLibs.Models;
+using OmdbServicesLibs.Omdb;
 
-namespace OmdbLibs.Services
+namespace OmdbServicesLibs.Services
 {
 	public class OmdbService : IOmdbService
 	{

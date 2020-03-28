@@ -1,6 +1,6 @@
 ﻿using System.Runtime.Serialization;
 
-namespace OmdbLibs.Models
+namespace OmdbServicesLibs.Models
 {
 	[DataContract]
 	public class Search

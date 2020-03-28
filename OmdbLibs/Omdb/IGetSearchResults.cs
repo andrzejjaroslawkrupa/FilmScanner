@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
-using OmdbLibs.Models;
+using OmdbServicesLibs.Models;
 
-namespace OmdbLibs.Omdb
+namespace OmdbServicesLibs.Omdb
 {
 	public interface IGetSearchResults
 	{

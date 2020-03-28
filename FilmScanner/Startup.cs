@@ -7,8 +7,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using OmdbLibs.Omdb;
-using OmdbLibs.Services;
+using OmdbServicesLibs.Omdb;
+using OmdbServicesLibs.Services;
 
 namespace FilmScanner
 {

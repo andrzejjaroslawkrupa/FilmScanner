@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Net.Http;
 using System.Threading.Tasks;
-using OmdbLibs.Models;
 using Newtonsoft.Json;
+using OmdbServicesLibs.Models;
 
-namespace OmdbLibs.Omdb
+namespace OmdbServicesLibs.Omdb
 {
 	public class GetSearchResults : IGetSearchResults
 	{
