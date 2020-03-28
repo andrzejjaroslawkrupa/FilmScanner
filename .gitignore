@@ -236,3 +236,4 @@ FilmScanner/ClientApp/src/environments/environment.ts
 .vscode/tasks.json
 FilmScanner/.vscode/launch.json
 FilmScanner/.vscode/tasks.json
+FilmScanner/appsettings.Development.json
