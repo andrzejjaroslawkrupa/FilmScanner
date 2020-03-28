@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29728.190
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FilmScanner", "FilmScanner\FilmScanner.csproj", "{F41FC3D0-AECE-4DC2-8CC5-54BCB2B3048A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FilmScanner", "FilmScanner\FilmScanner.csproj", "{F41FC3D0-AECE-4DC2-8CC5-54BCB2B3048A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OmdbServicesLibs", "OmdbLibs\OmdbServicesLibs.csproj", "{559F6ED5-88C1-45DF-A4D6-74E986C02B64}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{F41FC3D0-AECE-4DC2-8CC5-54BCB2B3048A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F41FC3D0-AECE-4DC2-8CC5-54BCB2B3048A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F41FC3D0-AECE-4DC2-8CC5-54BCB2B3048A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{559F6ED5-88C1-45DF-A4D6-74E986C02B64}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{559F6ED5-88C1-45DF-A4D6-74E986C02B64}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{559F6ED5-88C1-45DF-A4D6-74E986C02B64}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{559F6ED5-88C1-45DF-A4D6-74E986C02B64}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

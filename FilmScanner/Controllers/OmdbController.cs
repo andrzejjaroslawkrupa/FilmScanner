@@ -1,29 +1,28 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using OmdbLibs.Services;
 
 namespace FilmScanner.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class OmdbController : ControllerBase
-    {
-        private readonly IConfiguration _Configuration;
+	[Route("api/[controller]")]
+	[ApiController]
+	public class OmdbController : ControllerBase
+	{
+		private readonly IOmdbService _OmdbService;
+		public OmdbController(IOmdbService omdbService)
+		{
+			_OmdbService = omdbService;
+		}
 
-        public OmdbController(IConfiguration configuration)
-        {
-            _Configuration = configuration;
-        }
+		[HttpGet]
+		[Route("api/films/search/{searchCritera}")]
+		public async Task<IActionResult> SearchForAFilm(string searchCritera)
+		{
+			var result = await _OmdbService.GetSearchResultsBasedOnSearchCritera(searchCritera);
 
-        // GET: api/Omdb
-        [HttpGet]
-        public async Task<ActionResult> GetOmdb()
-        {
-            string url = "https://www.omdbapi.com/?s=spider-man&apikey=" + _Configuration["Omdb_api_key"] ;
-            RedirectResult redirectResult = new RedirectResult(url, true);
+			return Ok(result);
+		}
 
-            return redirectResult;
-        }
-
-    }
+	}
 }
