@@ -1,54 +1,77 @@
-<div class="row justify-content-center" id="genre">
-  <div class="col text-center">
-    <button class="btn btn-light" (click)="changeCategory('spider-man'); isPremieresChosen = true"
-      [disabled]="isPremieresChosen" id="premieres">Premieres</button>
-  </div>
-  <div class="col text-center">
-    <button class="btn btn-light" (click)="changeCategory('transformers'); isMostPopularChosen = true"
-      [disabled]="isMostPopularChosen" id="popular">Most popular</button>
-  </div>
-  <div class="col text-center">
-    <button class="btn btn-light" (click)="changeCategory('mr bean'); isComediesChosen = true"
-      [disabled]="isComediesChosen">Comedies</button>
-  </div>
-  <div class="col text-center">
-    <button class="btn btn-light" (click)="changeCategory('the thing'); isThrillersChosen = true"
-      [disabled]="isThrillersChosen">Thrillers</button>
-  </div>
-  <div class="col text-center">
-    <button class="btn btn-light" (click)="changeCategory('fast and furious'); isActionChosen = true"
-      [disabled]="isActionChosen">Action</button>
-  </div>
-  <div class="col text-center">
-    <button class="btn btn-light">More...</button>
-  </div>
-</div>
-<hr />
-<div class="col-sm text-right my-auto">
-  <button (click)="state = 'vanished-left'" class="btn btn-link"><img src="assets/left_arrow.png"
-      class="arrow" /></button>
-</div>
-<div *ngIf="movies; else loading_movies">
-  <div [@transform]="state" (@transform.done)="rotateCarousel($event)" class="row">
-    <div *ngFor="let movie of movies.Search | slice:sliceBottom:sliceTop let i=index" class="col text-center">
-      <a (click)="selectMovie(movie.imdbID)">
-        <div *ngIf="movie.Poster!='N/A'; else default_poster">
-          <img src="{{ movie.Poster }}" id="poster" (load)="this.moviesLoader = false;"/>
-        </div>
-        <ng-template #default_poster>
-          <div [hidden]="!imageLoader">
-            <mat-spinner></mat-spinner>
-          </div>
-          <img [hidden]="imageLoader" src="assets/camera.png" id="poster" (load)="this.imageLoader = false;">
-        </ng-template>
-        {{ movie.Title }} ({{ movie.Year }})
-      </a>
+<div class="body-center">
+
+  <!-- GENRES -->
+
+  <div class="row justify-content-center" id="genre">
+    <div class="col text-center">
+      <button class="btn btn-light" (click)="changeCategory('spider-man'); isPremieresChosen = true"
+        [disabled]="isPremieresChosen" id="premieres">Premieres</button>
+    </div>
+    <div class="col text-center">
+      <button class="btn btn-light" (click)="changeCategory('transformers'); isMostPopularChosen = true"
+        [disabled]="isMostPopularChosen" id="popular">Most popular</button>
+    </div>
+    <div class="col text-center">
+      <button class="btn btn-light" (click)="changeCategory('mr bean'); isComediesChosen = true"
+        [disabled]="isComediesChosen">Comedies</button>
+    </div>
+    <div class="col text-center">
+      <button class="btn btn-light" (click)="changeCategory('the thing'); isThrillersChosen = true"
+        [disabled]="isThrillersChosen">Thrillers</button>
+    </div>
+    <div class="col text-center">
+      <button class="btn btn-light" (click)="changeCategory('fast and furious'); isActionChosen = true"
+        [disabled]="isActionChosen">Action</button>
+    </div>
+    <div class="col text-center">
+      <button class="btn btn-light">More...</button>
     </div>
   </div>
+  
+  <!-- FILMS -->
+
+  <hr />
+
+  <div class="row align-items-center">
+    <div class="col-1">
+      <button (click)="state = 'vanished-left'" class="btn btn-link"><img src="assets/left_arrow.png"
+          class="arrow" /></button>
+    </div>
+
+    <div class="col-10">
+      <div *ngIf="movies; else loading_movies">
+        <div [@transform]="state" (@transform.done)="rotateCarousel($event)">
+
+          <div class="row align-items-center">
+            <div *ngFor="let movie of movies.Search | slice:sliceBottom:sliceTop let i=index"
+              class="col mini-box text-center">
+
+              <a (click)="selectMovie(movie.imdbID)">
+                <div *ngIf="movie.Poster!='N/A'; else default_poster">
+                  <img src="{{ movie.Poster }}" id="poster" (load)="this.moviesLoader = false;" />
+                </div>
+                <ng-template #default_poster>
+                  <div [hidden]="!imageLoader">
+                    <mat-spinner></mat-spinner>
+                  </div>
+                  <img [hidden]="imageLoader" src="assets/camera.png" id="poster" (load)="this.imageLoader = false;">
+                </ng-template>
+                {{ movie.Title }} ({{ movie.Year }})
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <mat-spinner #loading_movies [hidden]="!moviesLoader"></mat-spinner>
+
+    <div class="col-1">
+      <button (click)="state = 'vanished-right'" class="btn btn-link"><img src="assets/right_arrow.png"
+          class="arrow" /></button>
+    </div>
+  </div>
+
+  <hr />
+
 </div>
-<mat-spinner #loading_movies [hidden]="!moviesLoader"></mat-spinner>
-<div class="col-sm text-left my-auto">
-  <button (click)="state = 'vanished-right'" class="btn btn-link"><img src="assets/right_arrow.png"
-      class="arrow" /></button>
-</div>
-<hr />
