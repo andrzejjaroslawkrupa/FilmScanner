@@ -5,6 +5,6 @@ namespace OmdbServicesLibs.Omdb.Interfaces
 {
 	public interface IGetSearchResults
 	{
-		Task<SearchResultModel> ReturnSearchResults(string searchCritera);
+		Task<SearchResultModel> ReturnSearchResults(string searchCritera, int? page);
 	}
 }

@@ -1,13 +1,13 @@
 export interface Search {
-    Title: string;
-    Year: string;
+    title: string;
+    year: string;
     imdbID: string;
-    Type: string;
-    Poster: string;
+    type: string;
+    poster: string;
 }
 
 export interface SearchResult {
-    Search: Search[];
+    searches: Search[];
     totalResults: string;
-    Response: string;
+    response: string;
 }

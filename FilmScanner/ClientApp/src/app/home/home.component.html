@@ -44,12 +44,12 @@
         <div [@transform]="state" (@transform.done)="rotateCarousel($event)">
 
           <div class="row align-items-center">
-            <div *ngFor="let movie of movies.Search | slice:sliceBottom:sliceTop let i=index"
+            <div *ngFor="let movie of movies.searches | slice:sliceBottom:sliceTop let i=index"
               class="col mini-box text-center">
 
               <a (click)="selectMovie(movie.imdbID)">
-                <div *ngIf="movie.Poster!='N/A'; else default_poster">
-                  <img src="{{ movie.Poster }}" id="poster" (load)="this.moviesLoader = false;" />
+                <div *ngIf="movie.poster!='N/A'; else default_poster">
+                  <img src="{{ movie.poster }}" id="poster" (load)="this.moviesLoader = false;" />
                 </div>
                 <ng-template #default_poster>
                   <div [hidden]="!imageLoader">
@@ -57,7 +57,7 @@
                   </div>
                   <img [hidden]="imageLoader" src="assets/camera.png" id="poster" (load)="this.imageLoader = false;">
                 </ng-template>
-                {{ movie.Title }} ({{ movie.Year }})
+                {{ movie.title }} ({{ movie.year }})
               </a>
             </div>
           </div>

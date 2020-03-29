@@ -15,9 +15,10 @@ namespace FilmScanner.Controllers
 		}
 
 		[HttpGet("{searchCritera}")]
-		public async Task<IActionResult> Search(string searchCritera)
+		[HttpGet("{searchCritera}/{page}")]
+		public async Task<IActionResult> Search(string searchCritera, int? page = null)
 		{
-			var result = await _OmdbService.GetSearchResultsBasedOnSearchCritera(searchCritera);
+			var result = await _OmdbService.GetSearchResultsBasedOnSearchCritera(searchCritera, page);
 
 			return Ok(result);
 		}

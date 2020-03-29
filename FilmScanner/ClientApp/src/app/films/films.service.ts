@@ -16,7 +16,7 @@ export class FilmsService {
   }
 
   private getUrlWithTitleAndPage(movieTitle: string, page: number) {
-    return environment.apiUrl + '/?s=' + movieTitle + '&page=' + page + '&apikey=' + environment.apiKey;
+    return 'api/externalfilms/search/' + movieTitle + '/' + page;
   }
 
   searchMovieByID(movieID: string): Observable<Film> {

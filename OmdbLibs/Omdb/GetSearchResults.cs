@@ -16,10 +16,10 @@ namespace OmdbServicesLibs.Omdb
 			_ApiKey = apiKeyProvider.GetApiKey;
 		}
 
-		public async Task<SearchResultModel> ReturnSearchResults(string searchCritera)
+		public async Task<SearchResultModel> ReturnSearchResults(string searchCritera, int? page)
 		{
 			using var client = new HttpClient();
-			var url = new Uri($"https://www.omdbapi.com/?s={searchCritera}&apikey={_ApiKey}");
+			var url = new Uri($"https://www.omdbapi.com/?s={searchCritera}&apikey={_ApiKey}&page={page}");
 
 			var response = await client.GetAsync(url);
 
