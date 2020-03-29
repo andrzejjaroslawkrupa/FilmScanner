@@ -4,24 +4,22 @@ using OmdbServicesLibs.Services;
 
 namespace FilmScanner.Controllers
 {
-	[Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
 	[ApiController]
-	public class OmdbController : ControllerBase
+	public class ExternalFilmsController : ControllerBase
 	{
 		private readonly IOmdbService _OmdbService;
-		public OmdbController(IOmdbService omdbService)
+		public ExternalFilmsController(IOmdbService omdbService)
 		{
 			_OmdbService = omdbService;
 		}
 
-		[HttpGet]
-		[Route("api/films/search/{searchCritera}")]
+		[HttpGet("{searchCritera}")]
 		public async Task<IActionResult> SearchForAFilm(string searchCritera)
 		{
 			var result = await _OmdbService.GetSearchResultsBasedOnSearchCritera(searchCritera);
-
+			System.Console.WriteLine("xd");
 			return Ok(result);
 		}
-
 	}
 }
