@@ -1,12 +1,12 @@
 ﻿import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
-import { IMovie as Movie } from './Movie';
+import { Film } from './film';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { SearchResult } from './SearchResult';
 
 @Injectable()
-export class MoviesService {
+export class FilmsService {
 
   constructor(private http: HttpClient) {
   }
@@ -19,11 +19,11 @@ export class MoviesService {
     return environment.apiUrl + '/?s=' + movieTitle + '&page=' + page + '&apikey=' + environment.apiKey;
   }
 
-  searchMovieByID(movieID: string): Observable<Movie> {
-    return this.http.get<Movie>(this.getUrlWithID(movieID));
+  searchMovieByID(movieID: string): Observable<Film> {
+    return this.http.get<Film>(this.getUrlWithID(movieID));
   }
 
   private getUrlWithID(movieID: string) {
-    return environment.apiUrl + '/?i=' + movieID + '&apikey=' + environment.apiKey;
+    return 'api/externalfilms/film/' + movieID;
   }
 }

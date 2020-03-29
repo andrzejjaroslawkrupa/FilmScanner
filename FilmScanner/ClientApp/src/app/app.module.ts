@@ -5,13 +5,13 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './home/home.component';
 import { HttpClientModule } from '@angular/common/http';
-import { ImdbService } from './movies/imdb.service';
+import { ImdbService } from './films/imdb.service';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MovieOverviewComponent } from './movie-overview/movie-overview.component';
-import { MoviesService } from './movies/movie.service';
+import { FilmsService } from './films/films.service';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgModule } from '@angular/core';
@@ -47,7 +47,7 @@ import { TextFieldModule } from '@angular/cdk/text-field';
     MatProgressSpinnerModule,
     NgbModule
   ],
-  providers: [AppTitleService, ImdbService, MoviesService, ],
+  providers: [AppTitleService, ImdbService, FilmsService, ],
   bootstrap: [AppComponent],
 })
 export class AppModule { }

@@ -27,7 +27,7 @@
       <button class="btn btn-light">More...</button>
     </div>
   </div>
-  
+
   <!-- FILMS -->
 
   <hr />
@@ -36,7 +36,7 @@
     <div class="col-1">
       <!-- Icon made by Raj Dev from www.freeicons.io -->
       <button (click)="state = 'vanished-left'" class="btn btn-link"><img src="assets/arrow_left.svg"
-        class="arrow" /></button>
+          class="arrow" /></button>
     </div>
 
     <div class="col-10">
@@ -64,8 +64,10 @@
         </div>
       </div>
     </div>
+    <ng-template #loading_movies>
+      <mat-spinner [hidden]="!moviesLoader"></mat-spinner>
+    </ng-template>
 
-    <mat-spinner #loading_movies [hidden]="!moviesLoader"></mat-spinner>
 
     <div class="col-1">
       <button (click)="state = 'vanished-right'" class="btn btn-link"><img src="assets/arrow_right.svg"

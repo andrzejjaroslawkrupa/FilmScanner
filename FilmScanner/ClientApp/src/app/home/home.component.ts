@@ -1,8 +1,8 @@
 import { AppTitleService } from '../services/appTitle.service';
 import { Component, OnInit } from '@angular/core';
-import { MoviesService } from '../movies/movie.service';
+import { FilmsService } from '../films/films.service';
 import { Router } from '@angular/router';
-import { SearchResult } from '../movies/SearchResult';
+import { SearchResult } from '../films/SearchResult';
 import { trigger, state, style, transition, animate, AnimationEvent } from '@angular/animations';
 
 @Component({
@@ -68,7 +68,7 @@ export class HomeComponent implements OnInit {
     this._state = value;
   }
 
-  constructor(private _appTitleService: AppTitleService, private _moviesService: MoviesService, private _router: Router) {
+  constructor(private _appTitleService: AppTitleService, private _filmsService: FilmsService, private _router: Router) {
   }
 
   ngOnInit() {
@@ -77,17 +77,17 @@ export class HomeComponent implements OnInit {
   }
 
   rotateCarousel(event: AnimationEvent) {
-    if (event.toState == 'vanished-left') {
+    if (event.toState === 'vanished-left') {
       this.leftArrowClick();
       this.state = 'vanished-right2';
     }
 
-    if (event.toState == 'vanished-right') {
+    if (event.toState === 'vanished-right') {
       this.rightArrowClick();
       this.state = 'vanished-left2';
     }
 
-    if (event.toState == 'vanished-right2' || event.toState == 'vanished-left2') {
+    if (event.toState === 'vanished-right2' || event.toState === 'vanished-left2') {
       this.state = 'visible-center';
     }
   }
@@ -147,7 +147,7 @@ export class HomeComponent implements OnInit {
   }
 
   private subscribeToSearchResult() {
-    this._moviesService.searchMoviesByTitle(this.category, this.page)
+    this._filmsService.searchMoviesByTitle(this.category, this.page)
       .subscribe(data => this.movies = data);
   }
 }

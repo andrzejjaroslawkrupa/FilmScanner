@@ -1,7 +1,7 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { MoviesService } from '../movies/movie.service';
+import { FilmsService } from '../films/films.service';
 import { Router } from '@angular/router';
-import { SearchResult } from '../movies/SearchResult';
+import { SearchResult } from '../films/SearchResult';
 
 @Component({
   selector: 'app-nav-menu',
@@ -13,11 +13,11 @@ export class NavMenuComponent {
   public movies: SearchResult;
   isExpanded = false;
 
-  constructor(private _moviesService: MoviesService, private router: Router) {
+  constructor(private _filmsService: FilmsService, private router: Router) {
   }
 
   onInput(value: string) {
-    this._moviesService.searchMoviesByTitle(value.trim())
+    this._filmsService.searchMoviesByTitle(value.trim())
       .subscribe(data => this.movies = data);
   }
 
@@ -35,8 +35,9 @@ export class NavMenuComponent {
   }
 
   reset() {
-    if (this.router.url === '/')
+    if (this.router.url === '/') {
       window.location.reload();
+    }
     this.router.navigate(['/']);
   }
 }

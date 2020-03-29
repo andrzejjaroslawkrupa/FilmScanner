@@ -1,9 +1,9 @@
 import { ActivatedRoute } from '@angular/router';
 import { AppTitleService } from '../services/appTitle.service';
 import { Component, OnInit } from '@angular/core';
-import { ImdbService } from '../movies/imdb.service';
-import { IMovie } from '../movies/Movie';
-import { MoviesService } from '../movies/movie.service';
+import { ImdbService } from '../films/imdb.service';
+import { Film } from '../films/film';
+import { FilmsService } from '../films/films.service';
 
 @Component({
   selector: 'app-movie-overview',
@@ -18,20 +18,20 @@ export class MovieOverviewComponent implements OnInit {
     private _appTitleService: AppTitleService,
     private _imdbService: ImdbService,
     private _route: ActivatedRoute,
-    private _moviesService: MoviesService
+    private _filmsService: FilmsService
   ) { }
 
   movieID: string;
-  public movie: IMovie;
+  public movie: Film;
   public waysToWatch = [];
 
   ngOnInit() {
     this._route.queryParams.subscribe(params => {
-      this._moviesService.searchMovieByID(params['movieID'])
+      this._filmsService.searchMovieByID(params['movieID'])
         .subscribe(data => {
           if (data) {
             this.movie = data;
-            this._appTitleService.setTitle(this.movie.Title);
+            this._appTitleService.setTitle(this.movie.title);
           }
         });
       this.movieID = params['movieID'];
