@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 namespace OmdbServicesLibs.Models
 {
 	[DataContract]
-	public class OmdbModel
+	public class SearchResultModel
 	{
 		[DataMember(Name = "Search")]
 		public IEnumerable<Search> Searches { get; set; }

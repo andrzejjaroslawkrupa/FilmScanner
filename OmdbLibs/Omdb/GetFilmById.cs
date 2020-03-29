@@ -7,19 +7,19 @@ using OmdbServicesLibs.Omdb.Interfaces;
 
 namespace OmdbServicesLibs.Omdb
 {
-	public class GetSearchResults : IGetSearchResults
+	public class GetFilmById : IGetFilmById
 	{
 		private readonly string _ApiKey;
 
-		public GetSearchResults(IApiKeyProvider apiKeyProvider)
+		public GetFilmById(IApiKeyProvider apiKeyProvider)
 		{
 			_ApiKey = apiKeyProvider.GetApiKey;
 		}
 
-		public async Task<SearchResultModel> ReturnSearchResults(string searchCritera)
+		public async Task<FilmModel> ReturnFilm(string imdbId)
 		{
 			using var client = new HttpClient();
-			var url = new Uri($"https://www.omdbapi.com/?s={searchCritera}&apikey={_ApiKey}");
+			var url = new Uri($"https://www.omdbapi.com/?i={imdbId}&apikey={_ApiKey}");
 
 			var response = await client.GetAsync(url);
 
@@ -27,7 +27,7 @@ namespace OmdbServicesLibs.Omdb
 
 			var json = await content.ReadAsStringAsync();
 
-			return JsonConvert.DeserializeObject<SearchResultModel>(json);
+			return JsonConvert.DeserializeObject<FilmModel>(json);
 		}
 	}
 }

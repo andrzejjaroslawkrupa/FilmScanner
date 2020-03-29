@@ -5,6 +5,7 @@ namespace OmdbServicesLibs.Services
 {
 	public interface IOmdbService
 	{
-		Task<OmdbModel> GetSearchResultsBasedOnSearchCritera(string searchCritera);
+		Task<SearchResultModel> GetSearchResultsBasedOnSearchCritera(string searchCritera);
+		Task<FilmModel> GetFilmBasedOnImdbId(string imdbId);
 	}
 }

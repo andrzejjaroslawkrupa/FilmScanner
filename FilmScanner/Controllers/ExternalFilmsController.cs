@@ -15,10 +15,18 @@ namespace FilmScanner.Controllers
 		}
 
 		[HttpGet("{searchCritera}")]
-		public async Task<IActionResult> SearchForAFilm(string searchCritera)
+		public async Task<IActionResult> Search(string searchCritera)
 		{
 			var result = await _OmdbService.GetSearchResultsBasedOnSearchCritera(searchCritera);
-			System.Console.WriteLine("xd");
+
+			return Ok(result);
+		}
+
+		[HttpGet("{imdbId}")]
+		public async Task<IActionResult> Film(string imdbId)
+		{
+			var result = await _OmdbService.GetFilmBasedOnImdbId(imdbId);
+
 			return Ok(result);
 		}
 	}

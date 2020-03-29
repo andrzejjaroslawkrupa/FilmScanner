@@ -1,3 +1,4 @@
+using System;
 using FilmScanner.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -8,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using OmdbServicesLibs.Omdb;
+using OmdbServicesLibs.Omdb.Interfaces;
 using OmdbServicesLibs.Services;
 
 namespace FilmScanner
@@ -36,8 +38,7 @@ namespace FilmScanner
 
 			services.AddMvc();
 
-			services.AddSingleton<IOmdbService, OmdbService>();
-			services.AddSingleton<IGetSearchResults, GetSearchResults>();
+			InstantiateOmdbServices(services);
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -83,5 +84,14 @@ namespace FilmScanner
 				}
 			});
 		}
+
+		private void InstantiateOmdbServices(IServiceCollection services)
+		{
+			services.AddSingleton<IOmdbService, OmdbService>();
+			services.AddSingleton(typeof(IApiKeyProvider), new ApiKeyProvider(Configuration.GetValue<string>("OmdbApiKey")));
+			services.AddSingleton<IGetSearchResults, GetSearchResults>();
+			services.AddSingleton<IGetFilmById, GetFilmById>();
+		}
+
 	}
 }
