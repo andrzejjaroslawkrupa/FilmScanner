@@ -40,16 +40,16 @@
     </div>
 
     <div class="col-10">
-      <div *ngIf="movies; else loading_movies">
+      <div *ngIf="films; else loading_films">
         <div [@transform]="state" (@transform.done)="rotateCarousel($event)">
 
           <div class="row align-items-center">
-            <div *ngFor="let movie of movies.searches | slice:sliceBottom:sliceTop let i=index"
+            <div *ngFor="let film of films.searches | slice:sliceBottom:sliceTop let i=index"
               class="col mini-box text-center">
 
-              <a (click)="selectMovie(movie.imdbID)">
-                <div *ngIf="movie.poster!='N/A'; else default_poster">
-                  <img src="{{ movie.poster }}" id="poster" (load)="this.moviesLoader = false;" />
+              <a (click)="selectfilm(film.imdbID)">
+                <div *ngIf="film.poster!='N/A'; else default_poster">
+                  <img src="{{ film.poster }}" id="poster" (load)="this.filmsLoader = false;" />
                 </div>
                 <ng-template #default_poster>
                   <div [hidden]="!imageLoader">
@@ -57,15 +57,15 @@
                   </div>
                   <img [hidden]="imageLoader" src="assets/camera.png" id="poster" (load)="this.imageLoader = false;">
                 </ng-template>
-                {{ movie.title }} ({{ movie.year }})
+                {{ film.title }} ({{ film.year }})
               </a>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <ng-template #loading_movies>
-      <mat-spinner [hidden]="!moviesLoader"></mat-spinner>
+    <ng-template #loading_films>
+      <mat-spinner [hidden]="!filmsLoader"></mat-spinner>
     </ng-template>
 
 

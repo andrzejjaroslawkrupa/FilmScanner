@@ -47,14 +47,14 @@ import { trigger, state, style, transition, animate, AnimationEvent } from '@ang
   ],
 })
 export class HomeComponent implements OnInit {
-  moviesLoader = true;
+  filmsLoader = true;
   imageLoader = true;
   isPremieresChosen = true;
   isMostPopularChosen = false;
   isComediesChosen = false;
   isThrillersChosen = false;
   isActionChosen = false;
-  movies: SearchResult;
+  films: SearchResult;
   sliceBottom = 0;
   sliceTop = 5;
   page = 1;
@@ -113,9 +113,9 @@ export class HomeComponent implements OnInit {
     this.isActionChosen = false;
   }
 
-  selectMovie(imdbID: string) {
-    this._router.navigate(['/movie-overview'],
-      { queryParams: { movieID: imdbID } });
+  selectfilm(imdbID: string) {
+    this._router.navigate(['/film-overview'],
+      { queryParams: { filmID: imdbID } });
   }
 
   leftArrowClick() {
@@ -123,7 +123,7 @@ export class HomeComponent implements OnInit {
       this.sliceBottom += 5;
       this.sliceTop += 5;
     } else {
-      this.movies = null;
+      this.films = null;
       this.resetSlices();
       this.page++;
       this.subscribeToSearchResult();
@@ -138,7 +138,7 @@ export class HomeComponent implements OnInit {
       this.sliceBottom -= 5;
       this.sliceTop -= 5;
     } else {
-      this.movies = null;
+      this.films = null;
       this.sliceBottom = 5;
       this.sliceTop = 10;
       this.page--;
@@ -147,7 +147,7 @@ export class HomeComponent implements OnInit {
   }
 
   private subscribeToSearchResult() {
-    this._filmsService.searchMoviesByTitle(this.category, this.page)
-      .subscribe(data => this.movies = data);
+    this._filmsService.searchFilmsByTitle(this.category, this.page)
+      .subscribe(data => this.films = data);
   }
 }

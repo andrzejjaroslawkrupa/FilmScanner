@@ -6,13 +6,13 @@ import { Film } from '../films/film';
 import { FilmsService } from '../films/films.service';
 
 @Component({
-  selector: 'app-movie-overview',
-  templateUrl: './movie-overview.component.html',
-  styleUrls: ['./movie-overview.component.css']
+  selector: 'app-film-overview',
+  templateUrl: './film-overview.component.html',
+  styleUrls: ['./film-overview.component.css']
 })
-export class MovieOverviewComponent implements OnInit {
+export class FilmOverviewComponent implements OnInit {
   imageLoader = true;
-  movieLoader = true;
+  filmLoader = true;
 
   constructor(
     private _appTitleService: AppTitleService,
@@ -21,27 +21,27 @@ export class MovieOverviewComponent implements OnInit {
     private _filmsService: FilmsService
   ) { }
 
-  movieID: string;
-  public movie: Film;
+  filmID: string;
+  public film: Film;
   public waysToWatch = [];
 
   ngOnInit() {
     this._route.queryParams.subscribe(params => {
-      this._filmsService.searchMovieByID(params['movieID'])
+      this._filmsService.searchFilmByID(params['filmID'])
         .subscribe(data => {
           if (data) {
-            this.movie = data;
-            this._appTitleService.setTitle(this.movie.title);
+            this.film = data;
+            this._appTitleService.setTitle(this.film.title);
           }
         });
-      this.movieID = params['movieID'];
+      this.filmID = params['filmID'];
     });
 
-    this._imdbService.getMetaData(this.movieID).subscribe(result =>
-      this.waysToWatch = result[this.movieID].waysToWatch.optionGroups[0].watchOptions);
+    this._imdbService.getMetaData(this.filmID).subscribe(result =>
+      this.waysToWatch = result[this.filmID].waysToWatch.optionGroups[0].watchOptions);
   }
 
   addToCollection() {
-    console.log(this.movieID);
+    console.log(this.filmID);
   }
 }

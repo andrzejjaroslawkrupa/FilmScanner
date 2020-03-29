@@ -1,13 +1,13 @@
 <div class="container">
   <div class="row justify-content-center" id="title">
-    <h1 *ngIf="movie; else loading_film">{{this.movie?.title}} ({{this.movie?.year}})</h1>
+    <h1 *ngIf="film; else loading_film">{{this.film?.title}} ({{this.film?.year}})</h1>
   </div>
 
-  <div *ngIf='movie'>
+  <div *ngIf='film'>
     <div class="row">
       <div class="col-md-5">
-        <div *ngIf="movie.poster!='N/A'; else default_poster">
-          <img src="{{ movie.poster }}" id="poster" (load)="this.movieLoader = false;" />
+        <div *ngIf="film.poster!='N/A'; else default_poster">
+          <img src="{{ film.poster }}" id="poster" (load)="this.filmLoader = false;" />
         </div>
         <ng-template #default_poster>
           <div [hidden]="!imageLoader">
@@ -17,7 +17,7 @@
         </ng-template>
       </div>
       <div class="col-md-7">
-        <p>{{this.movie?.plot}}</p>
+        <p>{{this.film?.plot}}</p>
         <p>Where to watch:</p>
 
         <ul>
@@ -29,7 +29,7 @@
     </div>
   </div>
   <ng-template #loading_film>
-    <mat-spinner [hidden]="!movieLoader"></mat-spinner>
+    <mat-spinner [hidden]="!filmLoader"></mat-spinner>
   </ng-template>
 
 

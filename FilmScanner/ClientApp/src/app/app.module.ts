@@ -10,7 +10,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MovieOverviewComponent } from './movie-overview/movie-overview.component';
+import { FilmOverviewComponent } from './film-overview/film-overview.component';
 import { FilmsService } from './films/films.service';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -24,7 +24,7 @@ import { TextFieldModule } from '@angular/cdk/text-field';
   declarations: [
     AppComponent,
     HomeComponent,
-    MovieOverviewComponent,
+    FilmOverviewComponent,
     NavMenuComponent,
     ProfileComponent,
   ],
@@ -35,7 +35,7 @@ import { TextFieldModule } from '@angular/cdk/text-field';
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'profile', component: ProfileComponent },
-      { path: 'movie-overview', component: MovieOverviewComponent },
+      { path: 'film-overview', component: FilmOverviewComponent },
     ]),
     BrowserAnimationsModule,
     TextFieldModule,

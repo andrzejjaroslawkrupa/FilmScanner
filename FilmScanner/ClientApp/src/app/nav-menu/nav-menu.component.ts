@@ -10,20 +10,20 @@ import { SearchResult } from '../films/SearchResult';
 })
 export class NavMenuComponent {
   @ViewChild('search', { static: true }) searchText: ElementRef<HTMLElement>;
-  public movies: SearchResult;
+  public films: SearchResult;
   isExpanded = false;
 
   constructor(private _filmsService: FilmsService, private router: Router) {
   }
 
   onInput(value: string) {
-    this._filmsService.searchMoviesByTitle(value.trim())
-      .subscribe(data => this.movies = data);
+    this._filmsService.searchFilmsByTitle(value.trim())
+      .subscribe(data => this.films = data);
   }
 
-  selectMovie(imdbID: string) {
-    this.router.navigate(['/movie-overview'],
-      { queryParams: { movieID: imdbID } });
+  selectfilm(imdbID: string) {
+    this.router.navigate(['/film-overview'],
+      { queryParams: { filmID: imdbID } });
   }
 
   collapse() {

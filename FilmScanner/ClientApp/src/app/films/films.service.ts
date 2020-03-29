@@ -1,5 +1,4 @@
-﻿import { environment } from '../../environments/environment';
-import { HttpClient } from '@angular/common/http';
+﻿import { HttpClient } from '@angular/common/http';
 import { Film } from './film';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -11,7 +10,7 @@ export class FilmsService {
   constructor(private http: HttpClient) {
   }
 
-  searchMoviesByTitle(movieTitle: string, page: number = 1): Observable<SearchResult> {
+  searchFilmsByTitle(movieTitle: string, page: number = 1): Observable<SearchResult> {
     return this.http.get<SearchResult>(this.getUrlWithTitleAndPage(movieTitle, page));
   }
 
@@ -19,7 +18,7 @@ export class FilmsService {
     return 'api/externalfilms/search/' + movieTitle + '/' + page;
   }
 
-  searchMovieByID(movieID: string): Observable<Film> {
+  searchFilmByID(movieID: string): Observable<Film> {
     return this.http.get<Film>(this.getUrlWithID(movieID));
   }
 
