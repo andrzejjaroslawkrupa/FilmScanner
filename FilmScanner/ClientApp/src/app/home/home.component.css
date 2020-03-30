@@ -23,6 +23,10 @@ a:hover {
     opacity: 40%;
   }
 
+  .carousel{
+      height: 400px;
+  }
+
 #poster {
     width: 180px;
     margin-bottom: 20px;
