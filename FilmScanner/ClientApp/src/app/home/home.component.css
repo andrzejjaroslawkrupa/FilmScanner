@@ -23,13 +23,22 @@ a:hover {
     opacity: 40%;
   }
 
-  .carousel{
+.carousel{
       height: 400px;
   }
 
-#poster {
+.poster {
     width: 180px;
     margin-bottom: 20px;
+    box-shadow: 10px 10px 5px grey;
+}
+
+.poster-wrapper:hover{
+    opacity: 50%;
+}
+
+.poster-wrapper:hover img{
+    width: 190px;
 }
 
 mat-spinner {

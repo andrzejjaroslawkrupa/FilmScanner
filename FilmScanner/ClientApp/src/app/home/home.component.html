@@ -45,19 +45,19 @@
 
           <div class="row align-items-center">
             <div *ngFor="let film of films.searches | slice:sliceBottom:sliceTop let i=index"
-              class="col mini-box text-center">
+              class="col mini-box text-center poster-wrapper">
 
               <a (click)="selectfilm(film.imdbID)">
                 <div *ngIf="film.poster!='N/A'; else default_poster">
-                  <img src="{{ film.poster }}" id="poster" (load)="this.filmsLoader = false;" />
+                  <img src="{{ film.poster }}" class="poster" (load)="this.filmsLoader = false;" />
                 </div>
                 <ng-template #default_poster>
                   <div [hidden]="!imageLoader">
                     <mat-spinner></mat-spinner>
                   </div>
-                  <img [hidden]="imageLoader" src="assets/camera.png" id="poster" (load)="this.imageLoader = false;">
+                  <img [hidden]="imageLoader" src="assets/camera.png" class= "poster" (load)="this.imageLoader = false;">
                 </ng-template>
-                {{ film.title }} ({{ film.year }})
+                <p>{{ film.title }} ({{ film.year }})</p>
               </a>
             </div>
           </div>
