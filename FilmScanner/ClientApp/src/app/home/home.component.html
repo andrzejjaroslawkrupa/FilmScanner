@@ -4,7 +4,7 @@
 
   <div class="row justify-content-center" id="genre">
     <div class="col text-center">
-      <button class="btn btn-light" (click)="changeCategory('spider-man'); isPremieresChosen = true"
+      <button class="btn btn-light" (click)="changeCategory('spider-man'); isPremieresChosen = true;"
         [disabled]="isPremieresChosen" id="premieres">Premieres</button>
     </div>
     <div class="col text-center">
@@ -28,11 +28,11 @@
     </div>
   </div>
 
-  <!-- FILMS -->
+  <!-- FILMS & ARROWS-->
 
   <hr />
 
-  <div class="row align-items-center">
+  <div class="row align-items-center carousel">
     <div class="col-1">
       <!-- Icon made by Raj Dev from www.freeicons.io -->
       <button (click)="state = 'vanished-left'" class="btn btn-link"><img src="assets/arrow_left.svg"
@@ -44,20 +44,20 @@
         <div [@transform]="state" (@transform.done)="rotateCarousel($event)">
 
           <div class="row align-items-center">
-            <div *ngFor="let film of films.searches | slice:sliceBottom:sliceTop let i=index"
-              class="col mini-box text-center">
+            <div *ngFor="let film of films.searches.reverse() | slice:sliceBottom:sliceTop let i=index"
+              class="col mini-box text-center poster-wrapper">
 
               <a (click)="selectfilm(film.imdbID)">
                 <div *ngIf="film.poster!='N/A'; else default_poster">
-                  <img src="{{ film.poster }}" id="poster" (load)="this.filmsLoader = false;" />
+                  <img src="{{ film.poster }}" class="poster" (load)="this.filmsLoader = false;" />
                 </div>
                 <ng-template #default_poster>
                   <div [hidden]="!imageLoader">
                     <mat-spinner></mat-spinner>
                   </div>
-                  <img [hidden]="imageLoader" src="assets/camera.png" id="poster" (load)="this.imageLoader = false;">
+                  <img [hidden]="imageLoader" src="assets/camera.png" class="poster" (load)="this.imageLoader = false;">
                 </ng-template>
-                {{ film.title }} ({{ film.year }})
+                <p>{{ film.title }} ({{ film.year }})</p>
               </a>
             </div>
           </div>
@@ -70,8 +70,8 @@
 
 
     <div class="col-1">
-      <button (click)="state = 'vanished-right'" class="btn btn-link"><img src="assets/arrow_right.svg"
-          class="arrow" /></button>
+      <button [hidden]="shouldRightButtonAppear" (click)="state = 'vanished-right'" class="btn btn-link"><img
+          src="assets/arrow_right.svg" class="arrow" /></button>
     </div>
   </div>
 

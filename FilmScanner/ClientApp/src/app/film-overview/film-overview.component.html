@@ -1,6 +1,6 @@
 <div class="container">
   <div class="row justify-content-center" id="title">
-    <h1 *ngIf="film; else loading_film">{{this.film?.title}} ({{this.film?.year}})</h1>
+    <h1 *ngIf="film; else loading_film">{{this.film?.title}}</h1>
   </div>
 
   <div *ngIf='film'>
@@ -15,15 +15,32 @@
           </div>
           <img [hidden]="imageLoader" src="assets/camera.png" id="poster" (load)="this.imageLoader = false;">
         </ng-template>
-      </div>
-      <div class="col-md-7">
-        <p>{{this.film?.plot}}</p>
-        <p>Where to watch:</p>
 
+        <div class="row mb-3">
+          <button type="button" class="btn btn-outline-primary" id="inner1">Watch on Netflix</button>
+        </div>
+        <div class="row mb-3">
+          <button type="button" class="btn btn-outline-primary" id="inner2">Watch on HBO Go</button>
+        </div>
+        <div class="row mb-3">
+          <button type="button" class="btn btn-outline-primary" id="inner3">Watch on Amazon Prime</button>
+        </div>
+
+        <p>Ways to watch:</p>
         <ul>
           <li *ngFor="let way of waysToWatch">{{ way.primaryText }} - <a
               href="{{ way.link.uri }}">{{ way.secondaryText }}</a></li>
         </ul>
+          
+
+      </div>
+      <div class="col-md-7">
+        <p><b>Actors:</b> {{this.film?.actors}}</p>
+        <p><b>Director:</b> {{this.film?.director}}</p>
+        <p><b>Country:</b> {{this.film?.country}}</p>
+        <p><b>Genre:</b> {{this.film?.genre}}</p>
+        <p><b>Runtime:</b> {{this.film?.runtime}}</p>
+        <p><b>Released:</b> {{this.film?.released}}</p>
       </div>
 
     </div>

@@ -55,11 +55,15 @@ export class HomeComponent implements OnInit {
   isThrillersChosen = false;
   isActionChosen = false;
   films: SearchResult;
-  sliceBottom = 0;
-  sliceTop = 5;
+  sliceBottom = 5;
+  sliceTop = 10;
   page = 1;
   category = 'spider-man';
   private _state = 'visible-center';
+
+  public get shouldRightButtonAppear() {
+    return (this.page == 1 && this.sliceTop == 10)
+  }
 
   public get state() {
     return this._state;
@@ -101,8 +105,8 @@ export class HomeComponent implements OnInit {
   }
 
   resetSlices() {
-    this.sliceTop = 5;
-    this.sliceBottom = 0;
+    this.sliceTop = 10;
+    this.sliceBottom = 5;
   }
 
   resetAllBooleans() {
@@ -118,22 +122,19 @@ export class HomeComponent implements OnInit {
       { queryParams: { filmID: imdbID } });
   }
 
-  leftArrowClick() {
+  rightArrowClick() {
     if (this.sliceTop === 5) {
       this.sliceBottom += 5;
       this.sliceTop += 5;
     } else {
       this.films = null;
       this.resetSlices();
-      this.page++;
+      this.page--;
       this.subscribeToSearchResult();
     }
   }
 
-  rightArrowClick() {
-    if (this.page === 1 && this.sliceTop === 5) {
-      return;
-    }
+  leftArrowClick() {
     if (this.sliceTop === 10) {
       this.sliceBottom -= 5;
       this.sliceTop -= 5;
@@ -141,7 +142,7 @@ export class HomeComponent implements OnInit {
       this.films = null;
       this.sliceBottom = 5;
       this.sliceTop = 10;
-      this.page--;
+      this.page++;
       this.subscribeToSearchResult();
     }
   }
