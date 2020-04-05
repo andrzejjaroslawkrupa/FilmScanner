@@ -44,7 +44,7 @@
         <div [@transform]="state" (@transform.done)="rotateCarousel($event)">
 
           <div class="row align-items-center">
-            <div *ngFor="let film of films.searches.reverse() | slice:sliceBottom:sliceTop let i=index"
+            <div *ngFor="let film of films.searches | slice:sliceBottom:sliceTop let i=index"
               class="col mini-box text-center poster-wrapper">
 
               <a (click)="selectfilm(film.imdbID)">
