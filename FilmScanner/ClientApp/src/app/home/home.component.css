@@ -16,11 +16,11 @@ a:hover {
 
 .arrow {
     width: 3vw;
-    opacity: 80%;
+    opacity: 0.8;
 }
 
 .arrow:hover {
-    opacity: 40%;
+    opacity: 0.4;
   }
 
 .carousel{
@@ -34,7 +34,7 @@ a:hover {
 }
 
 .poster-wrapper:hover{
-    opacity: 50%;
+    opacity: 0.5;
 }
 
 .poster-wrapper:hover img{
