@@ -2,7 +2,7 @@
 import { Film } from './film';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { SearchResult } from './SearchResult';
+import { SearchResult } from './searchResult';
 
 @Injectable()
 export class FilmsService {

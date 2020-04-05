@@ -2,7 +2,7 @@ import { AppTitleService } from '../services/appTitle.service';
 import { Component, OnInit } from '@angular/core';
 import { FilmsService } from '../films/films.service';
 import { Router } from '@angular/router';
-import { SearchResult } from '../films/SearchResult';
+import { SearchResult } from '../films/searchResult';
 import { trigger, state, style, transition, animate, AnimationEvent } from '@angular/animations';
 
 @Component({
