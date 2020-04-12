@@ -1,6 +1,6 @@
 <div class="container">
   <div class="row justify-content-center" id="title">
-    <h1 *ngIf="film; else loading_film">{{this.film?.title}} ({{this.film?.year}})</h1>
+    <h1 *ngIf="film; else loading_film">{{ this.film?.title }} ({{ this.film?.year }})</h1>
   </div>
 
   <div *ngIf='film'>
@@ -31,7 +31,6 @@
           <li *ngFor="let way of waysToWatch">{{ way.primaryText }} - <a
               href="{{ way.link.uri }}">{{ way.secondaryText }}</a></li>
         </ul>
-          
 
       </div>
       <div class="col-md-7">
