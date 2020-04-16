@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --host 0.0.0.0",
+    "start": "node start-for-dotnet.js",
+    "start:ng": "ng serve",
     "build": "ng build",
     "build:ssr": "ng run FilmScanner:server:dev",
     "test": "ng test",
