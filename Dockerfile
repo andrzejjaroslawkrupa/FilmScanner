@@ -7,6 +7,7 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
 WORKDIR /src
+COPY ["/FilmScanner/appsettings - Copy.Development.json", "/FilmSettings/appsettings.json"]
 COPY ["FilmScanner/FilmScanner.csproj", "FilmScanner/"]
 COPY ["OmdbLibs/OmdbServicesLibs.csproj", "OmdbLibs/"]
 RUN dotnet restore "FilmScanner/FilmScanner.csproj"
@@ -28,7 +29,9 @@ WORKDIR /usr/src/app
 ENV PATH /usr/src/app/node_modules/.bin:$PATH
 
 # install and cache app dependencies
+COPY FilmScanner/ClientApp/package-lock.json /usr/src/app/package-lock.json
 COPY FilmScanner/ClientApp/package.json /usr/src/app/package.json
+RUN npm ci --only=production
 RUN npm install
 RUN npm install -g @angular/cli@9.1.0 --unsafe
 
@@ -36,7 +39,7 @@ RUN npm install -g @angular/cli@9.1.0 --unsafe
 
 COPY FilmScanner/ClientApp/. /usr/src/app
 
-RUN npm run build
+RUN npm run build-prod
 
 #End Angular build
 
