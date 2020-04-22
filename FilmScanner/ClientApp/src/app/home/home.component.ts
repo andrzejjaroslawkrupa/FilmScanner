@@ -49,18 +49,8 @@ import { Slide } from '../carousel/carousel.inteface';
   ],
 })
 export class HomeComponent implements OnInit {
-  @ViewChild('foo', { static: false }) foo: ElementRef;
+  @ViewChild('carousel', { static: false }) carousel: ElementRef;
 
-  slides: Slide[] = [
-    {
-      title: "xd",
-      imageSrc: "https://via.placeholder.com/150"
-    },
-    {
-      title: "xd2",
-      imageSrc: "https://via.placeholder.com/160"
-    }
-  ]
 
   filmsLoader = true;
   imageLoader = true;
@@ -87,6 +77,16 @@ export class HomeComponent implements OnInit {
     this._state = value;
   }
 
+  slides: Slide[] = [
+    {
+      title: 'xd',
+      imageSrc: 'https://via.placeholder.com/150'
+    },
+    {
+      title: "xd2",
+      imageSrc: 'https://via.placeholder.com/160'
+    }
+  ];
   constructor(private _appTitleService: AppTitleService, private _filmsService: FilmsService, private _router: Router) {
   }
 
@@ -167,6 +167,10 @@ export class HomeComponent implements OnInit {
 
   private subscribeToSearchResult() {
     this._filmsService.searchFilmsByTitle(this.category, this.page)
-      .subscribe(data => this.films = data);
+      .subscribe(data => {
+        this.films = data;
+        this.slides[1].title = data.searches[0].title;
+        this.slides[1].imageSrc = data.searches[0].poster;
+      });
   }
 }
