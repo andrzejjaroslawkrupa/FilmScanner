@@ -19,6 +19,7 @@ import { OverlayModule } from '@angular/cdk/overlay';
 import { ProfileComponent } from './profile/profile.component';
 import { RouterModule } from '@angular/router';
 import { TextFieldModule } from '@angular/cdk/text-field';
+import { CarouselComponent } from './carousel/carousel.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { TextFieldModule } from '@angular/cdk/text-field';
     FilmOverviewComponent,
     NavMenuComponent,
     ProfileComponent,
+    CarouselComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

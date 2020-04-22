@@ -1,9 +1,11 @@
 import { AppTitleService } from '../services/appTitle.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { FilmsService } from '../films/films.service';
 import { Router } from '@angular/router';
 import { SearchResult } from '../films/searchResult';
 import { trigger, state, style, transition, animate, AnimationEvent } from '@angular/animations';
+import { CarouselComponent } from '../carousel/carousel.component';
+import { Slide } from '../carousel/carousel.inteface';
 
 @Component({
 
@@ -47,6 +49,19 @@ import { trigger, state, style, transition, animate, AnimationEvent } from '@ang
   ],
 })
 export class HomeComponent implements OnInit {
+  @ViewChild('foo', { static: false }) foo: ElementRef;
+
+  slides: Slide[] = [
+    {
+      title: "xd",
+      imageSrc: "https://via.placeholder.com/150"
+    },
+    {
+      title: "xd2",
+      imageSrc: "https://via.placeholder.com/160"
+    }
+  ]
+
   filmsLoader = true;
   imageLoader = true;
   isPremieresChosen = true;
