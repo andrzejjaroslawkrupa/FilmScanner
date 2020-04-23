@@ -9,7 +9,8 @@ import { Slide } from './carousel.inteface';
 export class CarouselComponent  {
 @Input() slides: Slide[] = [];
 
-currentSlide = 0;
+slidesPerPage = 5;
+currentPage = 0;
 
   constructor() { }
 

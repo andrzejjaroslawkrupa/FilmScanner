@@ -77,16 +77,7 @@ export class HomeComponent implements OnInit {
     this._state = value;
   }
 
-  slides: Slide[] = [
-    {
-      title: 'xd',
-      imageSrc: 'https://via.placeholder.com/150'
-    },
-    {
-      title: 'xd2',
-      imageSrc: 'https://via.placeholder.com/160'
-    }
-  ];
+  slides: Slide[] = [];
   constructor(private _appTitleService: AppTitleService, private _filmsService: FilmsService, private _router: Router) {
   }
 
@@ -169,11 +160,11 @@ export class HomeComponent implements OnInit {
     this._filmsService.searchFilmsByTitle(this.category, this.page)
       .subscribe(data => {
         this.films = data;
-        this.pushDataToSlides(data);
+        this.convertDataToSlides(data);
       });
   }
 
-  private pushDataToSlides(data: SearchResult) {
+  private convertDataToSlides(data: SearchResult) {
     data.searches.forEach(film => {
       this.slides.push({title: film.title + ' (' + film.year + ')', imageSrc: film.poster });
     });

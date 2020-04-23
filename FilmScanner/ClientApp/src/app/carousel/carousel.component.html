@@ -1,6 +1,30 @@
-<p>
-    <ng-container *ngFor="let slide of slides">
-        <img src="{{slide.imageSrc}}" /><br />
-        {{slide.title}}
-    </ng-container>
-</p>
+<hr />
+
+<div class="row align-items-center carousel">
+    <div class="col-1">
+        <!-- Icon made by Raj Dev from www.freeicons.io -->
+        <button class="btn btn-link"><img src="assets/arrow_left.svg" class="arrow" /></button>
+    </div>
+
+    <div class="col-10">
+
+        <div class="row align-items-center">
+            <ng-container *ngFor="let slide of slides" class="col mini-box text-center poster-wrapper">
+
+
+                <img src="{{ slide.imageSrc }}" class="poster" />
+
+                <p>{{ slide.title }}</p>
+
+            </ng-container>
+        </div>
+
+    </div>
+</div>
+
+
+<div class="col-1">
+    <button class="btn btn-link"><img src="assets/arrow_right.svg" class="arrow" /></button>
+</div>
+
+<hr />
