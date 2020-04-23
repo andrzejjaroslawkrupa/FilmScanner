@@ -83,7 +83,7 @@ export class HomeComponent implements OnInit {
       imageSrc: 'https://via.placeholder.com/150'
     },
     {
-      title: "xd2",
+      title: 'xd2',
       imageSrc: 'https://via.placeholder.com/160'
     }
   ];
@@ -169,8 +169,13 @@ export class HomeComponent implements OnInit {
     this._filmsService.searchFilmsByTitle(this.category, this.page)
       .subscribe(data => {
         this.films = data;
-        this.slides[1].title = data.searches[0].title;
-        this.slides[1].imageSrc = data.searches[0].poster;
+        this.pushDataToSlides(data);
       });
+  }
+
+  private pushDataToSlides(data: SearchResult) {
+    data.searches.forEach(film => {
+      this.slides.push({title: film.title + ' (' + film.year + ')', imageSrc: film.poster });
+    });
   }
 }
