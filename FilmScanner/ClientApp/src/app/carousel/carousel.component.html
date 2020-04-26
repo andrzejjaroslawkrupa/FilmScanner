@@ -3,7 +3,7 @@
 <div class="row align-items-center carousel">
     <div class="col-1">
         <!-- Icon made by Raj Dev from www.freeicons.io -->
-        <button class="btn btn-link"><img src="assets/arrow_left.svg" class="arrow" /></button>
+        <button (click)="previousPage()" class="btn btn-link"><img src="assets/arrow_left.svg" class="arrow" /></button>
     </div>
 
     <div class="col-10">
@@ -21,7 +21,7 @@
     </div>
 
     <div class="col-1">
-        <button class="btn btn-link"><img src="assets/arrow_right.svg" class="arrow" /></button>
+        <button (click)="nextPage()" [hidden]="currentPage===0" class="btn btn-link"><img src="assets/arrow_right.svg" class="arrow" /></button>
     </div>
 
 </div>

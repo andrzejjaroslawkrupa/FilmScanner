@@ -20,11 +20,33 @@ export class CarouselComponent implements DoCheck {
     this._iterableDiffer = iterableDiffers.find([]).create(null);
   }
 
+  previousPage() {
+    this.currentPage--;
+    this.populateBuffer();
+  }
+
+  nextPage() {
+    this.currentPage++;
+    this.populateBuffer();
+  }
+
+  private startingIndex() {
+    return -1 * this.currentPage * this.slidesPerPage;
+  }
+
+  private endingIndex() {
+    return this.startingIndex() + this.slidesPerPage;
+  }
+
   ngDoCheck() {
     const changes = this._iterableDiffer.diff(this.slides);
     if (changes) {
-      this.bufferedSlides = this.slides.slice(0, this.slidesPerPage).reverse();
+      this.populateBuffer();
     }
+  }
+
+  private populateBuffer() {
+    this.bufferedSlides = this.slides.slice(this.startingIndex(), this.endingIndex()).reverse();
   }
 
   goToRouterLink(destination: string, parameterKey: string, parameterValue: string) {
