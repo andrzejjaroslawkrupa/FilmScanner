@@ -27,9 +27,10 @@ export class CarouselComponent implements DoCheck {
     }
   }
 
-  selectFilm(imdbID: string) {
-    this._router.navigate(['/film-overview'],
-      { queryParams: { filmID: imdbID } });
+  goToRouterLink(destination: string, parameterKey: string, parameterValue: string) {
+    const url = `${destination}?${parameterKey}=${parameterValue}`;
+    this._router.navigateByUrl(url);
+    console.log(url);
   }
 
 }

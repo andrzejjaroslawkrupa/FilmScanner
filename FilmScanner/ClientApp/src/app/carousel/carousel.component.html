@@ -10,7 +10,7 @@
 
         <div class="row align-items-center">
             <div *ngFor="let slide of this.bufferedSlides" class="col mini-box text-center poster-wrapper">
-                <a (click)="selectFilm(slide.destination)">
+                <a (click)="goToRouterLink(slide.destination, slide.parameterKey, slide.parameterValue)">
                     <img src="{{ slide.imageSrc }}" class="poster" />
 
                     <p>{{ slide.title }}</p>

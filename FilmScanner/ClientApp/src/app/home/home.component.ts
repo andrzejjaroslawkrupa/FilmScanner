@@ -169,7 +169,9 @@ export class HomeComponent implements OnInit {
       this.slides.push({
         title: film.title + ' (' + film.year + ')',
         imageSrc: film.poster,
-        destination: film.imdbID
+        destination: 'film-overview',
+        parameterKey: 'filmID',
+        parameterValue: film.imdbID
       });
     });
   }
