@@ -107,6 +107,7 @@ export class HomeComponent implements OnInit {
     this.category = category;
     this.page = 1;
     this.resetSlices();
+    this.slides = [];
     this.subscribeToSearchResult();
   }
 

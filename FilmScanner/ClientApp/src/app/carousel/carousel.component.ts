@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, AfterViewInit, IterableDiffers, DoCheck } from '@angular/core';
+import { Component, Input, IterableDiffers, DoCheck } from '@angular/core';
 import { Slide } from './carousel.inteface';
 import { Router } from '@angular/router';
 
@@ -30,7 +30,6 @@ export class CarouselComponent implements DoCheck {
   goToRouterLink(destination: string, parameterKey: string, parameterValue: string) {
     const url = `${destination}?${parameterKey}=${parameterValue}`;
     this._router.navigateByUrl(url);
-    console.log(url);
   }
 
 }
