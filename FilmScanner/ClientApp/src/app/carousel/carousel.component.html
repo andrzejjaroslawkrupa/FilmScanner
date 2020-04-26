@@ -9,14 +9,13 @@
     <div class="col-10">
 
         <div class="row align-items-center">
-            <ng-container *ngFor="let slide of slides" class="col mini-box text-center poster-wrapper">
+            <div *ngFor="let slide of this.bufferedSlides" class="col mini-box text-center poster-wrapper">
+                <a (click)="selectFilm(slide.destination)">
+                    <img src="{{ slide.imageSrc }}" class="poster" />
 
-
-                <img src="{{ slide.imageSrc }}" class="poster" />
-
-                <p>{{ slide.title }}</p>
-
-            </ng-container>
+                    <p>{{ slide.title }}</p>
+                </a>
+            </div>
         </div>
 
     </div>

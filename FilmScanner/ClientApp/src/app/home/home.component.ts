@@ -166,7 +166,11 @@ export class HomeComponent implements OnInit {
 
   private convertDataToSlides(data: SearchResult) {
     data.searches.forEach(film => {
-      this.slides.push({title: film.title + ' (' + film.year + ')', imageSrc: film.poster });
+      this.slides.push({
+        title: film.title + ' (' + film.year + ')',
+        imageSrc: film.poster,
+        destination: film.imdbID
+      });
     });
   }
 }
