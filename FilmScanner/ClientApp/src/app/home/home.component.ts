@@ -4,8 +4,8 @@ import { FilmsService } from '../films/films.service';
 import { Router } from '@angular/router';
 import { SearchResult } from '../films/searchResult';
 import { trigger, state, style, transition, animate, AnimationEvent } from '@angular/animations';
-import { CarouselComponent } from '../carousel/carousel.component';
 import { Slide } from '../carousel/carousel.inteface';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
 @Component({
 
@@ -51,7 +51,6 @@ import { Slide } from '../carousel/carousel.inteface';
 export class HomeComponent implements OnInit {
   @ViewChild('carousel', { static: false }) carousel: ElementRef;
 
-
   filmsLoader = true;
   imageLoader = true;
   isPremieresChosen = true;
@@ -78,22 +77,23 @@ export class HomeComponent implements OnInit {
   }
 
   slides: Slide[] = [];
+  currentPage = 0;
   constructor(private _appTitleService: AppTitleService, private _filmsService: FilmsService, private _router: Router) {
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this._appTitleService.setTitle('Home');
     this.subscribeToSearchResult();
   }
 
-  rotateCarousel(event: AnimationEvent) {
+  rotateCarousel(event: AnimationEvent): void {
     if (event.toState === 'vanished-left') {
-      this.leftArrowClick();
+
       this.state = 'vanished-right2';
     }
 
     if (event.toState === 'vanished-right') {
-      this.rightArrowClick();
+
       this.state = 'vanished-left2';
     }
 
@@ -102,21 +102,22 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  changeCategory(category: string) {
+  changeCategory(category: string): void {
     this.resetAllBooleans();
     this.category = category;
     this.page = 1;
     this.resetSlices();
     this.slides = [];
+    this.currentPage = 0;
     this.subscribeToSearchResult();
   }
 
-  resetSlices() {
+  resetSlices(): void {
     this.sliceTop = 5;
     this.sliceBottom = 0;
   }
 
-  resetAllBooleans() {
+  resetAllBooleans(): void {
     this.isPremieresChosen = false;
     this.isMostPopularChosen = false;
     this.isComediesChosen = false;
@@ -124,48 +125,18 @@ export class HomeComponent implements OnInit {
     this.isActionChosen = false;
   }
 
-  selectfilm(imdbID: string) {
-    this._router.navigate(['/film-overview'],
-      { queryParams: { filmID: imdbID } });
-  }
-
-  leftArrowClick() {
-    if (this.sliceTop === 5) {
-      this.sliceBottom += 5;
-      this.sliceTop += 5;
-    } else {
-      this.films = null;
-      this.resetSlices();
-      this.page++;
-      this.subscribeToSearchResult();
-    }
-  }
-
-  rightArrowClick() {
-    if (this.page === 1 && this.sliceTop === 5) {
-      return;
-    }
-    if (this.sliceTop === 10) {
-      this.sliceBottom -= 5;
-      this.sliceTop -= 5;
-    } else {
-      this.films = null;
-      this.sliceBottom = 5;
-      this.sliceTop = 10;
-      this.page--;
-      this.subscribeToSearchResult();
-    }
-  }
-
-  private subscribeToSearchResult() {
-    this._filmsService.searchFilmsByTitle(this.category, this.page)
+  private subscribeToSearchResult(): void {
+    this._filmsService.searchFilmsByTitle(this.category, this.page).pipe(
+      debounceTime(400),
+      distinctUntilChanged()
+    )
       .subscribe(data => {
         this.films = data;
         this.convertDataToSlides(data);
       });
   }
 
-  private convertDataToSlides(data: SearchResult) {
+  private convertDataToSlides(data: SearchResult): void {
     data.searches.forEach(film => {
       this.slides.push({
         title: film.title + ' (' + film.year + ')',
@@ -175,5 +146,12 @@ export class HomeComponent implements OnInit {
         parameterValue: film.imdbID
       });
     });
+  }
+
+  checkIfDataIsRunningOut(isNextLast: boolean): void {
+    if (isNextLast) {
+      this.page++;
+      this.subscribeToSearchResult();
+    }
   }
 }

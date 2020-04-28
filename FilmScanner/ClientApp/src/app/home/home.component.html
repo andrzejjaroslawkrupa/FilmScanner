@@ -76,6 +76,6 @@
 
   <hr />-->
 
-  <app-carousel [slides]="this.slides"></app-carousel>
+  <app-carousel [slides]="this.slides" [currentPage]="this.currentPage" (isNextPageLast)="checkIfDataIsRunningOut($event)"></app-carousel>
 
 </div> 
