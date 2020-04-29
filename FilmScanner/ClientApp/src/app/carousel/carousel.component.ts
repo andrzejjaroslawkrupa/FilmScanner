@@ -1,4 +1,4 @@
-import { Component, Input, IterableDiffers, DoCheck, Output, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, IterableDiffers, DoCheck, Output, OnChanges, SimpleChanges, HostListener } from '@angular/core';
 import { Slide } from './carousel.inteface';
 import { Router } from '@angular/router';
 import { EventEmitter } from '@angular/core';
@@ -19,7 +19,7 @@ export class CarouselComponent implements DoCheck, OnChanges {
   debouncer: Subject<boolean> = new Subject<boolean>();
 
   bufferedSlides: Slide[] = [];
-  private _slidesPerPage = 3;
+  private _slidesPerPage = Math.round(this.getScreenWidth() / 400);
   private _iterableDiffer: any;
 
   constructor(iterableDiffers: IterableDiffers, private _router: Router) {
@@ -27,6 +27,11 @@ export class CarouselComponent implements DoCheck, OnChanges {
     this.debouncer
       .pipe(debounceTime(400))
       .subscribe((value) => this.isNextPageLast.emit(value));
+  }
+
+  @HostListener('window:resize', ['$event'])
+  private getScreenWidth(event?): number {
+    return window.innerWidth;
   }
 
   ngOnChanges(_changes: SimpleChanges): void {
@@ -41,7 +46,7 @@ export class CarouselComponent implements DoCheck, OnChanges {
     }
   }
 
-  isNextPageLastMethod(): boolean {
+  private getIsNextPageLast(): boolean {
     return (this.endingIndex() + this._slidesPerPage) >= this.slides.length;
   }
 
@@ -65,9 +70,8 @@ export class CarouselComponent implements DoCheck, OnChanges {
 
   private populateBuffer(): void {
     this.bufferedSlides = this.slides.slice(this.startingIndex(), this.endingIndex()).reverse();
-    if (this.isNextPageLastMethod() && this.slides !== []) {
-      console.log('nextpagelast');
-      this.debouncer.next(this.isNextPageLastMethod());
+    if (this.getIsNextPageLast() && this.slides !== []) {
+      this.debouncer.next(this.getIsNextPageLast());
     }
   }
 
