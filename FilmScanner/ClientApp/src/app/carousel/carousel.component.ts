@@ -4,11 +4,50 @@ import { Router } from '@angular/router';
 import { EventEmitter } from '@angular/core';
 import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
+import { trigger, state, style, transition, animate, keyframes } from '@angular/animations';
 
 @Component({
   selector: 'app-carousel',
   templateUrl: './carousel.component.html',
-  styleUrls: ['./carousel.component.css']
+  styleUrls: ['./carousel.component.css'],
+  animations: [
+    trigger('transform', [
+      state('visible-center', style({
+        opacity: 1,
+        marginLeft: 0,
+        marginRight: 0
+      })),
+      state('vanished-left', style({
+        opacity: 0,
+        marginLeft: '20vw',
+        marginRight: '-20vw'
+      })),
+      state('vanished-right', style({
+        opacity: 0,
+        marginLeft: '-20vw',
+        marginRight: '20vw'
+      })),
+      transition('vanished-left => visible-center', [
+        animate('0.6s', keyframes([
+          style({ opacity: 0, marginLeft: '-20vw', marginRight: '20vw' }),
+          style({ opacity: 0.8, marginLeft: 0, marginRight: 0 })
+        ]))
+      ]),
+      transition('vanished-right => visible-center', [
+        animate('0.6s', keyframes([
+          style({ opacity: 0, marginLeft: '20vw', marginRight: '-20vw' }),
+          style({ opacity: 0.8, marginLeft: 0, marginRight: 0 })
+        ]))
+      ]),
+      transition('* <=> void', [
+        animate('0s')
+      ]),
+      transition('* <=> *', [
+        animate('0.6s')
+      ]),
+    ]),
+  ],
+
 })
 export class CarouselComponent implements DoCheck, OnChanges {
 
@@ -16,15 +55,15 @@ export class CarouselComponent implements DoCheck, OnChanges {
   @Input() currentPage = 0;
   @Output() isNextPageLast: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-  debouncer: Subject<boolean> = new Subject<boolean>();
-
+  private _debouncer: Subject<boolean> = new Subject<boolean>();
+  animationState = 'visible-center';
   bufferedSlides: Slide[] = [];
   private _slidesPerPage = Math.round(this.getScreenWidth() / 400);
   private _iterableDiffer: any;
 
   constructor(iterableDiffers: IterableDiffers, private _router: Router) {
     this._iterableDiffer = iterableDiffers.find([]).create(null);
-    this.debouncer
+    this._debouncer
       .pipe(debounceTime(400))
       .subscribe((value) => this.isNextPageLast.emit(value));
   }
@@ -46,18 +85,23 @@ export class CarouselComponent implements DoCheck, OnChanges {
     }
   }
 
-  private getIsNextPageLast(): boolean {
-    return (this.endingIndex() + this._slidesPerPage) >= this.slides.length;
-  }
-
   previousPage(): void {
+    this.animationState = 'vanished-left';
     this.currentPage--;
-    this.populateBuffer();
   }
 
   nextPage(): void {
+    this.animationState = 'vanished-right';
     this.currentPage++;
-    this.populateBuffer();
+  }
+
+  populateBuffer(): void {
+    this.bufferedSlides = this.slides.slice(this.startingIndex(), this.endingIndex()).reverse();
+    if (this.getIsNextPageLast() && this.slides !== []) {
+      this._debouncer.next(this.getIsNextPageLast());
+    }
+
+    this.resetAnimationsState();
   }
 
   private startingIndex(): number {
@@ -68,10 +112,13 @@ export class CarouselComponent implements DoCheck, OnChanges {
     return this.startingIndex() + this._slidesPerPage;
   }
 
-  private populateBuffer(): void {
-    this.bufferedSlides = this.slides.slice(this.startingIndex(), this.endingIndex()).reverse();
-    if (this.getIsNextPageLast() && this.slides !== []) {
-      this.debouncer.next(this.getIsNextPageLast());
+  private getIsNextPageLast(): boolean {
+    return (this.endingIndex() + this._slidesPerPage) >= this.slides.length;
+  }
+
+  private resetAnimationsState() {
+    if (this.animationState === 'vanished-right' || this.animationState === 'vanished-left') {
+      this.animationState = 'visible-center';
     }
   }
 

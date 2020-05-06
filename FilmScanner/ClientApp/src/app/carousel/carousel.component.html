@@ -1,14 +1,12 @@
-<hr />
-
 <div class="row align-items-center carousel">
+
     <div class="col-1">
         <!-- Icon made by Raj Dev from www.freeicons.io -->
         <button (click)="previousPage()" class="btn btn-link"><img src="assets/arrow_left.svg" class="arrow" /></button>
     </div>
 
     <div class="col-10">
-
-        <div class="row align-items-center">
+        <div class="row align-items-center" [@transform]="animationState" (@transform.done)="populateBuffer()">
             <div *ngFor="let slide of this.bufferedSlides" class="col mini-box text-center poster-wrapper">
                 <a (click)="goToRouterLink(slide.destination, slide.parameterKey, slide.parameterValue)">
                     <img src="{{ slide.imageSrc }}" class="poster" />
@@ -17,12 +15,12 @@
                 </a>
             </div>
         </div>
-
     </div>
 
     <div class="col-1">
-        <button (click)="nextPage()" [hidden]="currentPage===0" class="btn btn-link"><img src="assets/arrow_right.svg" class="arrow" /></button>
+        <!-- Icon made by Raj Dev from www.freeicons.io -->
+        <button (click)="nextPage()" [hidden]="currentPage===0" class="btn btn-link"><img src="assets/arrow_right.svg"
+                class="arrow" /></button>
     </div>
 
 </div>
-<hr />

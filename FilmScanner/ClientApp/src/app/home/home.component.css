@@ -10,37 +10,6 @@ hr {
     border-top: 2px solid rgba(0, 0, 0, 0.1);
 }
 
-a:hover {
-    cursor:pointer;
-   }
-
-.arrow {
-    width: 3vw;
-    opacity: 0.8;
-}
-
-.arrow:hover {
-    opacity: 0.4;
-  }
-
-.carousel{
-      height: 400px;
-  }
-
-.poster {
-    width: 180px;
-    margin-bottom: 20px;
-    box-shadow: 10px 10px 5px grey;
-}
-
-.poster-wrapper:hover{
-    opacity: 0.5;
-}
-
-.poster-wrapper:hover img{
-    width: 190px;
-}
-
 mat-spinner {
     margin:0 auto;
 }

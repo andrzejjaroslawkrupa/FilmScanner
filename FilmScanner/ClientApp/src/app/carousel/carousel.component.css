@@ -1,13 +1,6 @@
-hr {
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-    border: 0;
-    border-top: 2px solid rgba(0, 0, 0, 0.1);
-}
-
 a:hover {
     cursor:pointer;
-   }
+}
 
 .arrow {
     width: 3vw;
@@ -16,11 +9,11 @@ a:hover {
 
 .arrow:hover {
     opacity: 0.4;
-  }
+}
 
 .carousel{
       height: 400px;
-  }
+}
 
 .poster {
     width: 180px;
