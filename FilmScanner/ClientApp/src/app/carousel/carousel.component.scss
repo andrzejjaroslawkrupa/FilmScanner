@@ -1,0 +1,43 @@
+a:hover {
+    cursor: pointer;
+  }
+  
+  .arrow {
+    width: 3vw;
+    opacity: 0.8;
+  
+    &:hover {
+      opacity: 0.4;
+    }
+  }
+  
+  .carousel {
+    height: 400px;
+  }
+  
+  .poster {
+    width: 180px;
+    margin-bottom: 20px;
+    box-shadow: 10px 10px 5px grey;
+  }
+  
+  .poster-wrapper:hover {
+    opacity: 0.5;
+  
+    img {
+      width: 190px;
+    }
+  }
+  
+  mat-spinner {
+    margin: 0 auto;
+  }
+  
+  .body-center {
+    width: 70%;
+    max-width: 70%;
+    display: inline-block;
+    top: 25%;
+    left: 15%;
+    position: absolute;
+  }

@@ -9,7 +9,7 @@ import { trigger, state, style, transition, animate, keyframes } from '@angular/
 @Component({
   selector: 'app-carousel',
   templateUrl: './carousel.component.html',
-  styleUrls: ['./carousel.component.css'],
+  styleUrls: ['./carousel.component.scss'],
   animations: [
     trigger('transform', [
       state('visible-center', style({
@@ -30,13 +30,13 @@ import { trigger, state, style, transition, animate, keyframes } from '@angular/
       transition('vanished-left => visible-center', [
         animate('0.6s', keyframes([
           style({ opacity: 0, marginLeft: '-20vw', marginRight: '20vw' }),
-          style({ opacity: 0.8, marginLeft: 0, marginRight: 0 })
+          style({ opacity: 1, marginLeft: 0, marginRight: 0 })
         ]))
       ]),
       transition('vanished-right => visible-center', [
         animate('0.6s', keyframes([
           style({ opacity: 0, marginLeft: '20vw', marginRight: '-20vw' }),
-          style({ opacity: 0.8, marginLeft: 0, marginRight: 0 })
+          style({ opacity: 1, marginLeft: 0, marginRight: 0 })
         ]))
       ]),
       transition('* <=> void', [
@@ -56,7 +56,9 @@ export class CarouselComponent implements DoCheck, OnChanges {
   @Output() isNextPageLast: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   private _debouncer: Subject<boolean> = new Subject<boolean>();
+
   animationState = 'visible-center';
+
   bufferedSlides: Slide[] = [];
   private _slidesPerPage = Math.round(this.getScreenWidth() / 400);
   private _iterableDiffer: any;
