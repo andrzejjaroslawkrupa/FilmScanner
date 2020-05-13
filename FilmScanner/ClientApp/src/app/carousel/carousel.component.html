@@ -7,9 +7,9 @@
 
     <div class="col-10">
         <div class="row align-items-center" [@transform]="animationState" (@transform.done)="populateBuffer()">
-            <div *ngFor="let slide of this.bufferedSlides" class="col mini-box text-center poster-wrapper">
+            <div *ngFor="let slide of this.bufferedSlides" class="col mini-box text-center image-wrapper">
                 <a (click)="goToRouterLink(slide.destination, slide.parameterKey, slide.parameterValue)">
-                    <img src="{{ slide.imageSrc }}" class="poster" />
+                    <img src="{{ slide.imageSrc }}" class="image" />
 
                     <p>{{ slide.title }}</p>
                 </a>
