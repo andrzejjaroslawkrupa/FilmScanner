@@ -58,6 +58,7 @@ export class CarouselComponent implements DoCheck, OnChanges {
   private _debouncer: Subject<boolean> = new Subject<boolean>();
 
   animationState = 'visible-center';
+  slidesLoaded = false;
 
   bufferedSlides: Slide[] = [];
   private _slidesPerPage = Math.round(this.getScreenWidth() / 400);
@@ -76,6 +77,7 @@ export class CarouselComponent implements DoCheck, OnChanges {
   }
 
   ngOnChanges(_changes: SimpleChanges): void {
+    this.slidesLoaded = false;
     this.currentPage = 0;
     this.populateBuffer();
   }
