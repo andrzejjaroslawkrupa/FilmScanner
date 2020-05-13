@@ -35,13 +35,16 @@ describe('CarouselComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should not show right-arrow on page 1', () => {
+  it('should not show arrows on first and last page', () => {
     const rightArrowElement = element.querySelectorAll('button');
 
+    component.slides = [{
+      title: 'title', imageSrc: '', destination: '', parameterKey: '', parameterValue: ''
+    }];
     component.currentPage = 0;
     fixture.detectChanges();
 
-    expect(rightArrowElement[0].hasAttribute('hidden')).toEqual(false);
+    expect(rightArrowElement[0].hasAttribute('hidden')).toEqual(true);
     expect(rightArrowElement[1].hasAttribute('hidden')).toEqual(true);
   });
 

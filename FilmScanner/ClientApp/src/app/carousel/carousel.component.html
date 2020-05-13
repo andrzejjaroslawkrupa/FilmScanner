@@ -2,7 +2,8 @@
 
     <div class="col-1">
         <!-- Icon made by Raj Dev from www.freeicons.io -->
-        <button (click)="previousPage()" class="btn btn-link"><img src="assets/arrow_left.svg" class="arrow" /></button>
+        <button (click)="previousPage()" [hidden]="isCurrentPageLast" class="btn btn-link"><img
+                src="assets/arrow_left.svg" class="arrow" /></button>
     </div>
 
     <div class="col-10">
@@ -17,9 +18,9 @@
                 </div>
             </div>
         </div>
-        <div #loading_slides>
+        <ng-template #loading_slides>
             <mat-spinner [hidden]="this.slidesLoaded"></mat-spinner>
-        </div>
+        </ng-template>
     </div>
 
     <div class="col-1">

@@ -59,6 +59,7 @@ export class CarouselComponent implements DoCheck, OnChanges {
 
   animationState = 'visible-center';
   slidesLoaded = false;
+  isCurrentPageLast = false;
 
   bufferedSlides: Slide[] = [];
   private _slidesPerPage = Math.round(this.getScreenWidth() / 400);
@@ -101,10 +102,11 @@ export class CarouselComponent implements DoCheck, OnChanges {
 
   populateBuffer(): void {
     this.bufferedSlides = this.slides.slice(this.startingIndex(), this.endingIndex()).reverse();
-    if (this.getIsNextPageLast() && this.slides !== []) {
-      this._debouncer.next(this.getIsNextPageLast());
+    if (this.getIsPreviousPageLast() && this.slides !== []) {
+      this._debouncer.next(this.getIsPreviousPageLast());
     }
 
+    this.updateIsCurrentPageLast();
     this.resetAnimationsState();
   }
 
@@ -116,8 +118,12 @@ export class CarouselComponent implements DoCheck, OnChanges {
     return this.startingIndex() + this._slidesPerPage;
   }
 
-  private getIsNextPageLast(): boolean {
+  private getIsPreviousPageLast(): boolean {
     return (this.endingIndex() + this._slidesPerPage) >= this.slides.length;
+  }
+
+  private updateIsCurrentPageLast(): void {
+    this.isCurrentPageLast = this.endingIndex() >= this.slides.length;
   }
 
   private resetAnimationsState() {
