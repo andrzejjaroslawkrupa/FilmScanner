@@ -36,7 +36,7 @@ describe('CarouselComponent', () => {
   });
 
   it('should not show arrows on first and last page', () => {
-    const rightArrowElement = element.querySelectorAll('button');
+    const arrowElement = element.querySelectorAll('button');
 
     component.slides = [{
       title: 'title', imageSrc: '', destination: '', parameterKey: '', parameterValue: ''
@@ -44,8 +44,8 @@ describe('CarouselComponent', () => {
     component.currentPage = 0;
     fixture.detectChanges();
 
-    expect(rightArrowElement[0].hasAttribute('hidden')).toEqual(true);
-    expect(rightArrowElement[1].hasAttribute('hidden')).toEqual(true);
+    expect(arrowElement[0].hasAttribute('hidden')).toEqual(true);
+    expect(arrowElement[1].hasAttribute('hidden')).toEqual(true);
   });
 
 });
