@@ -9,10 +9,9 @@
     <div class="col-10">
         <div *ngIf="bufferedSlides; else loading_slides">
             <div class="row align-items-center" [@transform]="animationState" (@transform.done)="populateBuffer()">
-                <div *ngFor="let slide of this.bufferedSlides" class="col mini-box text-center image-wrapper">
+                <div *ngFor="let slide of this.bufferedSlides" class="col mini-box text-center">
                     <a (click)="goToRouterLink(slide.destination, slide.parameterKey, slide.parameterValue)">
-                        <img src="{{ slide.imageSrc }}" class="image" (load)="this.slidesLoaded = true" />
-
+                        <div class="img-wrapper"><img src="{{ slide.imageSrc }}" class="image" (load)="this.slidesLoaded = true" /></div>
                         <p>{{ slide.title }}</p>
                     </a>
                 </div>
