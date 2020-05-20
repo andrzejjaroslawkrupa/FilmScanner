@@ -65,12 +65,20 @@ export class HomeComponent implements OnInit {
     data.searches.forEach(film => {
       this.slides.push({
         title: film.title + ' (' + film.year + ')',
-        imageSrc: film.poster,
+        imageSrc: this.ensureCarouselGetsImage(film.poster),
         destination: 'film-overview',
         parameterKey: 'filmID',
         parameterValue: film.imdbID
       });
     });
+  }
+
+  private ensureCarouselGetsImage(posterLink: string): string {
+    if (posterLink === 'N/A') {
+      return 'assets/camera.png';
+    }
+
+    return posterLink;
   }
 
   checkIfDataIsRunningOut(isNextLast: boolean): void {
