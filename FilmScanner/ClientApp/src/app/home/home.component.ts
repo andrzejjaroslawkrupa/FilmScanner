@@ -3,7 +3,7 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { FilmsService } from '../films/films.service';
 import { Router } from '@angular/router';
 import { SearchResult } from '../films/searchResult';
-import { Slide } from '../carousel/carousel.inteface';
+import { Slide } from '../carousel/carousel.interface';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
 @Component({

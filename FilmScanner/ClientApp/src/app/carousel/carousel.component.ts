@@ -1,5 +1,5 @@
 import { Component, Input, IterableDiffers, DoCheck, Output, OnChanges, SimpleChanges, HostListener } from '@angular/core';
-import { Slide } from './carousel.inteface';
+import { Slide } from './carousel.interface';
 import { Router } from '@angular/router';
 import { EventEmitter } from '@angular/core';
 import { Subject } from 'rxjs';
