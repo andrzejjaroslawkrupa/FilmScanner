@@ -28,6 +28,7 @@ export class HomeComponent implements OnInit {
 
   slides: Slide[] = [];
   carouselsCurrentPage = 0;
+  defaultImageSrc = 'assets/camera.png';
 
   constructor(private _appTitleService: AppTitleService, private _filmsService: FilmsService, private _router: Router) {
   }
@@ -65,20 +66,12 @@ export class HomeComponent implements OnInit {
     data.searches.forEach(film => {
       this.slides.push({
         title: film.title + ' (' + film.year + ')',
-        imageSrc: this.ensureCarouselGetsImage(film.poster),
+        imageSrc: film.poster,
         destination: 'film-overview',
         parameterKey: 'filmID',
         parameterValue: film.imdbID
       });
     });
-  }
-
-  private ensureCarouselGetsImage(posterLink: string): string {
-    if (posterLink === 'N/A') {
-      return 'assets/camera.png';
-    }
-
-    return posterLink;
   }
 
   checkIfDataIsRunningOut(isNextLast: boolean): void {

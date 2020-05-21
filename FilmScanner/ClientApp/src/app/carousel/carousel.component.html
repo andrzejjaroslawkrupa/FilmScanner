@@ -1,27 +1,39 @@
 <div class="row align-items-center carousel">
 
+    <!--PREVIOUS PAGE BUTTON-->
     <div class="col-1">
         <!-- Icon made by Raj Dev from www.freeicons.io -->
         <button (click)="previousPage()" [hidden]="isCurrentPageLast" class="btn btn-link"><img
                 src="assets/arrow_left.svg" class="arrow" /></button>
     </div>
 
+    <!--SLIDES-->
     <div class="col-10">
-        <div *ngIf="bufferedSlides; else loading_slides">
+        <div *ngIf="bufferedSlides; else loadingSlides">
             <div class="row align-items-center" [@transform]="animationState" (@transform.done)="populateBuffer()">
                 <div *ngFor="let slide of this.bufferedSlides" class="col mini-box text-center">
                     <a (click)="goToRouterLink(slide.destination, slide.parameterKey, slide.parameterValue)">
-                        <div class="img-wrapper"><img src="{{ slide.imageSrc }}" class="image" (load)="this.slidesLoaded = true" /></div>
+                        <div *ngIf="slide.imageSrc!='N/A'; else defaultImage">
+                            <img src="{{ slide.imageSrc }}" class="image" (load)="this.slidesLoader = false;" />
+                        </div>
+                        <ng-template #defaultImage>
+                            <div [hidden]="!imageLoader">
+                                <mat-spinner></mat-spinner>
+                            </div>
+                            <img [hidden]="imageLoader" src="{{ this.defaultImageSrc }}" class="image"
+                                (load)="this.imageLoader = false;">
+                        </ng-template>
                         <p>{{ slide.title }}</p>
                     </a>
                 </div>
             </div>
         </div>
-        <ng-template #loading_slides>
-            <mat-spinner [hidden]="this.slidesLoaded"></mat-spinner>
+        <ng-template #loadingSlides>
+            <mat-spinner [hidden]="this.slidesLoader"></mat-spinner>
         </ng-template>
     </div>
 
+    <!--NEXT PAGE BUTTON-->
     <div class="col-1">
         <!-- Icon made by Raj Dev from www.freeicons.io -->
         <button (click)="nextPage()" [hidden]="currentPage===0" class="btn btn-link"><img src="assets/arrow_right.svg"

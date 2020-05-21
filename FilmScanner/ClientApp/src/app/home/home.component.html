@@ -31,7 +31,7 @@
   <!-- CAROUSEL -->
 
   <hr />
-  <app-carousel [slides]="this.slides" [currentPage]="this.carouselsCurrentPage"
+  <app-carousel [slides]="this.slides" [currentPage]="this.carouselsCurrentPage" [defaultImageSrc]="this.defaultImageSrc"
     (isNextPageLast)="checkIfDataIsRunningOut($event)"></app-carousel>
   <hr />
 

@@ -53,6 +53,7 @@ export class CarouselComponent implements DoCheck, OnChanges {
 
   @Input() slides: Slide[];
   @Input() currentPage = 0;
+  @Input() defaultImageSrc: string;
   @Output() isNextPageLast: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   private _debouncer: Subject<boolean> = new Subject<boolean>();
@@ -60,6 +61,8 @@ export class CarouselComponent implements DoCheck, OnChanges {
   animationState = 'visible-center';
   slidesLoaded = false;
   isCurrentPageLast = false;
+  slidesLoader = true;
+  imageLoader = true;
 
   bufferedSlides: Slide[] = [];
   private _slidesPerPage = Math.round(this.getScreenWidth() / 400);
