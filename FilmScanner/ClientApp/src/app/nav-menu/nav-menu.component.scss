@@ -2,24 +2,25 @@
   width: 35%;
 }
 
-img{
+img {
   width: 80px;
+
+  &:hover {
+    cursor: pointer;
+  }
 }
 
-img:hover {
-  cursor: pointer;
-}
-
-#margin-left{
+#margin-left {
   padding-left: 40px;
 }
 
-.ui-grid, .ui-grid-viewport {
+.ui-grid,
+.ui-grid-viewport {
   height: auto !important;
 }
 
-.title{
-  vertical-align: middle; 
+.title {
+  vertical-align: middle;
 }
 
 a.navbar-brand {
@@ -31,6 +32,7 @@ a.navbar-brand {
 html {
   font-size: 14px;
 }
+
 @media (min-width: 768px) {
   html {
     font-size: 16px;
@@ -38,23 +40,23 @@ html {
 }
 
 .box-shadow {
-  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+  box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.05);
 }
 
-.mat-form-field{
+.mat-form-field {
   width: 100%;
 }
 
-.mat-option{
+.mat-option {
   min-height: 120px;
   max-height: 200px;
 }
 
-.btn-circle.btn-sm { 
-  width: 50px; 
-  height: 50px; 
-  padding: 6px 0px; 
-  border-radius: 25px; 
-  font-size: 8px; 
-  text-align: center; 
+.btn-circle.btn-sm {
+  width: 50px;
+  height: 50px;
+  padding: 6px 0px;
+  border-radius: 25px;
+  font-size: 8px;
+  text-align: center;
 }

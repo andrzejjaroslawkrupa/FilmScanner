@@ -8,7 +8,7 @@ import { FilmsService } from '../films/films.service';
 @Component({
   selector: 'app-film-overview',
   templateUrl: './film-overview.component.html',
-  styleUrls: ['./film-overview.component.css']
+  styleUrls: ['./film-overview.component.scss']
 })
 export class FilmOverviewComponent implements OnInit {
   imageLoader = true;
