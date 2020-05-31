@@ -10,7 +10,7 @@ namespace OmdbServicesLibs.Models
 		[DataMember(Name = "year")]
 		public string Year { get; set; }
 		[DataMember(Name = "imdbID")]
-		public string ImdbID { get; set; }
+		public string ImdbId { get; set; }
 		[DataMember(Name = "poster")]
 		public string Poster { get; set; }
 	}
