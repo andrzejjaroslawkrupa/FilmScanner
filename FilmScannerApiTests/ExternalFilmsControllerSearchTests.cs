@@ -92,7 +92,7 @@ namespace FilmScannerApiTests
 			var model = objectResult.Value as SearchResultModel;
 			Assert.That(model, Is.Not.Null);
 			var responseSearches = model.Searches;
-			Assert.That(responseSearches.First().ImdbId, Is.EqualTo("searchImdbId"));
+			Assert.That(responseSearches.First().ImdbID, Is.EqualTo("searchImdbId"));
 		}
 
 		[Test]
@@ -120,7 +120,7 @@ namespace FilmScannerApiTests
 				{
 					new Search()
 					{
-						ImdbId = "searchImdbId",
+						ImdbID = "searchImdbId",
 						Poster = "searchPoster",
 						Title = "searchTitle",
 						Year = "searchYear"
