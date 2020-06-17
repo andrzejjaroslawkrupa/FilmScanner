@@ -5,7 +5,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './home/home.component';
 import { HttpClientModule } from '@angular/common/http';
-import { ImdbService } from './films/imdb.service';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -49,7 +48,7 @@ import { CarouselComponent } from './carousel/carousel.component';
     MatProgressSpinnerModule,
     NgbModule
   ],
-  providers: [AppTitleService, ImdbService, FilmsService, ],
+  providers: [AppTitleService, FilmsService, ],
   bootstrap: [AppComponent],
 })
 export class AppModule { }
