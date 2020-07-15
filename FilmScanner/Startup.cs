@@ -88,7 +88,8 @@ namespace FilmScanner
 		private void InstantiateOmdbServices(IServiceCollection services)
 		{
 			services.AddSingleton<IOmdbService, OmdbService>();
-			services.AddSingleton(typeof(IApiKeyProvider), new ApiKeyProvider(Configuration.GetValue<string>("OmdbApiKey")));
+			services.AddSingleton(typeof(IApiKeyProvider),
+				new ApiKeyProvider(Configuration.GetValue<string>("OmdbApiKey")));
 			services.AddSingleton<IGetSearchResults, GetSearchResults>();
 			services.AddSingleton<IGetFilmById, GetFilmById>();
 		}

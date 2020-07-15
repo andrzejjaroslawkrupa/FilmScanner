@@ -18,9 +18,9 @@ namespace FilmScanner.Data
 
 			var users = new User[]
 			{
-				new User{UserName="Kaszub1",Password="Kaszub1",CreatedAt=DateTime.Parse("2020-02-17")},
-				new User{UserName="Kaszub2",Password="Kaszub2",CreatedAt=DateTime.Parse("2020-02-18")},
-				new User{UserName="Kaszub3",Password="Kaszub3",CreatedAt=DateTime.Parse("2020-02-19")}
+				new User{UserName="User1",Password="Password1",CreatedAt=DateTime.Parse("2020-02-17")},
+				new User{UserName="User2",Password="Password2",CreatedAt=DateTime.Parse("2020-02-18")},
+				new User{UserName="User3",Password="Password3",CreatedAt=DateTime.Parse("2020-02-19")}
 			};
 			foreach (User u in users)
 			{
