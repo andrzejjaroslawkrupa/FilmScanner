@@ -8,7 +8,6 @@ EXPOSE 443
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
 WORKDIR /src
 COPY ["/FilmScanner/ClientApp/src/environments/environment.prod.ts", "/FilmScanner/ClientApp/src/environments/environment.ts"]
-COPY ["/FilmScanner/appsettings - Copy.Development.json", "/FilmSettings/appsettings.json"]
 COPY ["FilmScanner/FilmScanner.csproj", "FilmScanner/"]
 COPY ["OmdbLibs/OmdbServicesLibs.csproj", "OmdbLibs/"]
 RUN dotnet restore "FilmScanner/FilmScanner.csproj"
