@@ -16,27 +16,27 @@ namespace FilmScanner.Data
 				return;   // DB has been seeded
 			}
 
-			var users = new User[]
+			var users = new[]
 			{
-				new User{UserName="Kaszub1",Password="Kaszub1",CreatedAt=DateTime.Parse("2020-02-17")},
-				new User{UserName="Kaszub2",Password="Kaszub2",CreatedAt=DateTime.Parse("2020-02-18")},
-				new User{UserName="Kaszub3",Password="Kaszub3",CreatedAt=DateTime.Parse("2020-02-19")}
+				new User{UserName="User1",Password="Password1",CreatedAt=DateTime.Parse("2020-02-17")},
+				new User{UserName="User2",Password="Password2",CreatedAt=DateTime.Parse("2020-02-18")},
+				new User{UserName="User3",Password="Password3",CreatedAt=DateTime.Parse("2020-02-19")}
 			};
-			foreach (User u in users)
+			foreach (var user in users)
 			{
-				context.Users.Add(u);
+				context.Users.Add(user);
 			}
 			context.SaveChanges();
 
-			var films = new Film[]
+			var films = new[]
 			{
-				new Film{ExternalID="FC1", CreatedAt=DateTime.Parse("2020-02-17")},
-				new Film{ExternalID="FC2", CreatedAt=DateTime.Parse("2020-02-18")},
-				new Film{ExternalID="FC3", CreatedAt=DateTime.Parse("2020-02-19")}
+				new Film{ExternalID="tt0316654", CreatedAt=DateTime.Parse("2020-02-17")},
+				new Film{ExternalID="tt0948470", CreatedAt=DateTime.Parse("2020-02-18")},
+				new Film{ExternalID="tt0145487", CreatedAt=DateTime.Parse("2020-02-19")}
 			};
-			foreach (Film f in films)
+			foreach (var film in films)
 			{
-				context.Films.Add(f);
+				context.Films.Add(film);
 			}
 			context.SaveChanges();
 		}

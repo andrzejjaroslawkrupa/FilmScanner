@@ -9,17 +9,17 @@ namespace OmdbServicesLibs.Omdb
 {
 	public class GetFilmById : IGetFilmById
 	{
-		private readonly string _ApiKey;
+		private readonly string _apiKey;
 
 		public GetFilmById(IApiKeyProvider apiKeyProvider)
 		{
-			_ApiKey = apiKeyProvider.GetApiKey;
+			_apiKey = apiKeyProvider.GetApiKey;
 		}
 
 		public async Task<FilmModel> ReturnFilm(string imdbId)
 		{
 			using var client = new HttpClient();
-			var url = new Uri($"https://www.omdbapi.com/?i={imdbId}&apikey={_ApiKey}");
+			var url = new Uri($"https://www.omdbapi.com/?i={imdbId}&apikey={_apiKey}");
 
 			var response = await client.GetAsync(url);
 
