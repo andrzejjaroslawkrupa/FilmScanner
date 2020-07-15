@@ -9,17 +9,17 @@ namespace OmdbServicesLibs.Omdb
 {
 	public class GetSearchResults : IGetSearchResults
 	{
-		private readonly string _ApiKey;
+		private readonly string _apiKey;
 
 		public GetSearchResults(IApiKeyProvider apiKeyProvider)
 		{
-			_ApiKey = apiKeyProvider.GetApiKey;
+			_apiKey = apiKeyProvider.GetApiKey;
 		}
 
 		public async Task<SearchResultModel> ReturnSearchResults(string searchCritera, int? page)
 		{
 			using var client = new HttpClient();
-			var url = new Uri($"https://www.omdbapi.com/?s={searchCritera}&apikey={_ApiKey}&page={page}");
+			var url = new Uri($"https://www.omdbapi.com/?s={searchCritera}&apikey={_apiKey}&page={page}");
 
 			var response = await client.GetAsync(url);
 
