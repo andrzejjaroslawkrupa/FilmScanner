@@ -1,8 +1,8 @@
-using System;
-using FilmScanner.Data;
+using FilmScanner.Contracts;
+using FilmScanner.Entities;
+using FilmScanner.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -33,10 +33,11 @@ namespace FilmScanner
 				configuration.RootPath = "ClientApp/dist";
 			});
 
-			services.AddDbContext<UserContext>(options =>
+			services.AddDbContext<RepositoryContext>(options =>
 				options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
 			services.AddMvc();
+			services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
 
 			InstantiateOmdbServices(services);
 		}

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace FilmScanner.Models
+namespace FilmScanner.Entities.Models
 {
 	public class User
 	{
