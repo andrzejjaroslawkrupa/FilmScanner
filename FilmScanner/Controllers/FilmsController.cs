@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FilmScanner.Controllers
 {
-	[Route("api/[controller]")]
+	[Route("api/users")]
 	[ApiController]
 	public class FilmsController : ControllerBase
 	{
@@ -17,25 +17,36 @@ namespace FilmScanner.Controllers
 			_repositoryWrapper = repositoryWrapper;
 		}
 
-		// GET: api/Films
-		[HttpGet]
-		public IEnumerable<FilmRecord> GetFilms()
+		// GET: api/Users/{userId}/Records
+		[HttpGet("{userId}/records")]
+		public IEnumerable<FilmRecord> GetFilms(int userId)
 		{
-			return _repositoryWrapper.Film.FindAll();
+			return _repositoryWrapper.Film.FindByCondition(f=>f.UserRefID == userId);
 		}
 
-		// GET: api/Users/1/FilmsRecords/2
-		[HttpGet("{userId}/record/{id}")]
+		// GET: api/Users/{userId}/Records/{id}
+		[HttpGet("{userId}/records/{id}")]
 		public ActionResult<FilmRecord> GetFilmRecord(int userId, int id)
 		{
 			return _repositoryWrapper.Film.FindByCondition(f => f.UserRefID == userId && f.ID == id).First();
 		}
 
+		// PUT: api/Users/{userId}/Records/{id}
+		[HttpPut("{userId}/records/{id}")]
+		public IActionResult PutUser(int id, FilmRecord filmRecord)
+		{
+			if (filmRecord.ID != id)
+			{
+				return BadRequest();
+			}
+			_repositoryWrapper.Film.Update(filmRecord);
+			_repositoryWrapper.Save();
 
-		// POST: api/Users/1/films
-		// To protect from overposting attacks, please enable the specific properties you want to bind to, for
-		// more details see https://aka.ms/RazorPagesCRUD.
-		[HttpPost("{userId}")]
+			return NoContent();
+		}
+
+		// POST: api/Users/{userId}/Records
+		[HttpPost("{userId}/records")]
 		public ActionResult<FilmRecord> PostFilmRecord(int userId, FilmRecord film)
 		{
 			if (!_repositoryWrapper.User.FindByCondition(u => u.ID == userId).Any())
@@ -49,23 +60,15 @@ namespace FilmScanner.Controllers
 			return CreatedAtAction("PostFilmRecord", new { id = film.ID }, film);
 		}
 
-		//// DELETE: api/Users/1/films/1
-		//[HttpDelete("{userId}/films/{id}")]
-		//public async Task<ActionResult<FilmRecord>> DeleteFilm(int userId, int id)
-		//{
-		//	FilmRecord film;
+		// DELETE: api/Users/{userId}/Records/{id}
+		[HttpDelete("{userId}/records/{id}")]
+		public ActionResult<FilmRecord> DeleteFilmRecord(int userId, int id)
+		{
+			var film = _repositoryWrapper.Film.FindByCondition(f => f.UserRefID == userId && f.ID == id).First();
+			_repositoryWrapper.Film.Delete(film);
+			_repositoryWrapper.Save();
 
-		//	var tableName = "Films_" + userId.ToString();
-
-		//	using (var context = new UserContext())
-		//	{
-		//		film = await context.FilmsRecords.FromSqlRaw((string)$"SELECT * FROM {tableName} WHERE ID = {id}").FirstOrDefaultAsync();
-		//		await context.Database.ExecuteSqlRawAsync((string)$"Delete FROM {tableName} WHERE ID = {id}");
-		//	}
-
-		//	return film;
-		//}
-
-		//#endregion
+			return film;
+		}
 	}
 }
