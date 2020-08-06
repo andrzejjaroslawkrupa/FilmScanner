@@ -1,11 +1,11 @@
-﻿namespace FilmScanner.Contracts
+﻿using System.Threading.Tasks;
+
+namespace FilmScanner.Contracts
 {
 	public interface IRepositoryWrapper
 	{
-		IFilmRepository Film { get; }
-
+		IFilmRecordRepository Film { get; }
 		IUserRepository User { get; }
-
-		void Save();
+		Task SaveAsync();
 	}
 }

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using FilmScanner.Contracts;
 using FilmScanner.Entities.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -8,65 +9,66 @@ namespace FilmScanner.Controllers
 {
 	[Route("api/users")]
 	[ApiController]
-	public class FilmsController : ControllerBase
+	public class FilmRecordsController : ControllerBase
 	{
 		private readonly IRepositoryWrapper _repositoryWrapper;
 
-		public FilmsController(IRepositoryWrapper repositoryWrapper)
+		public FilmRecordsController(IRepositoryWrapper repositoryWrapper)
 		{
 			_repositoryWrapper = repositoryWrapper;
 		}
 
 		// GET: api/Users/{userId}/Records
 		[HttpGet("{userId}/records")]
-		public IEnumerable<FilmRecord> GetFilms(int userId)
+		public async Task<IEnumerable<FilmRecord>> GetAllFilmRecordsForUser(int userId)
 		{
-			return _repositoryWrapper.Film.FindByCondition(f=>f.UserRefID == userId);
+			return await _repositoryWrapper.Film.GetAllFilmRecordsForUserAsync(userId);
 		}
 
 		// GET: api/Users/{userId}/Records/{id}
 		[HttpGet("{userId}/records/{id}")]
-		public ActionResult<FilmRecord> GetFilmRecord(int userId, int id)
+		public async Task<ActionResult<FilmRecord>> GetFilmRecordForUser(int userId, int id)
 		{
-			return _repositoryWrapper.Film.FindByCondition(f => f.UserRefID == userId && f.ID == id).First();
+			return await _repositoryWrapper.Film.GetFilmRecordForUserByIdAsync(userId, id);
 		}
 
 		// PUT: api/Users/{userId}/Records/{id}
 		[HttpPut("{userId}/records/{id}")]
-		public IActionResult PutUser(int id, FilmRecord filmRecord)
+		public async Task<IActionResult> PutFilmRecord(int id, FilmRecord filmRecord)
 		{
 			if (filmRecord.ID != id)
 			{
 				return BadRequest();
 			}
 			_repositoryWrapper.Film.Update(filmRecord);
-			_repositoryWrapper.Save();
+			await _repositoryWrapper.SaveAsync();
 
 			return NoContent();
 		}
 
 		// POST: api/Users/{userId}/Records
 		[HttpPost("{userId}/records")]
-		public ActionResult<FilmRecord> PostFilmRecord(int userId, FilmRecord film)
+		public async Task<ActionResult<FilmRecord>> PostFilmRecord(int userId, FilmRecord film)
 		{
-			if (!_repositoryWrapper.User.FindByCondition(u => u.ID == userId).Any())
+			var user = await _repositoryWrapper.User.GetUserByIdAsync(userId);
+			if (user == null)
 			{
 				return NotFound();
 			}
 
 			_repositoryWrapper.Film.Create(film);
-			_repositoryWrapper.Save();
+			await _repositoryWrapper.SaveAsync();
 
 			return CreatedAtAction("PostFilmRecord", new { id = film.ID }, film);
 		}
 
 		// DELETE: api/Users/{userId}/Records/{id}
 		[HttpDelete("{userId}/records/{id}")]
-		public ActionResult<FilmRecord> DeleteFilmRecord(int userId, int id)
+		public async Task<ActionResult<FilmRecord>> DeleteFilmRecord(int userId, int id)
 		{
-			var film = _repositoryWrapper.Film.FindByCondition(f => f.UserRefID == userId && f.ID == id).First();
+			var film = await _repositoryWrapper.Film.GetFilmRecordForUserByIdAsync(userId, id);
 			_repositoryWrapper.Film.Delete(film);
-			_repositoryWrapper.Save();
+			await _repositoryWrapper.SaveAsync();
 
 			return film;
 		}

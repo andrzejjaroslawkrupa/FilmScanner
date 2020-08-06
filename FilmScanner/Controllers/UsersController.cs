@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using FilmScanner.Contracts;
-using Microsoft.AspNetCore.Mvc;
+﻿using FilmScanner.Contracts;
 using FilmScanner.Entities.Models;
+using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace FilmScanner.Controllers
 {
@@ -19,16 +19,16 @@ namespace FilmScanner.Controllers
 
 		// GET: api/Users
 		[HttpGet]
-		public IEnumerable<User> GetUsers()
+		public async Task<IEnumerable<User>> GetAllUsers()
 		{
-			return _repositoryWrapper.User.FindAll();
+			return await _repositoryWrapper.User.GetAllUsersAsync();
 		}
 
-		// GET: api/Users/5
+		// GET: api/Users/{id}
 		[HttpGet("{id}")]
-		public ActionResult<User> GetUser(int id)
+		public async Task<ActionResult<User>> GetUserById(int id)
 		{
-			var user = _repositoryWrapper.User.FindByCondition(u => u.ID == id).Single();
+			var user = await _repositoryWrapper.User.GetUserByIdAsync(id);
 
 			if (user == null)
 			{
@@ -38,150 +38,44 @@ namespace FilmScanner.Controllers
 			return user;
 		}
 
-		// PUT: api/Users/5
+		// POST: api/Users
+		[HttpPost]
+		public async Task<ActionResult<User>> CreateUser(User user)
+		{
+			_repositoryWrapper.User.Create(user);
+			await _repositoryWrapper.SaveAsync();
+
+			return CreatedAtAction("CreateUser", new { id = user.ID }, user);
+		}
+
+		// PUT: api/Users/{id}
 		[HttpPut("{id}")]
-		public IActionResult PutUser(int id, User user)
+		public async Task<IActionResult> UpdateUser(int id, User user)
 		{
 			if (user.ID != id)
 			{
 				return BadRequest();
 			}
 			_repositoryWrapper.User.Update(user);
-			_repositoryWrapper.Save();
+			await _repositoryWrapper.SaveAsync();
 
 			return NoContent();
 		}
 
-		// POST: api/Users
-		[HttpPost]
-		public ActionResult<User> PostUser(User user)
-		{
-			_repositoryWrapper.User.Create(user);
-			_repositoryWrapper.Save();
-
-			return CreatedAtAction("PostUser", new { id = user.ID }, user);
-		}
-
-		// DELETE: api/Users/5
+		// DELETE: api/Users/{id}
 		[HttpDelete("{id}")]
-		public ActionResult<User> DeleteUser(int id)
+		public async Task<ActionResult<User>> DeleteUser(int id)
 		{
-			var user = _repositoryWrapper.User.FindByCondition(u => u.ID == id).Single();
+			var user = await _repositoryWrapper.User.GetUserByIdAsync(id);
 			if (user == null)
 			{
 				return NotFound();
 			}
 
 			_repositoryWrapper.User.Delete(user);
-			_repositoryWrapper.Save();
+			await _repositoryWrapper.SaveAsync();
 
 			return user;
 		}
-
-		//private readonly UserContext _context;
-
-		//public UsersController(UserContext context)
-		//{
-		//	_context = context;
-		//}
-
-		//#region Users
-
-		//// GET: api/Users
-		//[HttpGet]
-		//public async Task<ActionResult<IEnumerable<User>>> GetUsers()
-		//{
-		//	return await _context.Users.ToListAsync();
-		//}
-
-		//// GET: api/Users/5
-		//[HttpGet("{id}")]
-		//public async Task<ActionResult<User>> GetUser(int id)
-		//{
-		//	var user = await _context.Users.FindAsync(id);
-
-		//	if (user == null)
-		//	{
-		//		return NotFound();
-		//	}
-
-		//	return user;
-		//}
-
-		//// PUT: api/Users/5
-		//// To protect from overposting attacks, please enable the specific properties you want to bind to, for
-		//// more details see https://aka.ms/RazorPagesCRUD.
-		//[HttpPut("{id}")]
-		//public async Task<IActionResult> PutUser(int id, User user)
-		//{
-		//	if (id != user.ID)
-		//	{
-		//		return BadRequest();
-		//	}
-
-		//	_context.Entry(user).State = EntityState.Modified;
-
-		//	try
-		//	{
-		//		await _context.SaveChangesAsync();
-		//	}
-		//	catch (DbUpdateConcurrencyException)
-		//	{
-		//		if (!UserExists(id))
-		//		{
-		//			return NotFound();
-		//		}
-		//		else
-		//		{
-		//			throw;
-		//		}
-		//	}
-
-		//	return NoContent();
-		//}
-
-		//// POST: api/Users
-		//// To protect from overposting attacks, please enable the specific properties you want to bind to, for
-		//// more details see https://aka.ms/RazorPagesCRUD.
-		//[HttpPost]
-		//public async Task<ActionResult<User>> PostUser(User user)
-		//{
-		//	_context.Users.Add(user);
-		//	await _context.SaveChangesAsync();
-
-		//	var tableName = "Films_" + user.ID.ToString();
-
-		//	using (var context = new UserContext())
-		//	{
-		//		await context.Database.ExecuteSqlRawAsync((string)$"CREATE TABLE {tableName} (ID int  IDENTITY(1,1) PRIMARY KEY, ExternalID varchar(255), CreatedAt datetime2(7) NOT NULL)");
-		//	}
-
-		//	return CreatedAtAction("GetUser", new { id = user.ID }, user);
-		//}
-
-		//// DELETE: api/Users/5
-		//[HttpDelete("{id}")]
-		//public async Task<ActionResult<User>> DeleteUser(int id)
-		//{
-		//	var user = await _context.Users.FindAsync(id);
-		//	if (user == null)
-		//	{
-		//		return NotFound();
-		//	}
-
-		//	_context.Users.Remove(user);
-		//	await _context.SaveChangesAsync();
-
-		//	return user;
-		//}
-
-		//private bool UserExists(int id)
-		//{
-		//	return _context.Users.Any(e => e.ID == id);
-		//}
-
-		//#endregion
-
-		
 	}
 }

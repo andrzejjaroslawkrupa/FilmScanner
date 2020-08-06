@@ -1,9 +1,9 @@
-﻿using System;
-using System.Linq;
-using System.Linq.Expressions;
-using FilmScanner.Contracts;
+﻿using FilmScanner.Contracts;
 using FilmScanner.Entities;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Linq;
+using System.Linq.Expressions;
 
 namespace FilmScanner.Repository
 {

@@ -1,24 +1,26 @@
 ﻿using FilmScanner.Contracts;
 using FilmScanner.Entities;
+using System.Threading.Tasks;
 
 namespace FilmScanner.Repository
 {
 	public class RepositoryWrapper : IRepositoryWrapper
 	{
 		private readonly RepositoryContext _repositoryContext;
-		private IFilmRepository _film;
+		private IFilmRecordRepository _film;
 		private IUserRepository _user;
 
-		public IFilmRepository Film => _film ??= new FilmRepository(_repositoryContext);
+		public IFilmRecordRepository Film => _film ??= new FilmRecordRepository(_repositoryContext);
 		public IUserRepository User => _user ??= new UserRepository(_repositoryContext);
+
 		public RepositoryWrapper(RepositoryContext repositoryContext)
 		{
 			_repositoryContext = repositoryContext;
 		}
 
-		public void Save()
+		public async Task SaveAsync()
 		{
-			_repositoryContext.SaveChanges();
+			await _repositoryContext.SaveChangesAsync();
 		}
 	}
 }
