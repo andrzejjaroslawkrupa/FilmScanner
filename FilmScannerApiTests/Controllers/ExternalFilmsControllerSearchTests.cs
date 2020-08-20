@@ -8,7 +8,7 @@ using NUnit.Framework;
 using OmdbServicesLibs.Models;
 using OmdbServicesLibs.Services;
 
-namespace FilmScannerApiTests
+namespace FilmScanner.Tests.Controllers
 {
 	public class ExternalFilmsControllerSearchTests
 	{
