@@ -10,7 +10,7 @@ namespace FilmScanner.Repository
 		private IFilmRecordRepository _film;
 		private IUserRepository _user;
 
-		public IFilmRecordRepository Film => _film ??= new FilmRecordRepository(_repositoryContext);
+		public IFilmRecordRepository FilmRecord => _film ??= new FilmRecordRepository(_repositoryContext);
 		public IUserRepository User => _user ??= new UserRepository(_repositoryContext);
 
 		public RepositoryWrapper(RepositoryContext repositoryContext)

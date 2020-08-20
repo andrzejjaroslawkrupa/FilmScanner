@@ -1,9 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using FilmScanner.Contracts;
+﻿using FilmScanner.Contracts;
 using FilmScanner.Entities.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace FilmScanner.Controllers
 {
@@ -18,21 +17,18 @@ namespace FilmScanner.Controllers
 			_repositoryWrapper = repositoryWrapper;
 		}
 
-		// GET: api/Users/{userId}/Records
 		[HttpGet("{userId}/records")]
 		public async Task<IEnumerable<FilmRecord>> GetAllFilmRecordsForUser(int userId)
 		{
-			return await _repositoryWrapper.Film.GetAllFilmRecordsForUserAsync(userId);
+			return await _repositoryWrapper.FilmRecord.GetAllFilmRecordsForUserAsync(userId);
 		}
 
-		// GET: api/Users/{userId}/Records/{id}
 		[HttpGet("{userId}/records/{id}")]
 		public async Task<ActionResult<FilmRecord>> GetFilmRecordForUser(int userId, int id)
 		{
-			return await _repositoryWrapper.Film.GetFilmRecordForUserByIdAsync(userId, id);
+			return await _repositoryWrapper.FilmRecord.GetFilmRecordForUserByIdAsync(userId, id);
 		}
 
-		// PUT: api/Users/{userId}/Records/{id}
 		[HttpPut("{userId}/records/{id}")]
 		public async Task<IActionResult> PutFilmRecord(int id, FilmRecord filmRecord)
 		{
@@ -40,37 +36,45 @@ namespace FilmScanner.Controllers
 			{
 				return BadRequest();
 			}
-			_repositoryWrapper.Film.Update(filmRecord);
+			_repositoryWrapper.FilmRecord.Update(filmRecord);
 			await _repositoryWrapper.SaveAsync();
 
 			return NoContent();
 		}
 
-		// POST: api/Users/{userId}/Records
 		[HttpPost("{userId}/records")]
 		public async Task<ActionResult<FilmRecord>> PostFilmRecord(int userId, FilmRecord film)
 		{
-			var user = await _repositoryWrapper.User.GetUserByIdAsync(userId);
-			if (user == null)
+			if (await UserDoesNotExist(userId))
 			{
 				return NotFound();
 			}
 
-			_repositoryWrapper.Film.Create(film);
+			_repositoryWrapper.FilmRecord.Create(film);
 			await _repositoryWrapper.SaveAsync();
 
 			return CreatedAtAction("PostFilmRecord", new { id = film.ID }, film);
 		}
 
-		// DELETE: api/Users/{userId}/Records/{id}
 		[HttpDelete("{userId}/records/{id}")]
 		public async Task<ActionResult<FilmRecord>> DeleteFilmRecord(int userId, int id)
 		{
-			var film = await _repositoryWrapper.Film.GetFilmRecordForUserByIdAsync(userId, id);
-			_repositoryWrapper.Film.Delete(film);
+			if (await UserDoesNotExist(userId))
+			{
+				return NotFound();
+			}
+
+			var film = await _repositoryWrapper.FilmRecord.GetFilmRecordForUserByIdAsync(userId, id);
+			_repositoryWrapper.FilmRecord.Delete(film);
 			await _repositoryWrapper.SaveAsync();
 
 			return film;
+		}
+
+		private async Task<bool> UserDoesNotExist(int userId)
+		{
+			var user = await _repositoryWrapper.User.GetUserByIdAsync(userId);
+			return user == null;
 		}
 	}
 }
