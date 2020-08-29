@@ -104,7 +104,7 @@ namespace FilmScanner.Tests.Controllers
 		}
 
 		[Test]
-		public async Task CreateUser_Null_BadRequestResult()
+		public async Task CreateUser_NullUser_BadRequestResult()
 		{
 			_controller = new UsersController(_repositoryMock.Object);
 
@@ -152,7 +152,7 @@ namespace FilmScanner.Tests.Controllers
 		}
 
 		[Test]
-		public async Task UpdateUser_CorrectUser_UserUpdated()
+		public async Task UpdateUser_CorrectUser_NoContentResult()
 		{
 			var user = GetTestUser();
 			_repositoryMock.Setup(r => r.User.Update(It.IsAny<User>()));

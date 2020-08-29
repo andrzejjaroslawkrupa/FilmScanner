@@ -26,45 +26,58 @@ namespace FilmScanner.Controllers
 		[HttpGet("{userId}/records/{id}")]
 		public async Task<ActionResult<FilmRecord>> GetFilmRecordForUser(int userId, int id)
 		{
-			return await _repositoryWrapper.FilmRecord.GetFilmRecordForUserByIdAsync(userId, id);
+			if (await UserDoesNotExist(userId))
+				return NotFound();
+
+			var record = await _repositoryWrapper.FilmRecord.GetFilmRecordForUserByIdAsync(userId, id);
+
+			if (record == null)
+				return NotFound();
+
+			return record;
+		}
+
+		[HttpPost("{userId}/records")]
+		public async Task<ActionResult<FilmRecord>> CreateFilmRecord(int userId, FilmRecord film)
+		{
+			if (film == null)
+				return BadRequest();
+			
+			if (await UserDoesNotExist(userId))
+				return NotFound();
+
+			_repositoryWrapper.FilmRecord.Create(film);
+			await _repositoryWrapper.SaveAsync();
+
+			return CreatedAtAction("CreateFilmRecord", new { id = film.ID }, film);
 		}
 
 		[HttpPut("{userId}/records/{id}")]
-		public async Task<IActionResult> PutFilmRecord(int id, FilmRecord filmRecord)
+		public async Task<IActionResult> UpdateFilmRecord(int userId, int id, FilmRecord filmRecord)
 		{
-			if (filmRecord.ID != id)
-			{
+			if (await UserDoesNotExist(userId))
+				return NotFound();
+
+			if (filmRecord == null || filmRecord.ID != id)
 				return BadRequest();
-			}
+			
 			_repositoryWrapper.FilmRecord.Update(filmRecord);
 			await _repositoryWrapper.SaveAsync();
 
 			return NoContent();
 		}
 
-		[HttpPost("{userId}/records")]
-		public async Task<ActionResult<FilmRecord>> PostFilmRecord(int userId, FilmRecord film)
-		{
-			if (await UserDoesNotExist(userId))
-			{
-				return NotFound();
-			}
-
-			_repositoryWrapper.FilmRecord.Create(film);
-			await _repositoryWrapper.SaveAsync();
-
-			return CreatedAtAction("PostFilmRecord", new { id = film.ID }, film);
-		}
-
 		[HttpDelete("{userId}/records/{id}")]
 		public async Task<ActionResult<FilmRecord>> DeleteFilmRecord(int userId, int id)
 		{
 			if (await UserDoesNotExist(userId))
-			{
 				return NotFound();
-			}
 
 			var film = await _repositoryWrapper.FilmRecord.GetFilmRecordForUserByIdAsync(userId, id);
+
+			if (film == null)
+				return NotFound();
+
 			_repositoryWrapper.FilmRecord.Delete(film);
 			await _repositoryWrapper.SaveAsync();
 
