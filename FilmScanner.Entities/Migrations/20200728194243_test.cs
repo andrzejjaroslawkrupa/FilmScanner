@@ -1,24 +1,25 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace FilmScanner.Migrations
+namespace FilmScanner.Entities.Migrations
 {
-    public partial class FilmsDB : Migration
+    public partial class test : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Films",
+                name: "FilmsRecords",
                 columns: table => new
                 {
                     ID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ExternalID = table.Column<string>(nullable: true),
+                    UserRefID = table.Column<int>(nullable: false),
+                    ExternalID = table.Column<string>(nullable: false),
                     CreatedAt = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Films", x => x.ID);
+                    table.PrimaryKey("PK_FilmsRecords", x => x.ID);
                 });
 
             migrationBuilder.CreateTable(
@@ -40,7 +41,7 @@ namespace FilmScanner.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Films");
+                name: "FilmsRecords");
 
             migrationBuilder.DropTable(
                 name: "Users");

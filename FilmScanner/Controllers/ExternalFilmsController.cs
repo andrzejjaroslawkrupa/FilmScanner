@@ -1,6 +1,6 @@
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using OmdbServicesLibs.Services;
+using System.Threading.Tasks;
 
 namespace FilmScanner.Controllers
 {

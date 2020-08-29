@@ -7,9 +7,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FilmScanner", "FilmScanner\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OmdbServicesLibs", "OmdbLibs\OmdbServicesLibs.csproj", "{559F6ED5-88C1-45DF-A4D6-74E986C02B64}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FilmScannerApiTests", "FilmScannerApiTests\FilmScannerApiTests.csproj", "{92AAC10C-F4AB-4D42-8386-7FFE723ED636}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OmdbServicesLibs.Tests", "OmdbServicesLibsTests\OmdbServicesLibs.Tests.csproj", "{34A0C2E4-A8CE-420C-84F6-E8E64DC581B7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OmdbServicesLibsTests", "OmdbServicesLibsTests\OmdbServicesLibsTests.csproj", "{34A0C2E4-A8CE-420C-84F6-E8E64DC581B7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FilmScanner.Contracts", "FilmScanner.Contracts\FilmScanner.Contracts.csproj", "{A4E7EC51-CFB5-4086-8238-D98D724016F8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FilmScanner.Entities", "FilmScanner.Entities\FilmScanner.Entities.csproj", "{A44EA9AB-73B2-45D4-99CB-24E30A485F3C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FilmScanner.Repository", "FilmScanner.Repository\FilmScanner.Repository.csproj", "{56A9B262-906D-42E0-B127-3735DD430C34}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FilmScanner.Tests", "FilmScanner.Tests\FilmScanner.Tests.csproj", "{9609863C-F33A-449E-A575-C73BC01407B0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,14 +31,26 @@ Global
 		{559F6ED5-88C1-45DF-A4D6-74E986C02B64}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{559F6ED5-88C1-45DF-A4D6-74E986C02B64}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{559F6ED5-88C1-45DF-A4D6-74E986C02B64}.Release|Any CPU.Build.0 = Release|Any CPU
-		{92AAC10C-F4AB-4D42-8386-7FFE723ED636}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{92AAC10C-F4AB-4D42-8386-7FFE723ED636}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{92AAC10C-F4AB-4D42-8386-7FFE723ED636}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{92AAC10C-F4AB-4D42-8386-7FFE723ED636}.Release|Any CPU.Build.0 = Release|Any CPU
 		{34A0C2E4-A8CE-420C-84F6-E8E64DC581B7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{34A0C2E4-A8CE-420C-84F6-E8E64DC581B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{34A0C2E4-A8CE-420C-84F6-E8E64DC581B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{34A0C2E4-A8CE-420C-84F6-E8E64DC581B7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A4E7EC51-CFB5-4086-8238-D98D724016F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A4E7EC51-CFB5-4086-8238-D98D724016F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A4E7EC51-CFB5-4086-8238-D98D724016F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A4E7EC51-CFB5-4086-8238-D98D724016F8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A44EA9AB-73B2-45D4-99CB-24E30A485F3C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A44EA9AB-73B2-45D4-99CB-24E30A485F3C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A44EA9AB-73B2-45D4-99CB-24E30A485F3C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A44EA9AB-73B2-45D4-99CB-24E30A485F3C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{56A9B262-906D-42E0-B127-3735DD430C34}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{56A9B262-906D-42E0-B127-3735DD430C34}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{56A9B262-906D-42E0-B127-3735DD430C34}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{56A9B262-906D-42E0-B127-3735DD430C34}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9609863C-F33A-449E-A575-C73BC01407B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9609863C-F33A-449E-A575-C73BC01407B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9609863C-F33A-449E-A575-C73BC01407B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9609863C-F33A-449E-A575-C73BC01407B0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,10 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using FilmScanner.Contracts;
+using FilmScanner.Entities.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using FilmScanner.Data;
-using FilmScanner.Models;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace FilmScanner.Controllers
 {
@@ -12,193 +10,65 @@ namespace FilmScanner.Controllers
 	[ApiController]
 	public class UsersController : ControllerBase
 	{
-		private readonly UserContext _context;
+		private readonly IRepositoryWrapper _repositoryWrapper;
 
-		public UsersController(UserContext context)
+		public UsersController(IRepositoryWrapper repositoryWrapper)
 		{
-			_context = context;
+			_repositoryWrapper = repositoryWrapper;
 		}
 
-		#region Users
-
-		// GET: api/Users
 		[HttpGet]
-		public async Task<ActionResult<IEnumerable<User>>> GetUsers()
+		public async Task<IEnumerable<User>> GetAllUsers()
 		{
-			return await _context.Users.ToListAsync();
+			return await _repositoryWrapper.User.GetAllUsersAsync();
 		}
 
-		// GET: api/Users/5
 		[HttpGet("{id}")]
-		public async Task<ActionResult<User>> GetUser(int id)
+		public async Task<ActionResult<User>> GetUserById(int id)
 		{
-			var user = await _context.Users.FindAsync(id);
+			var user = await _repositoryWrapper.User.GetUserByIdAsync(id);
 
 			if (user == null)
-			{
 				return NotFound();
-			}
 
 			return user;
 		}
 
-		// PUT: api/Users/5
-		// To protect from overposting attacks, please enable the specific properties you want to bind to, for
-		// more details see https://aka.ms/RazorPagesCRUD.
-		[HttpPut("{id}")]
-		public async Task<IActionResult> PutUser(int id, User user)
+		[HttpPost]
+		public async Task<ActionResult<User>> CreateUser(User user)
 		{
-			if (id != user.ID)
-			{
+			if (user == null)
 				return BadRequest();
-			}
 
-			_context.Entry(user).State = EntityState.Modified;
+			_repositoryWrapper.User.Create(user);
+			await _repositoryWrapper.SaveAsync();
 
-			try
-			{
-				await _context.SaveChangesAsync();
-			}
-			catch (DbUpdateConcurrencyException)
-			{
-				if (!UserExists(id))
-				{
-					return NotFound();
-				}
-				else
-				{
-					throw;
-				}
-			}
+			return CreatedAtAction("CreateUser", new { id = user.ID }, user);
+		}
+
+		[HttpPut("{id}")]
+		public async Task<IActionResult> UpdateUser(int id, User user)
+		{
+			if (user == null || user.ID != id)
+				return BadRequest();
+			
+			_repositoryWrapper.User.Update(user);
+			await _repositoryWrapper.SaveAsync();
 
 			return NoContent();
 		}
 
-		// POST: api/Users
-		// To protect from overposting attacks, please enable the specific properties you want to bind to, for
-		// more details see https://aka.ms/RazorPagesCRUD.
-		[HttpPost]
-		public async Task<ActionResult<User>> PostUser(User user)
-		{
-			_context.Users.Add(user);
-			await _context.SaveChangesAsync();
-
-			var tableName = "Films_" + user.ID.ToString();
-
-			using (var context = new UserContext())
-			{
-				await context.Database.ExecuteSqlRawAsync((string)$"CREATE TABLE {tableName} (ID int  IDENTITY(1,1) PRIMARY KEY, ExternalID varchar(255), CreatedAt datetime2(7) NOT NULL)");
-			}
-
-			return CreatedAtAction("GetUser", new { id = user.ID }, user);
-		}
-
-		// DELETE: api/Users/5
 		[HttpDelete("{id}")]
 		public async Task<ActionResult<User>> DeleteUser(int id)
 		{
-			var user = await _context.Users.FindAsync(id);
+			var user = await _repositoryWrapper.User.GetUserByIdAsync(id);
 			if (user == null)
-			{
 				return NotFound();
-			}
 
-			_context.Users.Remove(user);
-			await _context.SaveChangesAsync();
+			_repositoryWrapper.User.Delete(user);
+			await _repositoryWrapper.SaveAsync();
 
 			return user;
 		}
-
-		private bool UserExists(int id)
-		{
-			return _context.Users.Any(e => e.ID == id);
-		}
-
-		#endregion
-
-		#region Films
-
-		// GET: api/Users/1/Films
-		[HttpGet("{userId}/films")]
-		public async Task<ActionResult<IEnumerable<Film>>> GetFilms(int userId)
-		{
-			List<Film> films;
-
-			if (!UserExists(userId))
-			{
-				return NotFound();
-			}
-
-			var tableName = "Films_" + userId.ToString();
-
-			using (var context = new UserContext())
-			{
-				films = await context.Films.FromSqlRaw((string)$"SELECT * FROM {tableName}").ToListAsync();
-			}
-
-			return films;
-		}
-
-		// GET: api/Users/1/Films/2
-		[HttpGet("{userId}/films/{id}")]
-		public async Task<ActionResult<Film>> GetFilm(int userId, int id)
-		{
-			Film film;
-
-			if (!UserExists(userId))
-			{
-				return NotFound();
-			}
-
-			var tableName = "Films_" + userId.ToString();
-
-			using (var context = new UserContext())
-			{
-				film = await context.Films.FromSqlRaw((string)$"SELECT * FROM {tableName} WHERE ID = {id}").FirstOrDefaultAsync();
-			}
-
-			return film;
-		}
-
-
-		// POST: api/Users/1/films
-		// To protect from overposting attacks, please enable the specific properties you want to bind to, for
-		// more details see https://aka.ms/RazorPagesCRUD.
-		[HttpPost("{userId}/films")]
-		public async Task<ActionResult<Film>> PostFilm(int userId, Film film)
-		{
-			if (!UserExists(userId))
-			{
-				return NotFound();
-			}
-
-			var tableName = "Films_" + userId.ToString();
-
-			using (var context = new UserContext())
-			{
-				await context.Database.ExecuteSqlRawAsync((string)$"INSERT INTO {tableName} (ExternalID, CreatedAt) VALUES ('{film.ExternalID}', '{film.CreatedAt}')");
-			}
-
-			return film;
-		}
-
-		// DELETE: api/Users/1/films/1
-		[HttpDelete("{userId}/films/{id}")]
-		public async Task<ActionResult<Film>> DeleteFilm(int userId, int id)
-		{
-			Film film;
-
-			var tableName = "Films_" + userId.ToString();
-
-			using (var context = new UserContext())
-			{
-				film = await context.Films.FromSqlRaw((string)$"SELECT * FROM {tableName} WHERE ID = {id}").FirstOrDefaultAsync();
-				await context.Database.ExecuteSqlRawAsync((string)$"Delete FROM {tableName} WHERE ID = {id}");
-			}
-
-			return film;
-		}
-
-		#endregion
 	}
 }
