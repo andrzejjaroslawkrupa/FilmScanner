@@ -1,31 +1,43 @@
-﻿using NUnit.Framework;
-using System.Threading.Tasks;
-using Moq;
+﻿using Moq;
+using NUnit.Framework;
 using OmdbServicesLibs.Omdb;
 using OmdbServicesLibs.Omdb.Interfaces;
+using System.Threading.Tasks;
 
-namespace OmdbServicesLibsTests
+namespace OmdbServicesLibs.Tests
 {
 	[TestFixture]
 	public class GetSearchResultsTests
 	{
-		private Mock<IApiKeyProvider> _ApiKeyProviderMock;
+		private Mock<IApiKeyProvider> _apiKeyProviderMock;
 
 		[SetUp]
 		public void Setup()
 		{
-			_ApiKeyProviderMock = new Mock<IApiKeyProvider>();
-			_ApiKeyProviderMock.Setup(m => m.GetApiKey).Returns("apiKey");
+			_apiKeyProviderMock = new Mock<IApiKeyProvider>();
+			_apiKeyProviderMock.Setup(m => m.GetApiKey).Returns("apiKey");
 		}
 
 		[Test]
 		public async Task ReturnSearchResults_Critera_GetApiKeyUsedOnce()
 		{
-			var getSearchResults = new GetSearchResults(_ApiKeyProviderMock.Object);
+			var getSearchResults = new GetSearchResults(_apiKeyProviderMock.Object);
 
 			await getSearchResults.ReturnSearchResults("critera", null);
 
-			_ApiKeyProviderMock.Verify(m => m.GetApiKey, Times.Once);
+			_apiKeyProviderMock.Verify(m => m.GetApiKey, Times.Once);
+		}
+
+		[Test]
+		public async Task ReturnSearchResults_NoApiKey_EmptyModel()
+		{
+			var getSearchResults = new GetSearchResults(_apiKeyProviderMock.Object);
+
+			var result = await getSearchResults.ReturnSearchResults("critera", null);
+
+			Assert.That(result.TotalResults, Is.Null);
+			Assert.That(result.Searches, Is.Null);
+			Assert.That(result.Response, Is.EqualTo("False"));
 		}
 	}
 }

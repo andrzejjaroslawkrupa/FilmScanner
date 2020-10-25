@@ -1,41 +1,41 @@
-using System.Threading.Tasks;
 using Moq;
 using NUnit.Framework;
 using OmdbServicesLibs.Omdb.Interfaces;
 using OmdbServicesLibs.Services;
+using System.Threading.Tasks;
 
-namespace OmdbServicesLibsTests
+namespace OmdbServicesLibs.Tests
 {
 	public class OmdbServiceTests
 	{
-		private Mock<IGetSearchResults> _GetSearchResultsMock;
-		private Mock<IGetFilmById> _GetFilmByIdMock;
+		private Mock<IGetSearchResults> _getSearchResultsMock;
+		private Mock<IGetFilmById> _getFilmByIdMock;
 
 		[SetUp]
 		public void Setup()
 		{
-			_GetSearchResultsMock = new Mock<IGetSearchResults>();
-			_GetFilmByIdMock = new Mock<IGetFilmById>();
+			_getSearchResultsMock = new Mock<IGetSearchResults>();
+			_getFilmByIdMock = new Mock<IGetFilmById>();
 		}
 
 		[Test]
 		public async Task GetSearchResultsBasedOnSearchCritera_ReturnSearchResultsWasUsedOnce()
 		{
-			var service = new OmdbService(_GetSearchResultsMock.Object, _GetFilmByIdMock.Object);
+			var service = new OmdbService(_getSearchResultsMock.Object, _getFilmByIdMock.Object);
 
 			await service.GetSearchResultsBasedOnSearchCritera("critera", null);
 
-			_GetSearchResultsMock.Verify(m => m.ReturnSearchResults("critera", null), Times.Once);
+			_getSearchResultsMock.Verify(m => m.ReturnSearchResults("critera", null), Times.Once);
 		}
 
 		[Test]
 		public async Task GetFilmById_ReturnFilmWasUsedOnce()
 		{
-			var service = new OmdbService(_GetSearchResultsMock.Object, _GetFilmByIdMock.Object);
+			var service = new OmdbService(_getSearchResultsMock.Object, _getFilmByIdMock.Object);
 
 			await service.GetFilmBasedOnImdbId("id");
 
-			_GetFilmByIdMock.Verify(m => m.ReturnFilm("id"), Times.Once);
+			_getFilmByIdMock.Verify(m => m.ReturnFilm("id"), Times.Once);
 		}
 	}
 }
