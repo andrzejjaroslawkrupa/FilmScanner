@@ -2,9 +2,9 @@ name: Docker Image CI
 
 on:
   push:
-    branches: [ master, test ]
+    branches: [ master ]
   pull_request:
-    branches: [ master, test ]
+    branches: [ master ]
 
 jobs:
 
@@ -16,7 +16,7 @@ jobs:
     - uses: actions/checkout@v2
     - name: Set up Docker Buildx
       id: buildx
-      uses: crazy-max/ghaction-docker-buildx@v3
+      uses: crazy-max/ghaction-docker-buildx@v3.3.1
       with:
           buildx-version: latest
           qemu-version: latest
@@ -27,13 +27,11 @@ jobs:
     - name: Run Buildx
       run: docker buildx build . --file Dockerfile --tag my-image-name:$(date +%s) --platform linux/amd64,linux/arm/v7,linux/arm64
     - name: Publish to docker with buildx as latest
-      if: steps.semantic.outputs.new_release_published == 'true' && github.ref == 'refs/heads/master'
       run: |
           docker buildx build \
             --platform linux/amd64,linux/arm/v7,linux/arm64 \
             --push \
             -t $GITHUB_REPOSITORY:latest \
-            -t $GITHUB_REPOSITORY:${{ steps.semantic.outputs.new_release_version }} \
             --build-arg BUILD_DATE=$(date -u +'%Y-%m-%dT%H:%M:%SZ') \
             --build-arg VSC_REF=$(echo ${GITHUB_SHA} | cut -c1-8) \
             .
