@@ -17,8 +17,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\FilmScanner.Api\FilmScanner.Api.csproj" />
-    <ProjectReference Include="..\FilmScanner.Client\FilmScanner.Client.csproj" />
     <ProjectReference Include="..\OmdbServicesLibs\OmdbServicesLibs.csproj" />
   </ItemGroup>
 
