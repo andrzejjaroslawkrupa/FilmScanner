@@ -7,16 +7,16 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
 WORKDIR /src
-COPY ["/FilmScanner.Client/ClientApp/src/environments/environment.prod.ts", "/FilmScanner.Client/ClientApp/src/environments/environment.ts"]
-COPY ["FilmScanner.Client/FilmScanner.Client.csproj", "FilmScanner.Client/"]
-COPY ["OmdbServicesLibs/OmdbServicesLibs.csproj", "OmdbServicesLibs/"]
-RUN dotnet restore "FilmScanner.Client/FilmScanner.Client.csproj"
+COPY ["/FilmScanner/ClientApp/src/environments/environment.prod.ts", "/FilmScanner/ClientApp/src/environments/environment.ts"]
+COPY ["FilmScanner/FilmScanner.csproj", "FilmScanner/"]
+COPY ["OmdbLibs/OmdbServicesLibs.csproj", "OmdbLibs/"]
+RUN dotnet restore "FilmScanner/FilmScanner.csproj"
 COPY . .
-WORKDIR "/src/FilmScanner.Client"
-RUN dotnet build "FilmScanner.Client.csproj" -c Release -o /app/build
+WORKDIR "/src/FilmScanner"
+RUN dotnet build "FilmScanner.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "FilmScanner.Client.csproj" -c Release -o /app/publish
+RUN dotnet publish "FilmScanner.csproj" -c Release -o /app/publish
 
 #Angular build
 FROM node as nodebuilder
@@ -29,16 +29,16 @@ WORKDIR /usr/src/app
 ENV PATH /usr/src/app/node_modules/.bin:$PATH
 
 # install and cache app dependencies
-COPY FilmScanner.Client/ClientApp/package-lock.json /usr/src/app/package-lock.json
-COPY FilmScanner.Client/ClientApp/package.json /usr/src/app/package.json
+COPY FilmScanner/ClientApp/package-lock.json /usr/src/app/package-lock.json
+COPY FilmScanner/ClientApp/package.json /usr/src/app/package.json
 RUN npm ci --only=production
 RUN npm install
 RUN npm install -g @angular/cli@9.1.0 --unsafe
 
 # add app
 
-COPY FilmScanner.Client/ClientApp/src/environments/environment.prod.ts /usr/src/app/src/environments/environment.ts
-COPY FilmScanner.Client/ClientApp/. /usr/src/app
+COPY FilmScanner/ClientApp/src/environments/environment.prod.ts /usr/src/app/src/environments/environment.ts
+COPY FilmScanner/ClientApp/. /usr/src/app
 
 RUN npm run build-prod
 
@@ -49,4 +49,4 @@ WORKDIR /app
 COPY --from=publish /app/publish .
 RUN mkdir -p /app/ClientApp/dist
 COPY --from=nodebuilder /usr/src/app/dist/. /app/ClientApp/dist/
-ENTRYPOINT ["dotnet", "FilmScanner.Client.dll"]
+ENTRYPOINT ["dotnet", "FilmScanner.dll"]

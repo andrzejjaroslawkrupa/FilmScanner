@@ -239,5 +239,3 @@ FilmScanner/.vscode/tasks.json
 
 # API appsettings
 FilmScanner/appsettings.Development.json
-/FilmScanner.Api/appsettings.Development.json
-/FilmScanner.Client/appsettings.Development.json

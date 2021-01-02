@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29728.190
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OmdbServicesLibs", "OmdbServicesLibs\OmdbServicesLibs.csproj", "{559F6ED5-88C1-45DF-A4D6-74E986C02B64}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FilmScanner", "FilmScanner\FilmScanner.csproj", "{F41FC3D0-AECE-4DC2-8CC5-54BCB2B3048A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OmdbServicesLibs.Tests", "OmdbServicesLibs.Tests\OmdbServicesLibs.Tests.csproj", "{34A0C2E4-A8CE-420C-84F6-E8E64DC581B7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OmdbServicesLibs", "OmdbLibs\OmdbServicesLibs.csproj", "{559F6ED5-88C1-45DF-A4D6-74E986C02B64}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OmdbServicesLibs.Tests", "OmdbServicesLibsTests\OmdbServicesLibs.Tests.csproj", "{34A0C2E4-A8CE-420C-84F6-E8E64DC581B7}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FilmScanner.Contracts", "FilmScanner.Contracts\FilmScanner.Contracts.csproj", "{A4E7EC51-CFB5-4086-8238-D98D724016F8}"
 EndProject
@@ -15,16 +17,16 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FilmScanner.Repository", "F
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FilmScanner.Tests", "FilmScanner.Tests\FilmScanner.Tests.csproj", "{9609863C-F33A-449E-A575-C73BC01407B0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FilmScanner.Client", "FilmScanner.Client\FilmScanner.Client.csproj", "{AD97F267-212B-47A8-BEDE-DC5ADE4B5CFC}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FilmScanner.Api", "FilmScanner.Api\FilmScanner.Api.csproj", "{EA1D483F-8EC3-49D6-B8CD-227CD429C51D}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F41FC3D0-AECE-4DC2-8CC5-54BCB2B3048A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F41FC3D0-AECE-4DC2-8CC5-54BCB2B3048A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F41FC3D0-AECE-4DC2-8CC5-54BCB2B3048A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F41FC3D0-AECE-4DC2-8CC5-54BCB2B3048A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{559F6ED5-88C1-45DF-A4D6-74E986C02B64}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{559F6ED5-88C1-45DF-A4D6-74E986C02B64}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{559F6ED5-88C1-45DF-A4D6-74E986C02B64}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -49,14 +51,6 @@ Global
 		{9609863C-F33A-449E-A575-C73BC01407B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9609863C-F33A-449E-A575-C73BC01407B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9609863C-F33A-449E-A575-C73BC01407B0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AD97F267-212B-47A8-BEDE-DC5ADE4B5CFC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AD97F267-212B-47A8-BEDE-DC5ADE4B5CFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AD97F267-212B-47A8-BEDE-DC5ADE4B5CFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AD97F267-212B-47A8-BEDE-DC5ADE4B5CFC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EA1D483F-8EC3-49D6-B8CD-227CD429C51D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EA1D483F-8EC3-49D6-B8CD-227CD429C51D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EA1D483F-8EC3-49D6-B8CD-227CD429C51D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EA1D483F-8EC3-49D6-B8CD-227CD429C51D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
