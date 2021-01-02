@@ -27,7 +27,7 @@ jobs:
     - name: Publish to docker with buildx as latest
       run: |
           docker buildx build \
-            --platform linux/amd64,linux/arm/v7,linux/arm64 \
+            --platform linux/amd64 \
             --output=type=registry \
             -t ${{ secrets.DOCKER_LOGIN }}/filmscanner:latest \
             --build-arg BUILD_DATE=$(date -u +'%Y-%m-%dT%H:%M:%SZ') \

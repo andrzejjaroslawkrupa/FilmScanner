@@ -1,4 +1,4 @@
-﻿import { HttpClient } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Film } from './film';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -14,7 +14,7 @@ export class FilmsService {
     return this.http.get<SearchResult>(this.getUrlWithTitleAndPage(movieTitle, page));
   }
 
-  private getUrlWithTitleAndPage(movieTitle: string, page: number) {
+  private getUrlWithTitleAndPage(movieTitle: string, page: number): string {
     return 'api/externalfilms/search/' + movieTitle + '/' + page;
   }
 
@@ -22,7 +22,7 @@ export class FilmsService {
     return this.http.get<Film>(this.getUrlWithID(movieID));
   }
 
-  private getUrlWithID(movieID: string) {
+  private getUrlWithID(movieID: string): string {
     return 'api/externalfilms/film/' + movieID;
   }
 }
