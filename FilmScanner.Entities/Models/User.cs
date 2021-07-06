@@ -6,7 +6,7 @@ namespace FilmScanner.Entities.Models
 {
 	public class User
 	{
-		[Required]
+		[Key]
 		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 		public int ID { get; set; }
 

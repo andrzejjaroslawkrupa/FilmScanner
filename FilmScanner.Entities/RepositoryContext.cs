@@ -10,7 +10,10 @@ namespace FilmScanner.Entities
 		}
 
 		public RepositoryContext(DbContextOptions<RepositoryContext> options)
-		  : base(options) { }
+		  : base(options) 
+		{
+			Database.EnsureCreated();
+		}
 
 		public DbSet<User> Users { get; set; }
 		public DbSet<FilmRecord> FilmsRecords { get; set; }
