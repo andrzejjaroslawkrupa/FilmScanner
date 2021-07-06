@@ -31,7 +31,7 @@ namespace FilmScanner
 			});
 
 			services.AddDbContext<RepositoryContext>(options =>
-				options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+				options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
 
 			services.AddMvc();
 			services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
