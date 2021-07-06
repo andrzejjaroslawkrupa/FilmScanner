@@ -67,7 +67,7 @@ namespace FilmScanner.Tests.Controllers
 					CreatedAt = DateTime.Now,
 					ExternalID = "externalId2",
 					ID = 2,
-					UserRefID = 1
+					UserId = 1
 				}
 			};
 			_repositoryMock.Setup(r => r.FilmRecord.GetAllFilmRecordsForUserAsync(It.IsAny<int>()))
@@ -273,7 +273,7 @@ namespace FilmScanner.Tests.Controllers
 				ID = 1,
 				CreatedAt = DateTime.Now,
 				ExternalID = "externalId",
-				UserRefID = 1
+				UserId = 1
 			};
 		}
 	}

@@ -21,7 +21,7 @@ namespace FilmScanner.Repository
 
 		public async Task<FilmRecord> GetFilmRecordForUserByIdAsync(int userId, int id)
 		{
-			return await FindByCondition(f => f.UserRefID == userId && f.ID == id).FirstOrDefaultAsync();
+			return await FindByCondition(f => f.UserId == userId && f.ID == id).FirstOrDefaultAsync();
 		}
 	}
 }

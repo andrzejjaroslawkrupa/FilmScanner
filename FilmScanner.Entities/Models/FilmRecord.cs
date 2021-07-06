@@ -7,11 +7,12 @@ namespace FilmScanner.Entities.Models
 	public class FilmRecord
 	{
 		[Required]
+		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 		public int ID { get; set; }
 
 		[Required]
 		[ForeignKey("User")]
-		public int UserRefID { get; set; }
+		public int UserId { get; set; }
 
 		[Required]
 		public string ExternalID { get; set; }
