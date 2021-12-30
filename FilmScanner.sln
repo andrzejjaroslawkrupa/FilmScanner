@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29728.190
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32002.185
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FilmScanner", "FilmScanner\FilmScanner.csproj", "{F41FC3D0-AECE-4DC2-8CC5-54BCB2B3048A}"
 EndProject
@@ -16,6 +16,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FilmScanner.Repository", "FilmScanner.Repository\FilmScanner.Repository.csproj", "{56A9B262-906D-42E0-B127-3735DD430C34}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FilmScanner.Tests", "FilmScanner.Tests\FilmScanner.Tests.csproj", "{9609863C-F33A-449E-A575-C73BC01407B0}"
+EndProject
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "Client", "Client\Client.esproj", "{DF836A28-136B-4BE1-AD58-C89FF06A1F62}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,12 @@ Global
 		{9609863C-F33A-449E-A575-C73BC01407B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9609863C-F33A-449E-A575-C73BC01407B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9609863C-F33A-449E-A575-C73BC01407B0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF836A28-136B-4BE1-AD58-C89FF06A1F62}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF836A28-136B-4BE1-AD58-C89FF06A1F62}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF836A28-136B-4BE1-AD58-C89FF06A1F62}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{DF836A28-136B-4BE1-AD58-C89FF06A1F62}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF836A28-136B-4BE1-AD58-C89FF06A1F62}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF836A28-136B-4BE1-AD58-C89FF06A1F62}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,0 +1,38 @@
+<header>
+  <div class="row bg-white border-bottom box-shadow text-center">
+    <a class="col-3"><img src="assets/logo.png" (click)="reset()" id="logo"></a>
+    <div class="col-6 my-auto">
+      <mat-form-field>
+        <mat-label>Look for a film</mat-label>
+        <input [matAutocomplete]="auto" matInput #search (input)="onInput(search.value)">
+      </mat-form-field>
+      <mat-autocomplete class="search-dropdown" #auto="matAutocomplete">
+        <div *ngIf="films">
+          <mat-option *ngFor="let film of films.searches" (onSelectionChange)="selectfilm(film.imdbID)">
+            <div class="row mb-3 align-items-center">
+              <div class="col-1 col-md-offset-1">
+                <div *ngIf="film.poster!='N/A'; else default_poster">
+                  <img src="{{ film.poster }}" />
+                </div>
+                <ng-template #default_poster>
+                  <img src="assets/camera.png">
+                </ng-template>
+              </div>
+              <div class="col-11" id="margin-left">
+                {{ film.title }} ({{ film.year }})
+              </div>
+            </div>
+          </mat-option>
+        </div>
+      </mat-autocomplete>
+    </div>
+    <div class="col-3 my-auto">
+      <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse"
+          aria-label="Toggle navigation" [attr.aria-expanded]="isExpanded" (click)="toggle()">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      </nav>
+    </div>
+  </div>
+</header>
