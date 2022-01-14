@@ -239,5 +239,6 @@ FilmScanner/.vscode/tasks.json
 
 # API appsettings
 FilmScanner/appsettings.Development.json
+FilmScanner.API/appsettings.Development.json
 /Client/.angular/cache
 /Client/.vscode
