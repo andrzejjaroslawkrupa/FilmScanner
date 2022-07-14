@@ -15,7 +15,7 @@ export class FilmsService {
   }
 
   private getUrlWithTitleAndPage(movieTitle: string, page: number): string {
-    return 'api/externalfilms/search/' + movieTitle + '/' + page;
+    return 'https://localhost:5001/api/externalfilms/search/' + movieTitle + '/' + page;
   }
 
   searchFilmByID(movieID: string): Observable<Film> {
@@ -23,6 +23,6 @@ export class FilmsService {
   }
 
   private getUrlWithID(movieID: string): string {
-    return 'api/externalfilms/film/' + movieID;
+    return 'https://localhost:5001/api/externalfilms/film/' + movieID;
   }
 }
