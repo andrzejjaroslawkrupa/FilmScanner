@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using FilmScanner.Controllers;
+using FilmScanner.API.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using NUnit.Framework;

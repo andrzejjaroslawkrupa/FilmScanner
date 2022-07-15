@@ -15,8 +15,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FilmScanner.Repository", "F
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FilmScanner.Tests", "FilmScanner.Tests\FilmScanner.Tests.csproj", "{9609863C-F33A-449E-A575-C73BC01407B0}"
 EndProject
-Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "Client", "Client\Client.esproj", "{DF836A28-136B-4BE1-AD58-C89FF06A1F62}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FilmScanner.API", "FilmScanner.API\FilmScanner.API.csproj", "{75BCE6C2-B367-41FA-B1EE-F21982B219F8}"
 EndProject
 Global
@@ -49,12 +47,6 @@ Global
 		{9609863C-F33A-449E-A575-C73BC01407B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9609863C-F33A-449E-A575-C73BC01407B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9609863C-F33A-449E-A575-C73BC01407B0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DF836A28-136B-4BE1-AD58-C89FF06A1F62}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DF836A28-136B-4BE1-AD58-C89FF06A1F62}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DF836A28-136B-4BE1-AD58-C89FF06A1F62}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
-		{DF836A28-136B-4BE1-AD58-C89FF06A1F62}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DF836A28-136B-4BE1-AD58-C89FF06A1F62}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DF836A28-136B-4BE1-AD58-C89FF06A1F62}.Release|Any CPU.Deploy.0 = Release|Any CPU
 		{75BCE6C2-B367-41FA-B1EE-F21982B219F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{75BCE6C2-B367-41FA-B1EE-F21982B219F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{75BCE6C2-B367-41FA-B1EE-F21982B219F8}.Release|Any CPU.ActiveCfg = Release|Any CPU

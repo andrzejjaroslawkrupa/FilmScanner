@@ -1,5 +1,5 @@
 ﻿using FilmScanner.Contracts;
-using FilmScanner.Controllers;
+using FilmScanner.API.Controllers;
 using FilmScanner.Entities.Models;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
