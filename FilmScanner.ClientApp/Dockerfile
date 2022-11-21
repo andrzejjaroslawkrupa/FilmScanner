@@ -15,7 +15,6 @@ RUN npm ci --only=production
 RUN npm install
 RUN npm install -g @angular/cli
 
-COPY FilmScanner.ClientApp/src/environments/environment.prod.ts /usr/src/app/src/environments/environment.ts
 COPY FilmScanner.ClientApp/. /usr/src/app
 
 RUN npm run build --configuration=production
