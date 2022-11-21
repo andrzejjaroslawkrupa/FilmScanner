@@ -2,7 +2,8 @@ version: "3"
 
 networks:
   filmscanner:
-    driver: bridge 
+    driver: bridge
+  ui:
 
 volumes:
   db-filmscanner:
@@ -31,6 +32,7 @@ services:
       - postgres
     networks:
       - filmscanner
+      - ui
     container_name: filmscanner.api
     environment:
       DB_CONNECTION_STRING: ${DB_CONNECTION_STRING}
@@ -39,3 +41,14 @@ services:
       - 4040:80
     depends_on:
       - postgres
+  ui:
+    build:
+      context: .
+      dockerfile: FilmScanner.ClientApp\Dockerfile
+    container_name: filmscanner.ui
+    ports: 
+      - 4200:4200
+    networks:
+      - ui
+    depends_on:
+      - filmscanner-api
