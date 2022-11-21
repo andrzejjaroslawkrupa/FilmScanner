@@ -105,7 +105,7 @@ export class CarouselComponent implements DoCheck, OnChanges {
 
   populateBuffer(): void {
     this.bufferedSlides = this.slides.slice(this.startingIndex(), this.endingIndex()).reverse();
-    if (this.getIsPreviousPageLast() && this.slides !== []) {
+    if (this.getIsPreviousPageLast() && this.slides.length > 0) {
       this._debouncer.next(this.getIsPreviousPageLast());
     }
 
