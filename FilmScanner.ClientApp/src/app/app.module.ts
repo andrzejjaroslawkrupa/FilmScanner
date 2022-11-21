@@ -37,7 +37,7 @@ import { CarouselComponent } from './carousel/carousel.component';
     { path: '', component: HomeComponent, pathMatch: 'full' },
     { path: 'profile', component: ProfileComponent },
     { path: 'film-overview', component: FilmOverviewComponent },
-], { relativeLinkResolution: 'legacy' }),
+], {}),
     BrowserAnimationsModule,
     TextFieldModule,
     MatFormFieldModule,
