@@ -6,10 +6,10 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
-COPY ["FilmScanner.API/FilmScanner.API.csproj", "FilmScanner.API/"]
+COPY ["FilmScanner/FilmScanner.API/FilmScanner.API.csproj", "FilmScanner.API/"]
 RUN dotnet restore "FilmScanner.API/FilmScanner.API.csproj"
 COPY . .
-WORKDIR "/src/FilmScanner.API"
+WORKDIR "/src/FilmScanner/FilmScanner.API"
 RUN dotnet build "FilmScanner.API.csproj" -c Release -o /app/build
 
 FROM build AS publish

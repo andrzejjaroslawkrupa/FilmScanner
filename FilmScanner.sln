@@ -3,19 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32002.185
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OmdbServicesLibs", "OmdbLibs\OmdbServicesLibs.csproj", "{559F6ED5-88C1-45DF-A4D6-74E986C02B64}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OmdbServicesLibs", "FilmScanner\OmdbLibs\OmdbServicesLibs.csproj", "{559F6ED5-88C1-45DF-A4D6-74E986C02B64}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OmdbServicesLibs.Tests", "OmdbServicesLibsTests\OmdbServicesLibs.Tests.csproj", "{34A0C2E4-A8CE-420C-84F6-E8E64DC581B7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OmdbServicesLibs.Tests", "FilmScanner\OmdbServicesLibsTests\OmdbServicesLibs.Tests.csproj", "{34A0C2E4-A8CE-420C-84F6-E8E64DC581B7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FilmScanner.Contracts", "FilmScanner.Contracts\FilmScanner.Contracts.csproj", "{A4E7EC51-CFB5-4086-8238-D98D724016F8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FilmScanner.Contracts", "FilmScanner\FilmScanner.Contracts\FilmScanner.Contracts.csproj", "{A4E7EC51-CFB5-4086-8238-D98D724016F8}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FilmScanner.Entities", "FilmScanner.Entities\FilmScanner.Entities.csproj", "{A44EA9AB-73B2-45D4-99CB-24E30A485F3C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FilmScanner.Entities", "FilmScanner\FilmScanner.Entities\FilmScanner.Entities.csproj", "{A44EA9AB-73B2-45D4-99CB-24E30A485F3C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FilmScanner.Repository", "FilmScanner.Repository\FilmScanner.Repository.csproj", "{56A9B262-906D-42E0-B127-3735DD430C34}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FilmScanner.Repository", "FilmScanner\FilmScanner.Repository\FilmScanner.Repository.csproj", "{56A9B262-906D-42E0-B127-3735DD430C34}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FilmScanner.Tests", "FilmScanner.Tests\FilmScanner.Tests.csproj", "{9609863C-F33A-449E-A575-C73BC01407B0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FilmScanner.Tests", "FilmScanner\FilmScanner.Tests\FilmScanner.Tests.csproj", "{9609863C-F33A-449E-A575-C73BC01407B0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FilmScanner.API", "FilmScanner.API\FilmScanner.API.csproj", "{75BCE6C2-B367-41FA-B1EE-F21982B219F8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FilmScanner.API", "FilmScanner\FilmScanner.API\FilmScanner.API.csproj", "{75BCE6C2-B367-41FA-B1EE-F21982B219F8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
