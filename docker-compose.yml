@@ -47,7 +47,7 @@ services:
       dockerfile: FilmScanner.ClientApp\Dockerfile
     container_name: filmscanner.ui
     ports: 
-      - 4200:4200
+      - 4200:80
     networks:
       - ui
     depends_on:

@@ -18,3 +18,7 @@ RUN npm install -g @angular/cli
 COPY FilmScanner.ClientApp/. /usr/src/app
 
 RUN npm run build --configuration=production
+
+FROM nginx:latest
+COPY --from=nodebuilder usr/src/app/dist /usr/share/nginx/html
+EXPOSE 80
