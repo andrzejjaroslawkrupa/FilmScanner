@@ -231,7 +231,6 @@ _Pvt_Extensions
 .fake/
 
 # Angular Enviroment
-FilmScanner/ClientApp/src/environments/environment.ts
 .vscode/launch.json
 .vscode/tasks.json
 FilmScanner/.vscode/launch.json
@@ -239,3 +238,7 @@ FilmScanner/.vscode/tasks.json
 
 # API appsettings
 FilmScanner/appsettings.Development.json
+FilmScanner.API/appsettings.Development.json
+/Client/.angular/cache
+/Client/.vscode
+/.env
