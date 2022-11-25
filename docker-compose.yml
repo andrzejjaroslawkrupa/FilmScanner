@@ -1,0 +1,54 @@
+version: "3"
+
+networks:
+  filmscanner:
+    driver: bridge
+  ui:
+
+volumes:
+  db-filmscanner:
+
+services:
+  db:
+    container_name: filmscanner.db
+    environment:
+      POSTGRES_DB: filmscanner
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    hostname: db
+    image: postgres:13
+    restart: unless-stopped
+    networks:
+      - filmscanner
+    ports:
+      - 5442:5432
+    volumes:
+      - db-filmscanner:/var/lib/postgresql/data
+  filmscanner-api:
+    build:
+      context: .
+      dockerfile: FilmScanner\Dockerfile
+    container_name: filmscanner.api
+    depends_on:
+      - db
+    environment:
+      DB_CONNECTION_STRING: ${DB_CONNECTION_STRING}
+      OMDB_API_KEY: ${OMDB_API_KEY}
+    links:
+      - db
+    networks:
+      - filmscanner
+      - ui
+    ports:
+      - 5000:80
+  ui:
+    build:
+      context: .
+      dockerfile: FilmScanner.ClientApp\Dockerfile
+    container_name: filmscanner.ui
+    depends_on:
+      - filmscanner-api
+    ports: 
+      - 4200:80
+    networks:
+      - ui
