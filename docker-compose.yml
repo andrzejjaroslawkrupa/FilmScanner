@@ -24,16 +24,15 @@ services:
       - 5442:5432
     volumes:
       - db-filmscanner:/var/lib/postgresql/data
-  filmscanner-api:
+  filmscanner-module:
     build:
       context: .
-      dockerfile: FilmScanner\Dockerfile
-    container_name: filmscanner.api
+      dockerfile: FilmScannerModule\Dockerfile
+    container_name: filmscanner.module
     depends_on:
       - db
     environment:
       DB_CONNECTION_STRING: ${DB_CONNECTION_STRING}
-      OMDB_API_KEY: ${OMDB_API_KEY}
     links:
       - db
     networks:
@@ -41,13 +40,24 @@ services:
       - ui
     ports:
       - 5000:80
+  omdb-module:
+    build:
+      context: .
+      dockerfile: OmdbModule\Dockerfile
+    container_name: omdb.module
+    environment:
+      OMDB_API_KEY: ${OMDB_API_KEY}
+    networks:
+      - ui
+    ports:
+      - 5001:80
   ui:
     build:
       context: .
-      dockerfile: FilmScanner.ClientApp\Dockerfile
+      dockerfile: ClientApp\Dockerfile
     container_name: filmscanner.ui
     depends_on:
-      - filmscanner-api
+      - filmscanner-module
     ports: 
       - 4200:80
     networks:

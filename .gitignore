@@ -242,3 +242,4 @@ FilmScanner.API/appsettings.Development.json
 /Client/.angular/cache
 /Client/.vscode
 /.env
+.vs/
