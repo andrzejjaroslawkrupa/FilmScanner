@@ -1,6 +1,6 @@
 {
   "profiles": {
-    "OmdbModule": {
+    "Omdb.Web": {
       "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "swagger",
