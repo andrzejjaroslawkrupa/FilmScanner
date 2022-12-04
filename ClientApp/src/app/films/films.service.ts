@@ -3,6 +3,7 @@ import { Film } from './film';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { SearchResult } from './searchResult';
+import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class FilmsService {
@@ -15,7 +16,7 @@ export class FilmsService {
   }
 
   private getUrlWithTitleAndPage(movieTitle: string, page: number): string {
-    return 'http://localhost:5001/api/films/search/' + movieTitle + '/' + page;
+    return environment.omdbApiAddress + '/search/' + movieTitle + '/' + page;
   }
 
   searchFilmByID(movieID: string): Observable<Film> {
@@ -23,6 +24,6 @@ export class FilmsService {
   }
 
   private getUrlWithID(movieID: string): string {
-    return 'http://localhost:5001/api/films/film/' + movieID;
+    return environment.omdbApiAddress + '/film/' + movieID;
   }
 }

@@ -17,7 +17,7 @@ RUN npm install -g @angular/cli
 
 COPY ClientApp/. /usr/src/app
 
-RUN npm run build --configuration=production
+RUN npm run build-prod
 
 FROM nginx:latest
 COPY --from=nodebuilder usr/src/app/dist /usr/share/nginx/html
