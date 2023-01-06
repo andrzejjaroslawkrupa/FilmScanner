@@ -21,7 +21,7 @@ export class NavMenuComponent {
       .subscribe(data => this.films = data);
   }
 
-  selectfilm(imdbID: string) {
+  selectFilm(imdbID: string) {
     this.router.navigate(['/film-overview'],
       { queryParams: { filmID: imdbID } });
   }
