@@ -3,7 +3,7 @@
 }
 
 img {
-  width: 80px;
+  width: 120px;
 
   &:hover {
     cursor: pointer;
@@ -43,13 +43,8 @@ html {
   box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.05);
 }
 
-.mat-form-field {
+.search-form {
   width: 100%;
-}
-
-.mat-option {
-  min-height: 120px;
-  max-height: 200px;
 }
 
 .btn-circle.btn-sm {
