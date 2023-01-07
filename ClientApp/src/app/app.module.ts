@@ -10,7 +10,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { FilmOverviewComponent } from './film-overview/film-overview.component';
-import { FilmsService } from './films/films.service';
+import { FilmsService } from './services/films.service';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgModule } from '@angular/core';
@@ -19,6 +19,8 @@ import { ProfileComponent } from './profile/profile.component';
 import { RouterModule } from '@angular/router';
 import { TextFieldModule } from '@angular/cdk/text-field';
 import { CarouselComponent } from './carousel/carousel.component';
+import { LoginComponent } from './login/login.component';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -27,17 +29,19 @@ import { CarouselComponent } from './carousel/carousel.component';
     FilmOverviewComponent,
     NavMenuComponent,
     ProfileComponent,
-    CarouselComponent
+    CarouselComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
     FormsModule,
     RouterModule.forRoot([
-    { path: '', component: HomeComponent, pathMatch: 'full' },
-    { path: 'profile', component: ProfileComponent },
-    { path: 'film-overview', component: FilmOverviewComponent },
-], {}),
+      { path: '', component: HomeComponent, pathMatch: 'full' },
+      { path: 'profile', component: ProfileComponent },
+      { path: 'film-overview', component: FilmOverviewComponent },
+      { path: 'login', component: LoginComponent },
+    ], {}),
     BrowserAnimationsModule,
     TextFieldModule,
     MatFormFieldModule,
@@ -46,9 +50,10 @@ import { CarouselComponent } from './carousel/carousel.component';
     OverlayModule,
     ReactiveFormsModule,
     MatProgressSpinnerModule,
-    NgbModule
+    NgbModule,
+    MatButtonModule
   ],
-  providers: [AppTitleService, FilmsService, ],
+  providers: [AppTitleService, FilmsService,],
   bootstrap: [AppComponent],
 })
 export class AppModule { }

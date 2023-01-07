@@ -1,6 +1,6 @@
 import { AppTitleService } from '../services/appTitle.service';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { FilmsService } from '../films/films.service';
+import { FilmsService } from '../services/films.service';
 import { Router } from '@angular/router';
 import { SearchResult } from '../films/searchResult';
 import { Slide } from '../carousel/carousel.interface';
