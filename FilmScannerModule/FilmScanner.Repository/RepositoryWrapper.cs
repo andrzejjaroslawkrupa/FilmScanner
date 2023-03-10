@@ -8,12 +8,10 @@ namespace FilmScanner.Repository
 	{
 		private readonly RepositoryContext _repositoryContext;
 		private IFilmRecordRepository _film;
-		private IUserRepository _user;
 
 		public IFilmRecordRepository FilmRecord => _film ??= new FilmRecordRepository(_repositoryContext);
-		public IUserRepository User => _user ??= new UserRepository(_repositoryContext);
 
-		public RepositoryWrapper(RepositoryContext repositoryContext)
+        public RepositoryWrapper(RepositoryContext repositoryContext)
 		{
 			_repositoryContext = repositoryContext;
 		}

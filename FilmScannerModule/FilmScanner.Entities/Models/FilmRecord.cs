@@ -8,16 +8,10 @@ namespace FilmScanner.Entities.Models
 	{
 		[Key]
 		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-		public int ID { get; set; }
-
-		[Required]
-		[ForeignKey("User")]
-		public int UserId { get; set; }
-
-		[Required]
+		public int Id { get; set; }
 		public string ExternalID { get; set; }
-
-		[DataType(DataType.Date)]
 		public DateTime CreatedAt { get; set; }
+		public Guid UserId { get; set; }
+		public User User { get; set; }
 	}
 }

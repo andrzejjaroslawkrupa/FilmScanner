@@ -5,7 +5,6 @@ namespace FilmScanner.Contracts
 	public interface IRepositoryWrapper
 	{
 		IFilmRecordRepository FilmRecord { get; }
-		IUserRepository User { get; }
 		Task SaveAsync();
 	}
 }
