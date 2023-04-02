@@ -1,22 +1,11 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
+using System.Collections.Generic;
 
 namespace FilmScanner.Entities.Models
 {
-	public class User
-	{
-		[Key]
-		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-		public int ID { get; set; }
-
-		[Required]
-		public string UserName { get; set; }
-
-		[Required]
-		public string Password { get; set; }
-
-		[DataType(DataType.Date)]
-		public DateTime CreatedAt { get; set; }
-	}
+    public class User : IdentityUser<Guid>
+    {
+        public ICollection<FilmRecord> FilmRecords { get; set; }
+    }
 }

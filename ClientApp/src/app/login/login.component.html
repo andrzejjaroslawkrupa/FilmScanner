@@ -1,0 +1,14 @@
+<h5>Please, provide your credentials below</h5>
+<form>
+    <mat-form-field appearance="fill">
+        <mat-label>User Name</mat-label>
+        <input matInput placeholder="Enter your username" name="usename" [(ngModel)]="username">
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+        <mat-label>Password</mat-label>
+        <input matInput placeholder="Enter your password" value="" name="password" type="password"
+            [(ngModel)]="password">
+    </mat-form-field>
+    <button mat-raised-button color="primary" (click)="submit()">Submit</button>
+    <span *ngIf="show"> <button mat-button color="accent">You are now logged in!</button></span>
+</form>

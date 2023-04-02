@@ -1,5 +1,5 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { FilmsService } from '../films/films.service';
+import { FilmsService } from '../services/films.service';
 import { Router } from '@angular/router';
 import { SearchResult } from '../films/searchResult';
 
