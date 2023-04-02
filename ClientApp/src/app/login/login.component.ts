@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthService } from '../services/auth.service';
 
 @Component({
     selector: 'app-login',
@@ -10,11 +11,24 @@ export class LoginComponent {
     password: string = "";
     show: boolean = false;
 
-    submit(): void {
-        this.clear();
+    constructor(private _authService: AuthService) { }
+
+    public submit(): void {
+        this._login();
+        this._clear();
     }
 
-    clear(): void {
+    private _login(): void {
+        this._authService.login(this.username, this.password).subscribe(
+            (response) => {
+                this._authService.saveAuthResponseToLocalStorage(response.token);
+            },
+            (error) => {
+                console.error(error);
+            })
+    }
+
+    private _clear(): void {
         this.show = true;
     }
 }

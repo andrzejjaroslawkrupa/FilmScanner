@@ -21,6 +21,7 @@ import { TextFieldModule } from '@angular/cdk/text-field';
 import { CarouselComponent } from './carousel/carousel.component';
 import { LoginComponent } from './login/login.component';
 import { MatButtonModule } from '@angular/material/button';
+import { ProfileService } from './services/profile.service';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,7 @@ import { MatButtonModule } from '@angular/material/button';
     NgbModule,
     MatButtonModule
   ],
-  providers: [AppTitleService, FilmsService,],
+  providers: [AppTitleService, FilmsService, ProfileService,],
   bootstrap: [AppComponent],
 })
 export class AppModule { }
