@@ -29,12 +29,11 @@
       </mat-autocomplete>
     </div>
     <div class="col-3 my-auto">
-      <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse"
-          aria-label="Toggle navigation" [attr.aria-expanded]="isExpanded" (click)="toggle()">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-      </nav>
+      <button mat-button class="menu-button" [matMenuTriggerFor]="menu">Menu</button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item routerLink="/login">Login</button>
+        <button mat-menu-item routerLink="/profile" [disabled]="!isLoggedIn()">Profile</button>
+      </mat-menu>
     </div>
   </div>
 </header>

@@ -23,14 +23,14 @@ export class AuthService {
     return JSON.parse(localStorage.getItem(AUTH_USER_STORAGE_KEY));
   }
 
-  private _isAuthenticated(): boolean {
+  public isAuthenticated(): boolean {
     const token = this._getToken();
     return token && !this._jwtHelper.isTokenExpired(token);
   }
 
   public getAuthHeaders(): HttpHeaders {
     const token = this._getToken();
-    if (this._isAuthenticated()) {
+    if (this.isAuthenticated()) {
       return new HttpHeaders({
         'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json'
