@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../services/auth.service';
+import { FormControl, Validators } from '@angular/forms';
+import { passwordValidator } from './password-validator';
 
 @Component({
     selector: 'app-login',
@@ -7,28 +9,22 @@ import { AuthService } from '../services/auth.service';
     styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent {
-    username: string = "";
-    password: string = "";
-    show: boolean = false;
+    usernameFormControl = new FormControl('', [Validators.required]);
+    passwordFormControl = new FormControl('', [Validators.required, passwordValidator()]);
+    showLoggedIn: boolean = false;
 
     constructor(private _authService: AuthService) { }
 
     public submit(): void {
-        this._login();
-        this._clear();
-    }
-
-    private _login(): void {
-        this._authService.login(this.username, this.password).subscribe(
+        this._authService.login(this.usernameFormControl.value, this.passwordFormControl.value).subscribe(
             (response) => {
                 this._authService.saveAuthResponseToLocalStorage(response.token);
+                this.showLoggedIn = true;
             },
             (error) => {
+                this.showLoggedIn = false;
                 console.error(error);
-            })
-    }
-
-    private _clear(): void {
-        this.show = true;
+            }
+        );
     }
 }

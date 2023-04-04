@@ -42,4 +42,8 @@ export class AuthService {
   public saveAuthResponseToLocalStorage(response: any): void {
     localStorage.setItem(AUTH_USER_STORAGE_KEY, JSON.stringify(response));
   }
+
+  public logout(): void {
+    localStorage.removeItem(AUTH_USER_STORAGE_KEY);
+  }
 }

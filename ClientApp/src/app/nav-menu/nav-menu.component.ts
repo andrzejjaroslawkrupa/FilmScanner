@@ -27,7 +27,7 @@ export class NavMenuComponent {
       { queryParams: { filmID: imdbID } });
   }
 
-  reset(): void {
+  home(): void {
     if (this._router.url === '/') {
       window.location.reload();
     }
@@ -36,5 +36,9 @@ export class NavMenuComponent {
 
   isLoggedIn(): boolean {
     return this._authService.isAuthenticated();
+  }
+
+  logout(): void {
+    this._authService.logout();
   }
 }
