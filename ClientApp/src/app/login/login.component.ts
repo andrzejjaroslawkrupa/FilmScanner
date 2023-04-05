@@ -13,19 +13,23 @@ export class LoginComponent {
     passwordFormControl = new FormControl('', [Validators.required, passwordValidator()]);
     showLoggedIn: boolean = false;
     errorOccured: boolean = false;
+    loggingIn: boolean = false;
 
     constructor(private _authService: AuthService) { }
 
     public submit(): void {
+        this.loggingIn = true;
         this._authService.login(this.usernameFormControl.value, this.passwordFormControl.value).subscribe(
             (response) => {
                 this._authService.saveAuthResponseToLocalStorage(response.token);
                 this.showLoggedIn = true;
+                this.loggingIn = false;
             },
             (error) => {
                 this.showLoggedIn = false;
                 this.errorOccured = true;
                 console.error(error);
+                this.loggingIn = false;
             }
         );
     }

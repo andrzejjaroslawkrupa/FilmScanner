@@ -12,7 +12,11 @@
         <mat-error *ngIf="passwordFormControl.hasError('passwordStrength')">Password must contain at least one uppercase
             letter, one lowercase letter, and one digit</mat-error>
     </mat-form-field>
-    <button mat-raised-button color="primary" (click)="submit()">Submit</button>
+    <button mat-raised-button color="primary" [disabled]="loggingIn" (click)="submit()">
+        <span *ngIf="loggingIn"><mat-spinner diameter="20"></mat-spinner></span>
+        <span *ngIf="!loggingIn">Submit</span>
+    </button>
     <span *ngIf="showLoggedIn"><button mat-button color="accent">You are now logged in!</button></span>
-    <span *ngIf="errorOccured"><button mat-button color="accent">There was an error during login attempt. Please try again.</button></span>
+    <span *ngIf="errorOccured"><button mat-button color="accent">There was an error during login attempt. Please try
+            again.</button></span>
 </form>
