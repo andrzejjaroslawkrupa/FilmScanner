@@ -12,6 +12,7 @@ export class LoginComponent {
     usernameFormControl = new FormControl('', [Validators.required]);
     passwordFormControl = new FormControl('', [Validators.required, passwordValidator()]);
     showLoggedIn: boolean = false;
+    errorOccured: boolean = false;
 
     constructor(private _authService: AuthService) { }
 
@@ -23,6 +24,7 @@ export class LoginComponent {
             },
             (error) => {
                 this.showLoggedIn = false;
+                this.errorOccured = true;
                 console.error(error);
             }
         );

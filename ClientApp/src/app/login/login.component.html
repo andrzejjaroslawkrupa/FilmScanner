@@ -14,4 +14,5 @@
     </mat-form-field>
     <button mat-raised-button color="primary" (click)="submit()">Submit</button>
     <span *ngIf="showLoggedIn"><button mat-button color="accent">You are now logged in!</button></span>
+    <span *ngIf="errorOccured"><button mat-button color="accent">There was an error during login attempt. Please try again.</button></span>
 </form>
