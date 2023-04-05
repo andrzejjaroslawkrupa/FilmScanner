@@ -22,6 +22,7 @@ import { CarouselComponent } from './carousel/carousel.component';
 import { LoginComponent } from './login/login.component';
 import { MatButtonModule } from '@angular/material/button';
 import { ProfileService } from './services/profile.service';
+import { MatMenuModule } from '@angular/material/menu';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import { ProfileService } from './services/profile.service';
     ReactiveFormsModule,
     MatProgressSpinnerModule,
     NgbModule,
-    MatButtonModule
+    MatButtonModule,
+    MatMenuModule,
   ],
   providers: [AppTitleService, FilmsService, ProfileService,],
   bootstrap: [AppComponent],

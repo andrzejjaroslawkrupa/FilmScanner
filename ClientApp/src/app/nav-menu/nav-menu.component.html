@@ -1,6 +1,6 @@
 <header>
   <div class="row bg-white border-bottom box-shadow text-center">
-    <a class="col-3"><img src="assets/logo.png" (click)="reset()" id="logo"></a>
+    <a class="col-3"><img src="assets/logo.png" (click)="home()" id="logo"></a>
     <div class="col-6 my-auto">
       <mat-form-field class="search-form">
         <mat-label>Look for a film</mat-label>
@@ -29,12 +29,18 @@
       </mat-autocomplete>
     </div>
     <div class="col-3 my-auto">
-      <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse"
-          aria-label="Toggle navigation" [attr.aria-expanded]="isExpanded" (click)="toggle()">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-      </nav>
+      <button mat-button class="menu-button" [matMenuTriggerFor]="menu">Menu</button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="home()">Home</button>
+        <button mat-menu-item routerLink="/profile" [disabled]="!isLoggedIn()">Profile</button>
+        <ng-container *ngIf="isLoggedIn(); else loginOption">
+          <button mat-menu-item (click)="logout()">Logout</button>
+        </ng-container>
+        <ng-template #loginOption>
+          <button mat-menu-item routerLink="/login">Login</button>
+        </ng-template>
+      </mat-menu>
     </div>
+    
   </div>
 </header>
