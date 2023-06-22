@@ -40,5 +40,8 @@ export class NavMenuComponent {
 
   logout(): void {
     this._authService.logout();
+    if (this._router.url === '/profile'){
+      this._router.navigate(['/']);
+    }
   }
 }
