@@ -23,6 +23,7 @@ import { LoginComponent } from './login/login.component';
 import { MatButtonModule } from '@angular/material/button';
 import { ProfileService } from './services/profile.service';
 import { MatMenuModule } from '@angular/material/menu';
+import { RegistrationComponent } from './registration/registration.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { MatMenuModule } from '@angular/material/menu';
     NavMenuComponent,
     ProfileComponent,
     CarouselComponent,
-    LoginComponent
+    LoginComponent,
+    RegistrationComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -43,6 +45,7 @@ import { MatMenuModule } from '@angular/material/menu';
       { path: 'profile', component: ProfileComponent },
       { path: 'film-overview', component: FilmOverviewComponent },
       { path: 'login', component: LoginComponent },
+      { path: 'registration', component: RegistrationComponent },
     ], {}),
     BrowserAnimationsModule,
     TextFieldModule,
