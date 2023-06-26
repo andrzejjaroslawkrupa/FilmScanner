@@ -27,7 +27,7 @@ services:
   filmscanner-module:
     build:
       context: .
-      dockerfile: FilmScannerModule\Dockerfile
+      dockerfile: FilmScannerModule/Dockerfile
     container_name: filmscanner.module
     depends_on:
       - db
@@ -43,7 +43,7 @@ services:
   omdb-module:
     build:
       context: .
-      dockerfile: OmdbModule\Dockerfile
+      dockerfile: OmdbModule/Dockerfile
     container_name: omdb.module
     environment:
       OMDB_API_KEY: ${OMDB_API_KEY}
@@ -54,7 +54,7 @@ services:
   ui:
     build:
       context: .
-      dockerfile: ClientApp\Dockerfile
+      dockerfile: ClientApp/Dockerfile
     container_name: filmscanner.ui
     depends_on:
       - filmscanner-module
