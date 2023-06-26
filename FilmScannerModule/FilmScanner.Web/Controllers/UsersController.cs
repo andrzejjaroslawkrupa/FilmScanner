@@ -40,12 +40,13 @@ namespace FilmScanner.Web.Controllers
         public async Task<IActionResult> CreateUser([FromBody] UserDto userInput)
         {
             var user = new User { UserName = userInput.UserName, Email = userInput.Email };
-            var result = await _userManager.CreateAsync(user, userInput.Password);
-            if (result.Succeeded)
+            var userResult = await _userManager.CreateAsync(user, userInput.Password);
+            var roleResult = await _userManager.AddToRoleAsync(user, userInput.Role);
+            if (userResult.Succeeded && roleResult.Succeeded)
             {
-                return CreatedAtAction(nameof(GetUserById), new { id = user.Id }, user);
+                return CreatedAtAction(nameof(CreateUser), new { id = user.Id }, user);
             }
-            return BadRequest(result.Errors);
+            return BadRequest(userResult.Errors.Concat(roleResult.Errors));
         }
 
         [HttpPut("{id}")]
@@ -58,13 +59,13 @@ namespace FilmScanner.Web.Controllers
             }
             user.UserName = userInput.UserName;
             user.Email = userInput.Email;
-            var result1 = await _userManager.AddToRoleAsync(user, userInput.Role);
-            var result = await _userManager.UpdateAsync(user);
-            if (result1.Succeeded && result.Succeeded)
+            var roleResult = await _userManager.AddToRoleAsync(user, userInput.Role);
+            var userResult = await _userManager.UpdateAsync(user);
+            if (roleResult.Succeeded && userResult.Succeeded)
             {
                 return Ok(user);
             }
-            return BadRequest(result.Errors);
+            return BadRequest(userResult.Errors.Concat(roleResult.Errors));
         }
 
         [HttpDelete("{id}")]

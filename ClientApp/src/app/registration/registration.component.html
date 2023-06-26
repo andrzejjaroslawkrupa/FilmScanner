@@ -1,0 +1,49 @@
+<h5>Please, provide provide your data below</h5>
+<form>
+  <div>
+    <mat-form-field appearance="fill">
+      <mat-label>User Name</mat-label>
+      <input matInput placeholder="Enter your username" name="username" type="text" [formControl]="usernameFormControl">
+    </mat-form-field>
+  </div>
+  <div>
+    <mat-form-field appearance="fill">
+      <mat-label>E-mail address</mat-label>
+      <input matInput placeholder="Enter your e-mail address" name="email" type="text" [formControl]="emailFormControl">
+    </mat-form-field>
+  </div>
+  <div>
+    <mat-form-field appearance="fill">
+      <mat-label>Password</mat-label>
+      <input matInput placeholder="Enter your password" value="" name="password" type="password"
+        [formControl]="passwordFormControl">
+      <mat-error *ngIf="passwordFormControl.hasError('passwordStrength')">Password must contain at least one uppercase
+        letter, one lowercase letter, and one digit</mat-error>
+    </mat-form-field>
+  </div>
+  <div>
+    <mat-form-field appearance="fill">
+      <mat-label>Repeat password</mat-label>
+      <input matInput placeholder="Repeat your password" value="" name="repeatpassword" type="password"
+        [formControl]="repeatPasswordFormControl">
+      <mat-error *ngIf="repeatPasswordFormControl.hasError('passwordStrength')">Password must contain at least one
+        uppercase
+        letter, one lowercase letter, and one digit</mat-error>
+    </mat-form-field>
+  </div>
+  <div *ngIf="registrationForm.hasError('passwordMismatch')">
+    Passwords do not match.
+  </div>
+  <div class="submit-button">
+    <button mat-raised-button color="primary"
+      [disabled]="registering || registrationForm.invalid || registrationForm.pending || usernameFormControl.value === '' || emailFormControl.value === '' || passwordFormControl.value === '' || repeatPasswordFormControl.value === ''"
+      (click)="submit()">
+      <span *ngIf="registering"><mat-spinner diameter="20"></mat-spinner></span>
+      <span *ngIf="!registering">Submit</span>
+    </button>
+    <span *ngIf="showRegistered"><button mat-button color="accent">You are now registered!</button></span>
+    <span *ngIf="errorOccured"><button mat-button color="accent">There was an error during registration attempt. Please
+        try
+        again.</button></span>
+  </div>
+</form>

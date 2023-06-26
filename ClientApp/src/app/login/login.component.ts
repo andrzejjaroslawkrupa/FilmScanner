@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { FormControl, Validators } from '@angular/forms';
-import { passwordValidator } from './password-validator';
+import { passwordValidator } from '../validators/password.validator';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-login',
@@ -15,7 +16,7 @@ export class LoginComponent {
     errorOccured: boolean = false;
     loggingIn: boolean = false;
 
-    constructor(private _authService: AuthService) { }
+    constructor(private _authService: AuthService, private _router: Router) { }
 
     public submit(): void {
         this.loggingIn = true;
@@ -24,6 +25,7 @@ export class LoginComponent {
                 this._authService.saveAuthResponseToLocalStorage(response.token);
                 this.showLoggedIn = true;
                 this.loggingIn = false;
+                this._router.navigate(['/']);
             },
             (error) => {
                 this.showLoggedIn = false;
