@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
     providedIn: 'root'
 })
 export class RegisterService {
-    private _registerPath: string = "/account/register";
+    private _registerPath: string = "/users/register";
 
     constructor(private _http: HttpClient) { }
 

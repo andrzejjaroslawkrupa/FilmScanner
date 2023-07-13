@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { passwordMatchValidator, passwordValidator } from '../validators/password.validator';
 import { RegisterService } from '../services/register.service';
 import { Register } from './register';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-registration',
@@ -24,7 +25,7 @@ export class RegistrationComponent {
     errorOccured: boolean = false;
     registering: boolean = false;
 
-    constructor(private _registerService: RegisterService) { }
+    constructor(private _registerService: RegisterService, private _router: Router) { }
 
     public submit(): void {
         var user: Register = {
@@ -38,6 +39,7 @@ export class RegistrationComponent {
             () => {
                 this.showRegistered = true;
                 this.registering = false;
+                this._router.navigate(['/']);
             },
             (error) => {
                 this.showRegistered = false;
