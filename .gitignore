@@ -243,3 +243,5 @@ FilmScanner.API/appsettings.Development.json
 /Client/.vscode
 /.env
 .vs/
+github
+github.pub
