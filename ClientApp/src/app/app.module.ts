@@ -4,7 +4,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './home/home.component';
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -25,41 +25,34 @@ import { ProfileService } from './services/profile.service';
 import { MatMenuModule } from '@angular/material/menu';
 import { RegistrationComponent } from './registration/registration.component';
 
-@NgModule({
-  declarations: [
-    AppComponent,
-    HomeComponent,
-    FilmOverviewComponent,
-    NavMenuComponent,
-    ProfileComponent,
-    CarouselComponent,
-    LoginComponent,
-    RegistrationComponent
-  ],
-  imports: [
-    BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
-    HttpClientModule,
-    FormsModule,
-    RouterModule.forRoot([
-      { path: '', component: HomeComponent, pathMatch: 'full' },
-      { path: 'profile', component: ProfileComponent },
-      { path: 'film-overview', component: FilmOverviewComponent },
-      { path: 'login', component: LoginComponent },
-      { path: 'registration', component: RegistrationComponent },
-    ], {}),
-    BrowserAnimationsModule,
-    TextFieldModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatAutocompleteModule,
-    OverlayModule,
-    ReactiveFormsModule,
-    MatProgressSpinnerModule,
-    NgbModule,
-    MatButtonModule,
-    MatMenuModule,
-  ],
-  providers: [AppTitleService, FilmsService, ProfileService,],
-  bootstrap: [AppComponent],
-})
+@NgModule({ declarations: [
+        AppComponent,
+        HomeComponent,
+        FilmOverviewComponent,
+        NavMenuComponent,
+        ProfileComponent,
+        CarouselComponent,
+        LoginComponent,
+        RegistrationComponent
+    ],
+    bootstrap: [AppComponent], imports: [BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
+        FormsModule,
+        RouterModule.forRoot([
+            { path: '', component: HomeComponent, pathMatch: 'full' },
+            { path: 'profile', component: ProfileComponent },
+            { path: 'film-overview', component: FilmOverviewComponent },
+            { path: 'login', component: LoginComponent },
+            { path: 'registration', component: RegistrationComponent },
+        ], {}),
+        BrowserAnimationsModule,
+        TextFieldModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatAutocompleteModule,
+        OverlayModule,
+        ReactiveFormsModule,
+        MatProgressSpinnerModule,
+        NgbModule,
+        MatButtonModule,
+        MatMenuModule], providers: [AppTitleService, FilmsService, ProfileService, provideHttpClient(withInterceptorsFromDi()),] })
 export class AppModule { }
