@@ -1,11 +1,18 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../services/auth.service';
-import { FormControl, Validators } from '@angular/forms';
+import { FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { passwordValidator } from '../validators/password.validator';
 import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
     selector: 'app-login',
+    standalone: true,
+    imports: [CommonModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatProgressSpinnerModule],
     templateUrl: './login.component.html',
     styleUrls: ['./login.component.scss'],
 })
@@ -19,8 +26,8 @@ export class LoginComponent {
     constructor(private _authService: AuthService, private _router: Router) { }
 
     public submit(): void {
-        this.loggingIn = true;
-        this._authService.login(this.usernameFormControl.value, this.passwordFormControl.value).subscribe(
+    this.loggingIn = true;
+    this._authService.login(this.usernameFormControl.value ?? '', this.passwordFormControl.value ?? '').subscribe(
             (response) => {
                 this._authService.saveAuthResponseToLocalStorage(response.token);
                 this.showLoggedIn = true;

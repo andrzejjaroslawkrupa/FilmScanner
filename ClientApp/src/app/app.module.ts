@@ -1,4 +1,3 @@
-import { AppComponent } from './app.component';
 import { AppTitleService } from './services/appTitle.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
@@ -25,17 +24,17 @@ import { ProfileService } from './services/profile.service';
 import { MatMenuModule } from '@angular/material/menu';
 import { RegistrationComponent } from './registration/registration.component';
 
-@NgModule({ declarations: [
-        AppComponent,
+@NgModule({
+    declarations: [],
+    imports: [
+        BrowserModule,
+        NavMenuComponent,
         HomeComponent,
         FilmOverviewComponent,
-        NavMenuComponent,
         ProfileComponent,
         CarouselComponent,
         LoginComponent,
-        RegistrationComponent
-    ],
-    bootstrap: [AppComponent], imports: [BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
+        RegistrationComponent,
         FormsModule,
         RouterModule.forRoot([
             { path: '', component: HomeComponent, pathMatch: 'full' },
@@ -54,5 +53,8 @@ import { RegistrationComponent } from './registration/registration.component';
         MatProgressSpinnerModule,
         NgbModule,
         MatButtonModule,
-        MatMenuModule], providers: [AppTitleService, FilmsService, ProfileService, provideHttpClient(withInterceptorsFromDi()),] })
+        MatMenuModule
+    ],
+    providers: [AppTitleService, FilmsService, ProfileService, provideHttpClient(withInterceptorsFromDi())]
+})
 export class AppModule { }

@@ -1,17 +1,27 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { RouterLink } from '@angular/router';
 import { FilmsService } from '../services/films.service';
 import { Router } from '@angular/router';
 import { SearchResult } from '../films/searchResult';
 import { AuthService } from '../services/auth.service';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-nav-menu',
+  standalone: true,
+  imports: [CommonModule, FormsModule, MatFormFieldModule, MatInputModule, MatAutocompleteModule, MatMenuModule, MatButtonModule, RouterLink],
   templateUrl: './nav-menu.component.html',
   styleUrls: ['./nav-menu.component.scss']
 })
 export class NavMenuComponent {
-  @ViewChild('search', { static: true }) searchText: ElementRef<HTMLElement>;
-  public films: SearchResult;
+  @ViewChild('search', { static: true }) searchText!: ElementRef<HTMLElement>;
+public films: SearchResult | undefined;
   isExpanded = false;
 
   constructor(private _filmsService: FilmsService, private _router: Router, private _authService: AuthService) {

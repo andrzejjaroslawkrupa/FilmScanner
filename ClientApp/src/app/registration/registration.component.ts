@@ -1,12 +1,19 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { passwordMatchValidator, passwordValidator } from '../validators/password.validator';
 import { RegisterService } from '../services/register.service';
 import { Register } from './register';
 import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
     selector: 'app-registration',
+    standalone: true,
+    imports: [CommonModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatProgressSpinnerModule],
     templateUrl: './registration.component.html',
     styleUrls: ['./registration.component.scss'],
 })
@@ -19,7 +26,7 @@ export class RegistrationComponent {
     registrationForm = new FormGroup({
         password: this.passwordFormControl,
         repeatPassword: this.repeatPasswordFormControl
-      }, { validators: passwordMatchValidator });
+    }, { validators: passwordMatchValidator });
 
     showRegistered: boolean = false;
     errorOccured: boolean = false;
@@ -29,9 +36,9 @@ export class RegistrationComponent {
 
     public submit(): void {
         var user: Register = {
-            email: this.emailFormControl.value,
-            userName: this.usernameFormControl.value,
-            password: this.passwordFormControl.value
+            email: this.emailFormControl.value ?? '',
+            userName: this.usernameFormControl.value ?? '',
+            password: this.passwordFormControl.value ?? ''
         }
 
         this.registering = true;

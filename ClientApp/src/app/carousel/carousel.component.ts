@@ -5,9 +5,13 @@ import { EventEmitter } from '@angular/core';
 import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 import { trigger, state, style, transition, animate, keyframes } from '@angular/animations';
+import { CommonModule } from '@angular/common';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-carousel',
+  standalone: true,
+  imports: [CommonModule, MatProgressSpinnerModule],
   templateUrl: './carousel.component.html',
   styleUrls: ['./carousel.component.scss'],
   animations: [
@@ -51,9 +55,9 @@ import { trigger, state, style, transition, animate, keyframes } from '@angular/
 })
 export class CarouselComponent implements DoCheck, OnChanges {
 
-  @Input() slides: Slide[];
+  @Input() slides: Slide[] = [];
   @Input() currentPage = 0;
-  @Input() defaultImageSrc: string;
+  @Input() defaultImageSrc: string ='';
   @Output() isNextPageLast: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   private _debouncer: Subject<boolean> = new Subject<boolean>();

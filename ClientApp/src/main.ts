@@ -3,9 +3,10 @@
  */
 import '@angular/localize/init';
 
-import { enableProdMode } from '@angular/core';
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import { importProvidersFrom } from '@angular/core';
+import { bootstrapApplication } from '@angular/platform-browser';
 
+import { AppComponent } from './app/app.component';
 import { AppModule } from './app/app.module';
 import { environment } from './environments/environment';
 
@@ -13,13 +14,9 @@ export function getBaseUrl() {
   return document.getElementsByTagName('base')[0].href;
 }
 
-const providers = [
-  { provide: 'BASE_URL', useFactory: getBaseUrl, deps: [] }
-];
-
-if (environment.production) {
-  enableProdMode();
-}
-
-platformBrowserDynamic(providers).bootstrapModule(AppModule)
-  .catch(err => console.log(err));
+bootstrapApplication(AppComponent, {
+  providers: [
+    importProvidersFrom(AppModule),
+    { provide: 'BASE_URL', useFactory: getBaseUrl, deps: [] }
+  ]
+}).catch(err => console.error(err));
