@@ -3,7 +3,6 @@ import { AuthService } from '../services/auth.service';
 import { FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { passwordValidator } from '../validators/password.validator';
 import { Router } from '@angular/router';
-import { CommonModule } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
@@ -12,7 +11,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 @Component({
     selector: 'app-login',
     standalone: true,
-    imports: [CommonModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatProgressSpinnerModule],
+    imports: [ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatProgressSpinnerModule],
     templateUrl: './login.component.html',
     styleUrls: ['./login.component.scss'],
 })

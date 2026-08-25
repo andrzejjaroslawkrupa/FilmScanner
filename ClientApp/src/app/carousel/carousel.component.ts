@@ -5,13 +5,12 @@ import { EventEmitter } from '@angular/core';
 import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 import { trigger, state, style, transition, animate, keyframes } from '@angular/animations';
-import { CommonModule } from '@angular/common';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-carousel',
   standalone: true,
-  imports: [CommonModule, MatProgressSpinnerModule],
+  imports: [MatProgressSpinnerModule],
   templateUrl: './carousel.component.html',
   styleUrls: ['./carousel.component.scss'],
   animations: [
@@ -80,7 +79,7 @@ export class CarouselComponent implements DoCheck, OnChanges {
   }
 
   @HostListener('window:resize', ['$event'])
-  private getScreenWidth(event?): number {
+  getScreenWidth(event?): number {
     return window.innerWidth;
   }
 

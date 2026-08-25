@@ -1,22 +1,14 @@
 {
-  "compileOnSave": false,
+  "extends": "../tsconfig.json",
   "compilerOptions": {
-    "baseUrl": "./",
-    "module": "es2020",
-    "esModuleInterop": true,
-    "outDir": "./dist/out-tsc",
-    "sourceMap": true,
-    "declaration": false,
-    "moduleResolution": "bundler",
-    "experimentalDecorators": true,
-    "target": "ES2022",
-    "typeRoots": [
-      "node_modules/@types"
-    ],
-    "lib": [
-      "es2017",
-      "dom"
-    ],
-    "useDefineForClassFields": false
-  }
+    "outDir": "../out-tsc/spec",
+    "types": [
+      "vitest/globals",
+      "node"
+    ]
+  },
+  "include": [
+    "src/**/*.spec.ts",
+    "src/**/*.d.ts"
+  ]
 }

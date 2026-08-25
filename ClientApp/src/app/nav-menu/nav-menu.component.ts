@@ -1,5 +1,4 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -15,7 +14,7 @@ import { MatButtonModule } from '@angular/material/button';
 @Component({
   selector: 'app-nav-menu',
   standalone: true,
-  imports: [CommonModule, FormsModule, MatFormFieldModule, MatInputModule, MatAutocompleteModule, MatMenuModule, MatButtonModule, RouterLink],
+  imports: [FormsModule, MatFormFieldModule, MatInputModule, MatAutocompleteModule, MatMenuModule, MatButtonModule, RouterLink],
   templateUrl: './nav-menu.component.html',
   styleUrls: ['./nav-menu.component.scss']
 })
