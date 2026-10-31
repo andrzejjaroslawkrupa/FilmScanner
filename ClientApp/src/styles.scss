@@ -10,6 +10,14 @@ a {
   border-color: #1861ac;
 }
 
+/* Bootstrap 5 widens .container to 1320px from 1400px viewports; keep the Bootstrap 4 width so pages
+   such as film overview don't stretch (and its poster grow) on very wide screens. */
+@media (min-width: 1400px) {
+  .container {
+    max-width: 1140px;
+  }
+}
+
 html {
   height: 100%;
 }
