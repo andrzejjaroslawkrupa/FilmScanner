@@ -1,4 +1,4 @@
-import { AbstractControl, FormGroup, ValidationErrors, ValidatorFn } from '@angular/forms';
+import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 
 export function passwordValidator(): ValidatorFn {
   return (control: AbstractControl): {[key: string]: any} | null => {
@@ -12,7 +12,7 @@ export function passwordValidator(): ValidatorFn {
   };
 }
 
-export const passwordMatchValidator: ValidatorFn = (control: FormGroup): ValidationErrors | null => {
+export const passwordMatchValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
   const password = control.get('password');
   const repeatPassword = control.get('repeatPassword');
 

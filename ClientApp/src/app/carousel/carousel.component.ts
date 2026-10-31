@@ -1,4 +1,4 @@
-import { Component, Input, IterableDiffers, DoCheck, Output, OnChanges, SimpleChanges, HostListener, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, IterableDiffer, IterableDiffers, DoCheck, Output, OnChanges, SimpleChanges, HostListener, ChangeDetectionStrategy } from '@angular/core';
 import { Slide } from './carousel.interface';
 import { Router } from '@angular/router';
 import { EventEmitter } from '@angular/core';
@@ -71,17 +71,17 @@ export class CarouselComponent implements DoCheck, OnChanges {
 
   bufferedSlides: Slide[] = [];
   private _slidesPerPage = Math.round(this.getScreenWidth() / 400);
-  private _iterableDiffer: any;
+  private _iterableDiffer: IterableDiffer<Slide>;
 
   constructor(iterableDiffers: IterableDiffers, private _router: Router) {
-    this._iterableDiffer = iterableDiffers.find([]).create(null);
+    this._iterableDiffer = iterableDiffers.find([]).create<Slide>();
     this._debouncer
       .pipe(debounceTime(400))
       .subscribe((value) => this.isNextPageLast.emit(value));
   }
 
-  @HostListener('window:resize', ['$event'])
-  protected getScreenWidth(event?): number {
+  @HostListener('window:resize')
+  protected getScreenWidth(): number {
     return window.innerWidth;
   }
 
