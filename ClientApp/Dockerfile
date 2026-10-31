@@ -7,7 +7,6 @@ ENV PATH /usr/src/app/node_modules/.bin:$PATH
 
 COPY ClientApp/package-lock.json /usr/src/app/package-lock.json
 COPY ClientApp/package.json /usr/src/app/package.json
-RUN npm config set legacy-peer-deps true
 RUN npm install
 
 COPY ClientApp/. /usr/src/app
