@@ -7,7 +7,7 @@
     "sourceMap": true,
     "declaration": false,
     "moduleResolution": "bundler",
-    "strict": false,
+    "strict": true,
     "experimentalDecorators": true,
     "target": "ES2022",
     "typeRoots": [

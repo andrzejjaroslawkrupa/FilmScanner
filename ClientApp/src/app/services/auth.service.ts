@@ -19,13 +19,14 @@ export class AuthService {
     return this._http.post<any>(environment.authenticationEnpointAddress, { username, password });
   }
 
-  private _getToken(): string {
-    return JSON.parse(localStorage.getItem(AUTH_USER_STORAGE_KEY));
+  private _getToken(): string | null {
+    const stored = localStorage.getItem(AUTH_USER_STORAGE_KEY);
+    return stored ? JSON.parse(stored) : null;
   }
 
   public isAuthenticated(): boolean {
     const token = this._getToken();
-    return token && !this._jwtHelper.isTokenExpired(token);
+    return !!token && !this._jwtHelper.isTokenExpired(token);
   }
 
   public getAuthHeaders(): HttpHeaders {
