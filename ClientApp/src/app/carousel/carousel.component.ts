@@ -1,4 +1,4 @@
-import { Component, Input, IterableDiffers, DoCheck, Output, OnChanges, SimpleChanges, HostListener } from '@angular/core';
+import { Component, Input, IterableDiffers, DoCheck, Output, OnChanges, SimpleChanges, HostListener, ChangeDetectionStrategy } from '@angular/core';
 import { Slide } from './carousel.interface';
 import { Router } from '@angular/router';
 import { EventEmitter } from '@angular/core';
@@ -14,6 +14,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
   imports: [MatProgressSpinnerModule],
   templateUrl: './carousel.component.html',
   styleUrls: ['./carousel.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   animations: [
     trigger('transform', [
       state('visible-center', style({

@@ -3,7 +3,7 @@ import { Film } from '../films/film';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { SearchResult } from '../films/searchResult';
-import { environment } from 'src/environments/environment';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class FilmsService {

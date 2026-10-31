@@ -1,13 +1,13 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": "./",
     "module": "es2020",
     "esModuleInterop": true,
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
     "declaration": false,
     "moduleResolution": "bundler",
+    "strict": false,
     "experimentalDecorators": true,
     "target": "ES2022",
     "typeRoots": [

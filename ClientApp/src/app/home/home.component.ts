@@ -1,5 +1,5 @@
 import { AppTitleService } from '../services/appTitle.service';
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, ChangeDetectionStrategy } from '@angular/core';
 import { FilmsService } from '../services/films.service';
 import { Router } from '@angular/router';
 import { SearchResult } from '../films/searchResult';
@@ -12,6 +12,7 @@ import { CarouselComponent } from '../carousel/carousel.component';
   standalone: true,
   imports: [CarouselComponent],
   templateUrl: './home.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { FormControl, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { passwordMatchValidator, passwordValidator } from '../validators/password.validator';
 import { RegisterService } from '../services/register.service';
@@ -15,6 +15,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     standalone: true,
     imports: [ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatProgressSpinnerModule],
     templateUrl: './registration.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ['./registration.component.scss'],
 })
 export class RegistrationComponent {
