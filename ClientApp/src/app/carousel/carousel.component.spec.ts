@@ -1,8 +1,9 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+
 import { CarouselComponent } from './carousel.component';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('CarouselComponent', () => {
   let component: CarouselComponent;
@@ -11,14 +12,14 @@ describe('CarouselComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [NoopAnimationsModule, CarouselComponent],
-      providers: [
+    imports: [BrowserAnimationsModule, CarouselComponent],
+    providers: [
         {
-          provide: Router,
-          useClass: RouterTestingModule
+            provide: Router,
+            useClass: RouterTestingModule
         }
-      ]
-    })
+    ]
+})
       .compileComponents();
   }));
 
@@ -26,22 +27,21 @@ describe('CarouselComponent', () => {
     fixture = TestBed.createComponent(CarouselComponent);
     component = fixture.componentInstance;
     element = fixture.nativeElement;
+    fixture.detectChanges();
   });
 
   it('should create', () => {
-    fixture.detectChanges();
     expect(component).toBeTruthy();
   });
 
   it('should not show arrows on first and last page', () => {
+    const arrowElement = element.querySelectorAll('button');
+
     component.slides = [{
       title: 'title', imageSrc: '', destination: '', parameterKey: '', parameterValue: ''
     }];
     component.currentPage = 0;
-    component.populateBuffer();
     fixture.detectChanges();
-
-    const arrowElement = element.querySelectorAll('button');
 
     expect(arrowElement[0].hasAttribute('hidden')).toEqual(true);
     expect(arrowElement[1].hasAttribute('hidden')).toEqual(true);

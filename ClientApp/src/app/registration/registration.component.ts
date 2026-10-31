@@ -4,6 +4,7 @@ import { passwordMatchValidator, passwordValidator } from '../validators/passwor
 import { RegisterService } from '../services/register.service';
 import { Register } from './register';
 import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
@@ -12,7 +13,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 @Component({
     selector: 'app-registration',
     standalone: true,
-    imports: [ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatProgressSpinnerModule],
+    imports: [CommonModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatProgressSpinnerModule],
     templateUrl: './registration.component.html',
     styleUrls: ['./registration.component.scss'],
 })

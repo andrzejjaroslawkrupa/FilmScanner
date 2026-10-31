@@ -1,32 +1,22 @@
 <h5>Please, provide your credentials below</h5>
 <form>
-  <mat-form-field appearance="fill">
-    <mat-label>User Name</mat-label>
-    <input matInput placeholder="Enter your username" name="usename" type="text"
-      [formControl]="usernameFormControl">
-  </mat-form-field>
-  <mat-form-field appearance="fill">
-    <mat-label>Password</mat-label>
-    <input matInput placeholder="Enter your password" value="" name="password" type="password"
-      [formControl]="passwordFormControl">
-    @if (passwordFormControl.hasError('passwordStrength')) {
-      <mat-error>Password must contain at least one uppercase
-      letter, one lowercase letter, and one digit</mat-error>
-    }
-  </mat-form-field>
-  <button mat-raised-button color="primary" [disabled]="loggingIn" (click)="submit()">
-    @if (loggingIn) {
-      <span><mat-spinner diameter="20"></mat-spinner></span>
-    }
-    @if (!loggingIn) {
-      <span>Submit</span>
-    }
-  </button>
-  @if (showLoggedIn) {
-    <span><button mat-button color="accent">You are now logged in!</button></span>
-  }
-  @if (errorOccured) {
-    <span><button mat-button color="accent">There was an error during login attempt. Please try
-    again.</button></span>
-  }
+    <mat-form-field appearance="fill">
+        <mat-label>User Name</mat-label>
+        <input matInput placeholder="Enter your username" name="usename" type="text"
+            [formControl]="usernameFormControl">
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+        <mat-label>Password</mat-label>
+        <input matInput placeholder="Enter your password" value="" name="password" type="password"
+            [formControl]="passwordFormControl">
+        <mat-error *ngIf="passwordFormControl.hasError('passwordStrength')">Password must contain at least one uppercase
+            letter, one lowercase letter, and one digit</mat-error>
+    </mat-form-field>
+    <button mat-raised-button color="primary" [disabled]="loggingIn" (click)="submit()">
+        <span *ngIf="loggingIn"><mat-spinner diameter="20"></mat-spinner></span>
+        <span *ngIf="!loggingIn">Submit</span>
+    </button>
+    <span *ngIf="showLoggedIn"><button mat-button color="accent">You are now logged in!</button></span>
+    <span *ngIf="errorOccured"><button mat-button color="accent">There was an error during login attempt. Please try
+            again.</button></span>
 </form>

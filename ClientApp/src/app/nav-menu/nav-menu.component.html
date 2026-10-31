@@ -7,30 +7,25 @@
         <input [matAutocomplete]="auto" matInput #search (input)="onInput(search.value)">
       </mat-form-field>
       <mat-autocomplete class="search-dropdown" #auto="matAutocomplete">
-        @if (films) {
-          <div>
-            @for (film of films.searches; track film) {
-              <mat-option (onSelectionChange)="selectFilm(film.imdbID)">
-                <div class="container">
-                  <div class="row justify-content-md-center pb-2">
-                    <div class="col">
-                      @if (film.poster!='N/A') {
-                        <div>
-                          <img src="{{ film.poster }}" />
-                        </div>
-                      } @else {
-                        <img src="assets/camera.png">
-                      }
-                    </div>
-                    <div class="col-md-auto">
-                      {{ film.title }} ({{ film.year }})
-                    </div>
+        <div *ngIf="films">
+          <mat-option *ngFor="let film of films.searches" (onSelectionChange)="selectFilm(film.imdbID)">
+            <div class="container">
+              <div class="row justify-content-md-center pb-2">
+                <div class="col">
+                  <div *ngIf="film.poster!='N/A'; else default_poster">
+                    <img src="{{ film.poster }}" />
                   </div>
+                  <ng-template #default_poster>
+                    <img src="assets/camera.png">
+                  </ng-template>
                 </div>
-              </mat-option>
-            }
-          </div>
-        }
+                <div class="col-md-auto">
+                  {{ film.title }} ({{ film.year }})
+                </div>
+              </div>
+            </div>
+          </mat-option>
+        </div>
       </mat-autocomplete>
     </div>
     <div class="col-3 my-auto">
@@ -38,12 +33,13 @@
       <mat-menu #menu="matMenu">
         <button mat-menu-item (click)="home()">Home</button>
         <button mat-menu-item routerLink="/profile" [disabled]="!isLoggedIn()">Profile</button>
-        @if (isLoggedIn()) {
+        <ng-container *ngIf="isLoggedIn(); else loginOption">
           <button mat-menu-item (click)="logout()">Logout</button>
-        } @else {
+        </ng-container>
+        <ng-template #loginOption>
           <button mat-menu-item routerLink="/login">Login</button>
           <button mat-menu-item routerLink="/registration">Register</button>
-        }
+        </ng-template>
       </mat-menu>
     </div>
   </div>

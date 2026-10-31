@@ -1,6 +1,7 @@
 import { ActivatedRoute } from '@angular/router';
 import { AppTitleService } from '../services/appTitle.service';
 import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { Film } from '../films/film';
 import { FilmsService } from '../services/films.service';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -8,7 +9,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 @Component({
     selector: 'app-film-overview',
     standalone: true,
-    imports: [MatProgressSpinnerModule],
+    imports: [CommonModule, MatProgressSpinnerModule],
     templateUrl: './film-overview.component.html',
     styleUrls: ['./film-overview.component.scss']
 })
