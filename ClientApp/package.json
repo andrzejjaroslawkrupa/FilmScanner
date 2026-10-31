@@ -12,6 +12,9 @@
     "serve:ssr:FilmScanner": "node dist/server/server.mjs"
   },
   "private": true,
+  "engines": {
+    "node": "24.x"
+  },
   "dependencies": {
     "@angular-devkit/schematics": "^21.2.29",
     "@angular/animations": "21.2.25",
