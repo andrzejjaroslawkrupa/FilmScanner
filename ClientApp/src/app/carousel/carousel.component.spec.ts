@@ -66,21 +66,21 @@ describe('CarouselComponent', () => {
     it('is hidden when there are no slides', async () => {
       await setSlides([]);
 
-      expect(isVisible(rightArrow())).toBeFalse();
+      expect(isVisible(rightArrow())).toBe(false);
     });
 
     it('is hidden when all slides fit on a single page', async () => {
       await setSlides(createSlides(SLIDES_PER_PAGE));
 
-      expect(isVisible(rightArrow())).toBeFalse();
-      expect(isVisible(leftArrow())).toBeFalse();
+      expect(isVisible(rightArrow())).toBe(false);
+      expect(isVisible(leftArrow())).toBe(false);
     });
 
     it('is hidden on the first page even when further pages exist', async () => {
       await setSlides(createSlides(7));
 
-      expect(isVisible(rightArrow())).toBeFalse();
-      expect(isVisible(leftArrow())).toBeTrue();
+      expect(isVisible(rightArrow())).toBe(false);
+      expect(isVisible(leftArrow())).toBe(true);
     });
 
     it('is shown after moving away from the first page', async () => {
@@ -89,7 +89,7 @@ describe('CarouselComponent', () => {
       await click(leftArrow());
 
       expect(component.currentPage).toBe(-1);
-      expect(isVisible(rightArrow())).toBeTrue();
+      expect(isVisible(rightArrow())).toBe(true);
     });
 
     it('is shown on the last page, while the left arrow is hidden', async () => {
@@ -99,8 +99,8 @@ describe('CarouselComponent', () => {
       await click(leftArrow());
 
       expect(displayedTitles()).toEqual(['title 6']);
-      expect(isVisible(rightArrow())).toBeTrue();
-      expect(isVisible(leftArrow())).toBeFalse();
+      expect(isVisible(rightArrow())).toBe(true);
+      expect(isVisible(leftArrow())).toBe(false);
     });
 
     it('navigates to a page that has slides to display', async () => {
@@ -119,8 +119,8 @@ describe('CarouselComponent', () => {
       await click(rightArrow());
 
       expect(component.currentPage).toBe(0);
-      expect(isVisible(rightArrow())).toBeFalse();
-      expect(isVisible(leftArrow())).toBeTrue();
+      expect(isVisible(rightArrow())).toBe(false);
+      expect(isVisible(leftArrow())).toBe(true);
     });
 
     it('is hidden after slides are replaced, since the carousel resets to the first page', async () => {
@@ -130,7 +130,7 @@ describe('CarouselComponent', () => {
       await setSlides(createSlides(5));
 
       expect(component.currentPage).toBe(0);
-      expect(isVisible(rightArrow())).toBeFalse();
+      expect(isVisible(rightArrow())).toBe(false);
     });
   });
 
@@ -144,7 +144,7 @@ describe('CarouselComponent', () => {
 
       expect(component.currentPage).toBe(-1);
       expect(displayedTitles()).toEqual(['title 5', 'title 4', 'title 3']);
-      expect(isVisible(rightArrow())).toBeTrue();
+      expect(isVisible(rightArrow())).toBe(true);
     });
 
     it('starts over when slides are replaced with a different list of the same size', async () => {
