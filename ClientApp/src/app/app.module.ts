@@ -10,7 +10,6 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { FilmOverviewComponent } from './film-overview/film-overview.component';
 import { FilmsService } from './services/films.service';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgModule } from '@angular/core';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { ProfileComponent } from './profile/profile.component';
@@ -49,7 +48,6 @@ import { RegistrationComponent } from './registration/registration.component';
         OverlayModule,
         ReactiveFormsModule,
         MatProgressSpinnerModule,
-        NgbModule,
         MatButtonModule,
         MatMenuModule
     ],
