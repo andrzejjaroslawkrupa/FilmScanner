@@ -1,50 +1,136 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { CarouselComponent } from './carousel.component';
-import { Router } from '@angular/router';
-import { RouterTestingModule } from '@angular/router/testing';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { Slide } from './carousel.interface';
+
+const SLIDES_PER_PAGE = 3;
+
+function createSlides(count: number): Slide[] {
+  return Array.from({ length: count }, (_, i) => ({
+    title: `title ${i}`,
+    imageSrc: `image-${i}.jpg`,
+    destination: '/film',
+    parameterKey: 'id',
+    parameterValue: `${i}`,
+  }));
+}
 
 describe('CarouselComponent', () => {
   let component: CarouselComponent;
   let fixture: ComponentFixture<CarouselComponent>;
   let element: HTMLElement;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-    imports: [BrowserAnimationsModule, CarouselComponent],
-    providers: [
-        {
-            provide: Router,
-            useClass: RouterTestingModule
-        }
-    ]
-})
-      .compileComponents();
-  }));
+  const leftArrow = (): HTMLButtonElement =>
+    element.querySelector('img[src$="arrow_left.svg"]')!.closest('button')!;
+  const rightArrow = (): HTMLButtonElement =>
+    element.querySelector('img[src$="arrow_right.svg"]')!.closest('button')!;
+  const isVisible = (button: HTMLButtonElement): boolean => !button.hidden;
+  const displayedTitles = (): string[] =>
+    Array.from(element.querySelectorAll('.mini-box p')).map(p => p.textContent!.trim());
 
-  beforeEach(() => {
+  async function setSlides(slides: Slide[]): Promise<void> {
+    fixture.componentRef.setInput('slides', slides);
+    fixture.detectChanges();
+    await fixture.whenStable();
+    fixture.detectChanges();
+  }
+
+  async function click(button: HTMLButtonElement): Promise<void> {
+    button.click();
+    fixture.detectChanges();
+    await fixture.whenStable();
+    fixture.detectChanges();
+  }
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [NoopAnimationsModule, CarouselComponent],
+      providers: [provideRouter([])],
+    }).compileComponents();
+
     fixture = TestBed.createComponent(CarouselComponent);
     component = fixture.componentInstance;
     element = fixture.nativeElement;
-    fixture.detectChanges();
+    // Page size is derived from window width; pin it so tests don't depend on the browser size.
+    (component as any)._slidesPerPage = SLIDES_PER_PAGE;
   });
 
   it('should create', () => {
+    fixture.detectChanges();
     expect(component).toBeTruthy();
   });
 
-  it('should not show arrows on first and last page', () => {
-    const arrowElement = element.querySelectorAll('button');
+  describe('right arrow', () => {
+    it('is hidden when there are no slides', async () => {
+      await setSlides([]);
 
-    component.slides = [{
-      title: 'title', imageSrc: '', destination: '', parameterKey: '', parameterValue: ''
-    }];
-    component.currentPage = 0;
-    fixture.detectChanges();
+      expect(isVisible(rightArrow())).toBeFalse();
+    });
 
-    expect(arrowElement[0].hasAttribute('hidden')).toEqual(true);
-    expect(arrowElement[1].hasAttribute('hidden')).toEqual(true);
+    it('is hidden when all slides fit on a single page', async () => {
+      await setSlides(createSlides(SLIDES_PER_PAGE));
+
+      expect(isVisible(rightArrow())).toBeFalse();
+      expect(isVisible(leftArrow())).toBeFalse();
+    });
+
+    it('is hidden on the first page even when further pages exist', async () => {
+      await setSlides(createSlides(7));
+
+      expect(isVisible(rightArrow())).toBeFalse();
+      expect(isVisible(leftArrow())).toBeTrue();
+    });
+
+    it('is shown after moving away from the first page', async () => {
+      await setSlides(createSlides(7));
+
+      await click(leftArrow());
+
+      expect(component.currentPage).toBe(-1);
+      expect(isVisible(rightArrow())).toBeTrue();
+    });
+
+    it('is shown on the last page, while the left arrow is hidden', async () => {
+      await setSlides(createSlides(7));
+
+      await click(leftArrow());
+      await click(leftArrow());
+
+      expect(displayedTitles()).toEqual(['title 6']);
+      expect(isVisible(rightArrow())).toBeTrue();
+      expect(isVisible(leftArrow())).toBeFalse();
+    });
+
+    it('navigates to a page that has slides to display', async () => {
+      await setSlides(createSlides(7));
+      await click(leftArrow());
+
+      await click(rightArrow());
+
+      expect(displayedTitles()).toEqual(['title 2', 'title 1', 'title 0']);
+    });
+
+    it('is hidden again after navigating back to the first page', async () => {
+      await setSlides(createSlides(7));
+      await click(leftArrow());
+
+      await click(rightArrow());
+
+      expect(component.currentPage).toBe(0);
+      expect(isVisible(rightArrow())).toBeFalse();
+      expect(isVisible(leftArrow())).toBeTrue();
+    });
+
+    it('is hidden after slides are replaced, since the carousel resets to the first page', async () => {
+      await setSlides(createSlides(7));
+      await click(leftArrow());
+
+      await setSlides(createSlides(5));
+
+      expect(component.currentPage).toBe(0);
+      expect(isVisible(rightArrow())).toBeFalse();
+    });
   });
-
 });
