@@ -1,5 +1,5 @@
 <h5>Please, provide your data below</h5>
-<form>
+<form (submit)="$event.preventDefault(); submit()">
   <div>
     <mat-form-field appearance="fill">
       <mat-label>User Name</mat-label>
@@ -38,9 +38,8 @@
     </div>
   }
   <div class="submit-button">
-    <button mat-raised-button color="primary"
-      [disabled]="registering() || registrationForm.invalid || registrationForm.pending || usernameFormControl.value === '' || emailFormControl.value === '' || passwordFormControl.value === '' || repeatPasswordFormControl.value === ''"
-      (click)="submit()">
+    <button type="submit" mat-raised-button color="primary"
+      [disabled]="registering() || registrationForm.invalid || registrationForm.pending || usernameFormControl.value === '' || emailFormControl.value === '' || passwordFormControl.value === '' || repeatPasswordFormControl.value === ''">
       @if (registering()) {
         <span><mat-spinner diameter="20"></mat-spinner></span>
       }
