@@ -72,7 +72,9 @@ In ClientApp folder:
 
     npm test
 
-Tests run in headless Chrome. If Chrome is not found, point `CHROME_BIN` at a Chrome binary, e.g. the one installed by puppeteer in `~/.cache/puppeteer`.
+Tests run with [Vitest](https://vitest.dev/) in a jsdom environment, so no browser is needed. In a terminal they re-run on file changes; to run once (as CI does):
+
+    npm test -- --watch=false
 
 ## Docker environment
 
