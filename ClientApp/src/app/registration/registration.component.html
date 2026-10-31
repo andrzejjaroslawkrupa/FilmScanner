@@ -18,8 +18,7 @@
       <input matInput placeholder="Enter your password" value="" name="password" type="password"
         [formControl]="passwordFormControl">
       @if (passwordFormControl.hasError('passwordStrength')) {
-        <mat-error>Password must contain at least one uppercase
-        letter, one lowercase letter, and one digit</mat-error>
+        <mat-error>Password must be at least 6 characters long and contain an uppercase letter, a lowercase letter, a digit and a special character</mat-error>
       }
     </mat-form-field>
   </div>
@@ -29,9 +28,7 @@
       <input matInput placeholder="Repeat your password" value="" name="repeatpassword" type="password"
         [formControl]="repeatPasswordFormControl">
       @if (repeatPasswordFormControl.hasError('passwordStrength')) {
-        <mat-error>Password must contain at least one
-          uppercase
-        letter, one lowercase letter, and one digit</mat-error>
+        <mat-error>Password must be at least 6 characters long and contain an uppercase letter, a lowercase letter, a digit and a special character</mat-error>
       }
     </mat-form-field>
   </div>

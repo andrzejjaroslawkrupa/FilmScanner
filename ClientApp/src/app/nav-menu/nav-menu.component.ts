@@ -1,4 +1,7 @@
 import { Component, ElementRef, ViewChild, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Subject, of } from 'rxjs';
+import { catchError, debounceTime, distinctUntilChanged, map, switchMap } from 'rxjs/operators';
 
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -24,12 +27,25 @@ export class NavMenuComponent {
   public films = signal<SearchResult | undefined>(undefined);
   isExpanded = false;
 
+  static readonly SEARCH_DEBOUNCE_MS = 300;
+  private readonly _searchTerms = new Subject<string>();
+
   constructor(private _filmsService: FilmsService, private _router: Router, private _authService: AuthService) {
+    this._searchTerms.pipe(
+      map(term => term.trim()),
+      debounceTime(NavMenuComponent.SEARCH_DEBOUNCE_MS),
+      distinctUntilChanged(),
+      // switchMap cancels the in-flight request when a newer term arrives,
+      // so a late response for an older prefix can't overwrite newer results.
+      switchMap(term => term
+        ? this._filmsService.searchFilmsByTitle(term).pipe(catchError(() => of(undefined)))
+        : of(undefined)),
+      takeUntilDestroyed(),
+    ).subscribe(result => this.films.set(result));
   }
 
   onInput(value: string): void {
-    this._filmsService.searchFilmsByTitle(value.trim())
-      .subscribe(data => this.films.set(data));
+    this._searchTerms.next(value);
   }
 
   selectFilm(imdbID: string): void {
