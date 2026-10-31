@@ -1,6 +1,6 @@
 import { ActivatedRoute } from '@angular/router';
 import { AppTitleService } from '../services/appTitle.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 
 import { Film } from '../films/film';
 import { FilmsService } from '../services/films.service';
@@ -11,6 +11,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     standalone: true,
     imports: [MatProgressSpinnerModule],
     templateUrl: './film-overview.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ['./film-overview.component.scss']
 })
 export class FilmOverviewComponent implements OnInit {

@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -17,6 +17,7 @@ import { MatButtonModule } from '@angular/material/button';
   standalone: true,
   imports: [FormsModule, MatFormFieldModule, MatInputModule, MatAutocompleteModule, MatMenuModule, MatButtonModule, RouterLink],
   templateUrl: './nav-menu.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./nav-menu.component.scss']
 })
 export class NavMenuComponent {

@@ -3,7 +3,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './home/home.component';
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi, withXhr } from '@angular/common/http';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -55,6 +55,6 @@ import { RegistrationComponent } from './registration/registration.component';
         MatButtonModule,
         MatMenuModule
     ],
-    providers: [AppTitleService, FilmsService, ProfileService, provideHttpClient(withInterceptorsFromDi())]
+    providers: [AppTitleService, FilmsService, ProfileService, provideHttpClient(withXhr(), withInterceptorsFromDi())]
 })
 export class AppModule { }
