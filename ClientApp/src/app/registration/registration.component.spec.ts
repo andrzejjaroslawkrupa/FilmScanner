@@ -1,7 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpErrorResponse } from '@angular/common/http';
 import { provideRouter } from '@angular/router';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Subject } from 'rxjs';
 
 import { RegistrationComponent } from './registration.component';
@@ -25,7 +24,7 @@ describe('RegistrationComponent', () => {
     };
 
     await TestBed.configureTestingModule({
-      imports: [NoopAnimationsModule, RegistrationComponent],
+      imports: [RegistrationComponent],
       providers: [provideRouter([]), { provide: RegisterService, useValue: registerService }],
     }).compileComponents();
 

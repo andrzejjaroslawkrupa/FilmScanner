@@ -1,6 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Subject } from 'rxjs';
 
 import { NavMenuComponent } from './nav-menu.component';
@@ -39,7 +38,7 @@ describe('NavMenuComponent search', () => {
     };
 
     await TestBed.configureTestingModule({
-      imports: [NoopAnimationsModule, NavMenuComponent],
+      imports: [NavMenuComponent],
       providers: [
         provideRouter([]),
         { provide: FilmsService, useValue: filmsService },

@@ -1,7 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpErrorResponse } from '@angular/common/http';
 import { provideRouter } from '@angular/router';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Subject } from 'rxjs';
 
 import { LoginComponent } from './login.component';
@@ -25,7 +24,7 @@ describe('LoginComponent', () => {
     };
 
     await TestBed.configureTestingModule({
-      imports: [NoopAnimationsModule, LoginComponent],
+      imports: [LoginComponent],
       providers: [provideRouter([]), { provide: AuthService, useValue: authService }],
     }).compileComponents();
 

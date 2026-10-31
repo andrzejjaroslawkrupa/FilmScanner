@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { EventEmitter } from '@angular/core';
 import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
-import { trigger, state, style, transition, animate, keyframes } from '@angular/animations';
 
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
@@ -14,44 +13,6 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
   imports: [MatProgressSpinnerModule],
   templateUrl: './carousel.component.html',
   styleUrls: ['./carousel.component.scss'],
-  animations: [
-    trigger('transform', [
-      state('visible-center', style({
-        opacity: 1,
-        marginLeft: 0,
-        marginRight: 0
-      })),
-      state('vanished-left', style({
-        opacity: 0,
-        marginLeft: '20vw',
-        marginRight: '-20vw'
-      })),
-      state('vanished-right', style({
-        opacity: 0,
-        marginLeft: '-20vw',
-        marginRight: '20vw'
-      })),
-      transition('vanished-left => visible-center', [
-        animate('0.6s', keyframes([
-          style({ opacity: 0, marginLeft: '-20vw', marginRight: '20vw' }),
-          style({ opacity: 1, marginLeft: 0, marginRight: 0 })
-        ]))
-      ]),
-      transition('vanished-right => visible-center', [
-        animate('0.6s', keyframes([
-          style({ opacity: 0, marginLeft: '20vw', marginRight: '-20vw' }),
-          style({ opacity: 1, marginLeft: 0, marginRight: 0 })
-        ]))
-      ]),
-      transition('* <=> void', [
-        animate('0s')
-      ]),
-      transition('* <=> *', [
-        animate('0.6s')
-      ]),
-    ]),
-  ],
-
 })
 export class CarouselComponent implements OnChanges {
 
@@ -62,13 +23,14 @@ export class CarouselComponent implements OnChanges {
 
   private _debouncer: Subject<boolean> = new Subject<boolean>();
 
-  animationState = 'visible-center';
   slidesLoaded = false;
   isCurrentPageLast = false;
   slidesLoader = true;
   imageLoader = true;
 
   bufferedSlides: Slide[] = [];
+  /** Direction of the last page change; drives the page enter/leave CSS animations. */
+  private _direction: 'left' | 'right' | null = null;
   private _slidesPerPage = Math.round(this.getScreenWidth() / 400);
 
   constructor(private _router: Router) {
@@ -88,6 +50,7 @@ export class CarouselComponent implements OnChanges {
     if (!slidesChange || !this.isAppend(slidesChange.previousValue, slidesChange.currentValue)) {
       this.slidesLoaded = false;
       this.currentPage = 0;
+      this._direction = null; // starting over: show the first page without animating
     }
     this.populateBuffer();
   }
@@ -98,13 +61,24 @@ export class CarouselComponent implements OnChanges {
   }
 
   previousPage(): void {
-    this.animationState = 'vanished-left';
+    this._direction = 'left';
     this.currentPage--;
+    this.populateBuffer();
   }
 
   nextPage(): void {
-    this.animationState = 'vanished-right';
+    this._direction = 'right';
     this.currentPage++;
+    this.populateBuffer();
+  }
+
+  // The new page comes in from the side of the arrow that was clicked and the old one leaves the other way.
+  get enterAnimation(): string {
+    return this._direction ? `page-enter-from-${this._direction}` : '';
+  }
+
+  get leaveAnimation(): string {
+    return this._direction ? `page-leave-to-${this._direction === 'left' ? 'right' : 'left'}` : '';
   }
 
   populateBuffer(): void {
@@ -114,7 +88,6 @@ export class CarouselComponent implements OnChanges {
     }
 
     this.updateIsCurrentPageLast();
-    this.resetAnimationsState();
   }
 
   private startingIndex(): number {
@@ -131,12 +104,6 @@ export class CarouselComponent implements OnChanges {
 
   private updateIsCurrentPageLast(): void {
     this.isCurrentPageLast = this.endingIndex() >= this.slides.length;
-  }
-
-  private resetAnimationsState() {
-    if (this.animationState === 'vanished-right' || this.animationState === 'vanished-left') {
-      this.animationState = 'visible-center';
-    }
   }
 
   goToRouterLink(destination: string, parameterKey: string, parameterValue: string): void {
