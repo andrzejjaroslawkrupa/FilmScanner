@@ -48,8 +48,16 @@ mat-spinner {
 }
 
 // Page transitions (Angular animate.enter / animate.leave).
+// While paging, the leaving and entering pages share one grid cell spanning the full carousel height,
+// each centred by its own height, so the visible page never shifts when the next one is taller/shorter.
 .slides {
-  position: relative;
+  display: grid;
+  align-self: stretch;
+}
+
+.page {
+  grid-area: 1 / 1;
+  align-self: center;
 }
 
 // Sequential like before: the old page leaves during the first 0.3s, the new one enters during the next 0.3s
@@ -65,12 +73,6 @@ mat-spinner {
 // The leaving page is overlaid on the entering one while it animates out.
 .page-leave-to-left,
 .page-leave-to-right {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  margin-left: 0;
-  margin-right: 0;
   pointer-events: none;
 }
 
