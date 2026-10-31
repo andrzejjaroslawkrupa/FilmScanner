@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { FormControl, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { passwordMatchValidator, passwordValidator } from '../validators/password.validator';
 import { RegisterService } from '../services/register.service';
@@ -15,7 +15,6 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     standalone: true,
     imports: [ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatProgressSpinnerModule],
     templateUrl: './registration.component.html',
-    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ['./registration.component.scss'],
 })
 export class RegistrationComponent {
@@ -29,9 +28,9 @@ export class RegistrationComponent {
         repeatPassword: this.repeatPasswordFormControl
     }, { validators: passwordMatchValidator });
 
-    showRegistered: boolean = false;
-    errorOccured: boolean = false;
-    registering: boolean = false;
+    showRegistered = signal(false);
+    errorOccured = signal(false);
+    registering = signal(false);
 
     constructor(private _registerService: RegisterService, private _router: Router) { }
 
@@ -42,18 +41,18 @@ export class RegistrationComponent {
             password: this.passwordFormControl.value ?? ''
         }
 
-        this.registering = true;
+        this.registering.set(true);
         this._registerService.register(user).subscribe(
             () => {
-                this.showRegistered = true;
-                this.registering = false;
+                this.showRegistered.set(true);
+                this.registering.set(false);
                 this._router.navigate(['/']);
             },
             (error) => {
-                this.showRegistered = false;
-                this.errorOccured = true;
+                this.showRegistered.set(false);
+                this.errorOccured.set(true);
                 console.error(error);
-                this.registering = false;
+                this.registering.set(false);
             }
         );
     }

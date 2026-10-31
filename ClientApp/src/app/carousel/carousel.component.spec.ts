@@ -133,4 +133,28 @@ describe('CarouselComponent', () => {
       expect(isVisible(rightArrow())).toBeFalse();
     });
   });
+
+  describe('loading more slides', () => {
+    it('keeps the current page when more slides are appended', async () => {
+      const firstBatch = createSlides(7);
+      await setSlides(firstBatch);
+      await click(leftArrow());
+
+      await setSlides([...firstBatch, ...createSlides(10).slice(7)]);
+
+      expect(component.currentPage).toBe(-1);
+      expect(displayedTitles()).toEqual(['title 5', 'title 4', 'title 3']);
+      expect(isVisible(rightArrow())).toBeTrue();
+    });
+
+    it('starts over when slides are replaced with a different list of the same size', async () => {
+      await setSlides(createSlides(7));
+      await click(leftArrow());
+
+      await setSlides(createSlides(7));
+
+      expect(component.currentPage).toBe(0);
+      expect(displayedTitles()).toEqual(['title 2', 'title 1', 'title 0']);
+    });
+  });
 });

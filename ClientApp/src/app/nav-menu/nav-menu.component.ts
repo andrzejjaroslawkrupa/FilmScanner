@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ElementRef, ViewChild, signal } from '@angular/core';
 
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -17,12 +17,11 @@ import { MatButtonModule } from '@angular/material/button';
   standalone: true,
   imports: [FormsModule, MatFormFieldModule, MatInputModule, MatAutocompleteModule, MatMenuModule, MatButtonModule, RouterLink],
   templateUrl: './nav-menu.component.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./nav-menu.component.scss']
 })
 export class NavMenuComponent {
   @ViewChild('search', { static: true }) searchText!: ElementRef<HTMLElement>;
-public films: SearchResult | undefined;
+  public films = signal<SearchResult | undefined>(undefined);
   isExpanded = false;
 
   constructor(private _filmsService: FilmsService, private _router: Router, private _authService: AuthService) {
@@ -30,7 +29,7 @@ public films: SearchResult | undefined;
 
   onInput(value: string): void {
     this._filmsService.searchFilmsByTitle(value.trim())
-      .subscribe(data => this.films = data);
+      .subscribe(data => this.films.set(data));
   }
 
   selectFilm(imdbID: string): void {

@@ -1,13 +1,13 @@
 <div class="container">
   <div class="row justify-content-center" id="title">
-    @if (film) {
-      <h1>{{ this.film?.title }} ({{ this.film?.year }})</h1>
+    @if (film(); as film) {
+      <h1>{{ film.title }} ({{ film.year }})</h1>
     } @else {
       <mat-spinner [hidden]="!filmLoader"></mat-spinner>
     }
   </div>
 
-  @if (film) {
+  @if (film(); as film) {
     <div>
       <div class="row">
         <div class="col-md-5">
@@ -32,13 +32,13 @@
           </div>
         </div>
         <div class="col-md-7">
-          <p>{{this.film?.plot}}</p>
-          <p><b>Actors:</b> {{this.film?.actors}}</p>
-          <p><b>Director:</b> {{this.film?.director}}</p>
-          <p><b>Country:</b> {{this.film?.country}}</p>
-          <p><b>Genre:</b> {{this.film?.genre}}</p>
-          <p><b>Runtime:</b> {{this.film?.runtime}}</p>
-          <p><b>Released:</b> {{this.film?.released}}</p>
+          <p>{{film.plot}}</p>
+          <p><b>Actors:</b> {{film.actors}}</p>
+          <p><b>Director:</b> {{film.director}}</p>
+          <p><b>Country:</b> {{film.country}}</p>
+          <p><b>Genre:</b> {{film.genre}}</p>
+          <p><b>Runtime:</b> {{film.runtime}}</p>
+          <p><b>Released:</b> {{film.released}}</p>
         </div>
       </div>
     </div>

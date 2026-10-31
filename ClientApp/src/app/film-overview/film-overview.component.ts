@@ -1,6 +1,6 @@
 import { ActivatedRoute } from '@angular/router';
 import { AppTitleService } from '../services/appTitle.service';
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 
 import { Film } from '../films/film';
 import { FilmsService } from '../services/films.service';
@@ -11,7 +11,6 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     standalone: true,
     imports: [MatProgressSpinnerModule],
     templateUrl: './film-overview.component.html',
-    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ['./film-overview.component.scss']
 })
 export class FilmOverviewComponent implements OnInit {
@@ -25,15 +24,15 @@ export class FilmOverviewComponent implements OnInit {
     ) { }
 
     filmID: string | undefined;
-    public film: Film | undefined;
+    public film = signal<Film | undefined>(undefined);
 
     ngOnInit() {
         this._route.queryParams.subscribe(params => {
             this._filmsService.searchFilmByID(params['filmID'])
                 .subscribe(data => {
                     if (data) {
-                        this.film = data;
-                        this._appTitleService.setTitle(this.film.title);
+                        this.film.set(data);
+                        this._appTitleService.setTitle(data.title);
                     }
                 });
             this.filmID = params['filmID'];
