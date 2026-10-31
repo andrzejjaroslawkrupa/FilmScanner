@@ -46,3 +46,65 @@ mat-spinner {
   left: 15%;
   position: absolute;
 }
+
+// Page transitions (Angular animate.enter / animate.leave).
+// While paging, the leaving and entering pages share one grid cell spanning the full carousel height,
+// each centred by its own height, so the visible page never shifts when the next one is taller/shorter.
+.slides {
+  display: grid;
+  align-self: stretch;
+}
+
+.page {
+  grid-area: 1 / 1;
+  align-self: center;
+}
+
+// Sequential like before: the old page leaves during the first 0.3s, the new one enters during the next 0.3s
+// (invisible while delayed, thanks to the 'backwards' fill mode), so their titles never overlap.
+.page-enter-from-left {
+  animation: page-enter-from-left 0.3s ease-out 0.3s backwards;
+}
+
+.page-enter-from-right {
+  animation: page-enter-from-right 0.3s ease-out 0.3s backwards;
+}
+
+// The leaving page is overlaid on the entering one while it animates out.
+.page-leave-to-left,
+.page-leave-to-right {
+  pointer-events: none;
+}
+
+.page-leave-to-left {
+  animation: page-leave-to-left 0.3s ease-in forwards;
+}
+
+.page-leave-to-right {
+  animation: page-leave-to-right 0.3s ease-in forwards;
+}
+
+@keyframes page-enter-from-left {
+  from { opacity: 0; transform: translateX(-20vw); }
+}
+
+@keyframes page-enter-from-right {
+  from { opacity: 0; transform: translateX(20vw); }
+}
+
+@keyframes page-leave-to-left {
+  to { opacity: 0; transform: translateX(-20vw); }
+}
+
+@keyframes page-leave-to-right {
+  to { opacity: 0; transform: translateX(20vw); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-enter-from-left,
+  .page-enter-from-right,
+  .page-leave-to-left,
+  .page-leave-to-right {
+    animation: none;
+  }
+}

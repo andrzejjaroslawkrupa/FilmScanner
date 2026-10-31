@@ -1,5 +1,4 @@
 import { AppTitleService } from './services/appTitle.service';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './home/home.component';
@@ -43,7 +42,6 @@ import { RegistrationComponent } from './registration/registration.component';
             { path: 'login', component: LoginComponent },
             { path: 'registration', component: RegistrationComponent },
         ], {}),
-        BrowserAnimationsModule,
         TextFieldModule,
         MatFormFieldModule,
         MatInputModule,

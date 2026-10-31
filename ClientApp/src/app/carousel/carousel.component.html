@@ -8,10 +8,11 @@
   </div>
 
   <!--SLIDES-->
-  <div class="col-10">
+  <div class="col-10 slides">
     @if (bufferedSlides) {
-      <div>
-        <div class="row align-items-center" [@transform]="animationState" (@transform.done)="populateBuffer()">
+      <!-- Keyed by page, so paging replaces this block and plays the enter/leave animations. -->
+      @for (page of [currentPage]; track page) {
+        <div class="row align-items-center page" [animate.enter]="enterAnimation" [animate.leave]="leaveAnimation">
           @for (slide of this.bufferedSlides; track slide) {
             <div class="col mini-box text-center">
               <a (click)="goToRouterLink(slide.destination, slide.parameterKey, slide.parameterValue)">
@@ -31,7 +32,7 @@
             </div>
           }
         </div>
-      </div>
+      }
     } @else {
       <mat-spinner [hidden]="this.slidesLoader"></mat-spinner>
     }
