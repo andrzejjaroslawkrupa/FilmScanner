@@ -16,7 +16,8 @@ export class FilmsService {
   }
 
   private getUrlWithTitleAndPage(movieTitle: string, page: number): string {
-    return environment.omdbApiAddress + '/search/' + movieTitle + '/' + page;
+    // Encode so characters like '/', '?', '#' or '%' in a title stay inside the path segment.
+    return environment.omdbApiAddress + '/search/' + encodeURIComponent(movieTitle) + '/' + page;
   }
 
   public searchFilmByID(movieID: string): Observable<Film> {
@@ -24,6 +25,6 @@ export class FilmsService {
   }
 
   private getUrlWithID(movieID: string): string {
-    return environment.omdbApiAddress + '/film/' + movieID;
+    return environment.omdbApiAddress + '/film/' + encodeURIComponent(movieID);
   }
 }

@@ -19,7 +19,7 @@ namespace Omdb.ServicesLibs.Omdb
         public async Task<SearchResultModel> ReturnSearchResults(string searchCritera, int? page)
         {
             using var client = new HttpClient();
-            var url = new Uri($"https://www.omdbapi.com/?s={searchCritera}&apikey={_apiKey}&page={page}");
+            var url = BuildUrl(searchCritera, page, _apiKey);
 
             var response = await client.GetAsync(url);
 
@@ -29,5 +29,9 @@ namespace Omdb.ServicesLibs.Omdb
 
             return JsonConvert.DeserializeObject<SearchResultModel>(json);
         }
+
+        // Escape values so characters like '&' or '#' in a title can't break the OMDB query string.
+        public static Uri BuildUrl(string searchCritera, int? page, string apiKey) =>
+            new Uri($"https://www.omdbapi.com/?s={Uri.EscapeDataString(searchCritera)}&apikey={Uri.EscapeDataString(apiKey ?? string.Empty)}&page={page}");
     }
 }

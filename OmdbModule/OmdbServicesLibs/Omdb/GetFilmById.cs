@@ -19,7 +19,7 @@ namespace Omdb.ServicesLibs.Omdb
         public async Task<FilmModel> ReturnFilm(string imdbId)
         {
             using var client = new HttpClient();
-            var url = new Uri($"https://www.omdbapi.com/?i={imdbId}&apikey={_apiKey}");
+            var url = BuildUrl(imdbId, _apiKey);
 
             var response = await client.GetAsync(url);
 
@@ -29,5 +29,9 @@ namespace Omdb.ServicesLibs.Omdb
 
             return JsonConvert.DeserializeObject<FilmModel>(json);
         }
+
+        // Escape values so special characters can't break the OMDB query string.
+        public static Uri BuildUrl(string imdbId, string apiKey) =>
+            new Uri($"https://www.omdbapi.com/?i={Uri.EscapeDataString(imdbId)}&apikey={Uri.EscapeDataString(apiKey ?? string.Empty)}");
     }
 }

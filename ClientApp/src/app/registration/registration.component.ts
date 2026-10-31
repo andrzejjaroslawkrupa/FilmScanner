@@ -4,6 +4,7 @@ import { passwordMatchValidator, passwordValidator } from '../validators/passwor
 import { RegisterService } from '../services/register.service';
 import { Register } from './register';
 import { Router } from '@angular/router';
+import { registrationErrorMessages } from './registration-errors';
 
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -30,6 +31,7 @@ export class RegistrationComponent {
 
     showRegistered = signal(false);
     errorOccured = signal(false);
+    errorMessages = signal<string[]>([]);
     registering = signal(false);
 
     constructor(private _registerService: RegisterService, private _router: Router) { }
@@ -42,6 +44,8 @@ export class RegistrationComponent {
         }
 
         this.registering.set(true);
+        this.errorOccured.set(false);
+        this.errorMessages.set([]);
         this._registerService.register(user).subscribe(
             () => {
                 this.showRegistered.set(true);
@@ -50,6 +54,7 @@ export class RegistrationComponent {
             },
             (error) => {
                 this.showRegistered.set(false);
+                this.errorMessages.set(registrationErrorMessages(error));
                 this.errorOccured.set(true);
                 console.error(error);
                 this.registering.set(false);
