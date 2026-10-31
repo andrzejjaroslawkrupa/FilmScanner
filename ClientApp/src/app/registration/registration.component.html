@@ -51,10 +51,12 @@
     @if (showRegistered()) {
       <span><button mat-button color="accent">You are now registered!</button></span>
     }
-    @if (errorOccured()) {
-      <span><button mat-button color="accent">There was an error during registration attempt. Please
-        try
-      again.</button></span>
-    }
   </div>
+  @if (errorOccured()) {
+    <div class="registration-errors" role="alert">
+      @for (message of errorMessages(); track message) {
+        <mat-error>{{ message }}</mat-error>
+      }
+    </div>
+  }
 </form>
