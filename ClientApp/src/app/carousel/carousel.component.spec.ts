@@ -133,6 +133,43 @@ describe('CarouselComponent', () => {
     });
   });
 
+  describe('fitting slides to the available width', () => {
+    const SLIDE = CarouselComponent.SLIDE_MIN_WIDTH;
+
+    async function resizeTo(width: number): Promise<void> {
+      component.updateSlidesPerPage(width);
+      await fixture.whenStable();
+      fixture.detectChanges();
+    }
+
+    it('shows as many slides as fit in the width', async () => {
+      await setSlides(createSlides(10));
+
+      await resizeTo(2 * SLIDE + 50);
+
+      expect(displayedTitles()).toEqual(['title 1', 'title 0']);
+    });
+
+    it('always shows at least one slide, even in a very narrow width', async () => {
+      await setSlides(createSlides(10));
+
+      await resizeTo(50);
+
+      expect(displayedTitles()).toEqual(['title 0']);
+    });
+
+    it('keeps the first visible slide on screen when the width changes', async () => {
+      await setSlides(createSlides(10));
+      await click(leftArrow());
+      await click(leftArrow()); // 3 per page: showing slides 6-8
+
+      await resizeTo(2 * SLIDE);
+
+      expect(displayedTitles()).toEqual(['title 7', 'title 6']);
+      expect(isVisible(rightArrow())).toBe(true);
+    });
+  });
+
   describe('loading more slides', () => {
     it('keeps the current page when more slides are appended', async () => {
       const firstBatch = createSlides(7);

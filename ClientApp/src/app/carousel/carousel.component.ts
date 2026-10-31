@@ -1,4 +1,4 @@
-import { Component, Input, Output, OnChanges, SimpleChanges, HostListener } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, DestroyRef, ElementRef, Input, OnChanges, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { Slide } from './carousel.interface';
 import { Router } from '@angular/router';
 import { EventEmitter } from '@angular/core';
@@ -14,7 +14,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
   templateUrl: './carousel.component.html',
   styleUrls: ['./carousel.component.scss'],
 })
-export class CarouselComponent implements OnChanges {
+export class CarouselComponent implements OnChanges, AfterViewInit {
 
   @Input() slides: Slide[] = [];
   @Input() currentPage = 0;
@@ -31,17 +31,42 @@ export class CarouselComponent implements OnChanges {
   bufferedSlides: Slide[] = [];
   /** Direction of the last page change; drives the page enter/leave CSS animations. */
   private _direction: 'left' | 'right' | null = null;
-  private _slidesPerPage = Math.round(this.getScreenWidth() / 400);
+  /** Width a slide needs: the 180px poster (see .image) plus the column gutter (2 × 12px). */
+  static readonly SLIDE_MIN_WIDTH = 204;
+  // Rough estimate until the slides area has been measured (see ngAfterViewInit).
+  private _slidesPerPage = Math.max(1, Math.round(window.innerWidth / 400));
 
-  constructor(private _router: Router) {
+  @ViewChild('slidesArea', { static: true }) private _slidesArea!: ElementRef<HTMLElement>;
+
+  constructor(private _router: Router, private _cdr: ChangeDetectorRef, private _destroyRef: DestroyRef) {
     this._debouncer
       .pipe(debounceTime(400))
       .subscribe((value) => this.isNextPageLast.emit(value));
   }
 
-  @HostListener('window:resize')
-  protected getScreenWidth(): number {
-    return window.innerWidth;
+  ngAfterViewInit(): void {
+    // Fit as many slides as the slides area can hold, and refit whenever it is resized.
+    if (typeof ResizeObserver === 'undefined') {
+      return;
+    }
+    const area = this._slidesArea.nativeElement;
+    const observer = new ResizeObserver(() => this.updateSlidesPerPage(area.getBoundingClientRect().width));
+    observer.observe(area);
+    this._destroyRef.onDestroy(() => observer.disconnect());
+  }
+
+  /** Recomputes how many slides fit in the given width, keeping the first visible slide on screen. */
+  updateSlidesPerPage(width: number): void {
+    const perPage = Math.max(1, Math.floor(width / CarouselComponent.SLIDE_MIN_WIDTH));
+    if (perPage === this._slidesPerPage) {
+      return;
+    }
+    const firstVisible = this.startingIndex();
+    this._slidesPerPage = perPage;
+    this.currentPage = -Math.floor(firstVisible / perPage);
+    this._direction = null; // re-laying out, not paging: no animation
+    this.populateBuffer();
+    this._cdr.markForCheck(); // ResizeObserver callbacks don't trigger change detection on their own
   }
 
   ngOnChanges(changes: SimpleChanges): void {
