@@ -8,7 +8,7 @@
   </div>
 
   <!--SLIDES-->
-  <div class="col-10 slides">
+  <div class="col-10 slides" #slidesArea>
     @if (bufferedSlides) {
       <!-- Keyed by page, so paging replaces this block and plays the enter/leave animations. -->
       @for (page of [currentPage]; track page) {
