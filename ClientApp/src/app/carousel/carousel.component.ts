@@ -1,4 +1,4 @@
-import { Component, Input, IterableDiffer, IterableDiffers, DoCheck, Output, OnChanges, SimpleChanges, HostListener, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, Output, OnChanges, SimpleChanges, HostListener } from '@angular/core';
 import { Slide } from './carousel.interface';
 import { Router } from '@angular/router';
 import { EventEmitter } from '@angular/core';
@@ -14,7 +14,6 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
   imports: [MatProgressSpinnerModule],
   templateUrl: './carousel.component.html',
   styleUrls: ['./carousel.component.scss'],
-  changeDetection: ChangeDetectionStrategy.Eager,
   animations: [
     trigger('transform', [
       state('visible-center', style({
@@ -54,7 +53,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
   ],
 
 })
-export class CarouselComponent implements DoCheck, OnChanges {
+export class CarouselComponent implements OnChanges {
 
   @Input() slides: Slide[] = [];
   @Input() currentPage = 0;
@@ -71,10 +70,8 @@ export class CarouselComponent implements DoCheck, OnChanges {
 
   bufferedSlides: Slide[] = [];
   private _slidesPerPage = Math.round(this.getScreenWidth() / 400);
-  private _iterableDiffer: IterableDiffer<Slide>;
 
-  constructor(iterableDiffers: IterableDiffers, private _router: Router) {
-    this._iterableDiffer = iterableDiffers.find([]).create<Slide>();
+  constructor(private _router: Router) {
     this._debouncer
       .pipe(debounceTime(400))
       .subscribe((value) => this.isNextPageLast.emit(value));
@@ -85,17 +82,19 @@ export class CarouselComponent implements DoCheck, OnChanges {
     return window.innerWidth;
   }
 
-  ngOnChanges(_changes: SimpleChanges): void {
-    this.slidesLoaded = false;
-    this.currentPage = 0;
+  ngOnChanges(changes: SimpleChanges): void {
+    const slidesChange = changes['slides'];
+    // Appending more slides (infinite loading) keeps the current page; replacing them starts over.
+    if (!slidesChange || !this.isAppend(slidesChange.previousValue, slidesChange.currentValue)) {
+      this.slidesLoaded = false;
+      this.currentPage = 0;
+    }
     this.populateBuffer();
   }
 
-  ngDoCheck(): void {
-    const changes = this._iterableDiffer.diff(this.slides);
-    if (changes) {
-      this.populateBuffer();
-    }
+  private isAppend(previous: Slide[] | undefined, current: Slide[]): boolean {
+    return !!previous && previous.length > 0 && current.length > previous.length
+      && previous.every((slide, i) => slide === current[i]);
   }
 
   previousPage(): void {

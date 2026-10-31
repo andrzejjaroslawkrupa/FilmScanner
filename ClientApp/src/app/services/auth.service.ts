@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
@@ -12,6 +12,8 @@ const AUTH_USER_STORAGE_KEY = environment.userProfileStorageKey;
 export class AuthService {
 
   private _jwtHelper = new JwtHelperService();
+  // Signal so templates calling isAuthenticated() re-render on login/logout.
+  private readonly _token = signal<string | null>(this._readStoredToken());
 
   constructor(private _http: HttpClient) { }
 
@@ -19,18 +21,18 @@ export class AuthService {
     return this._http.post<any>(environment.authenticationEnpointAddress, { username, password });
   }
 
-  private _getToken(): string | null {
+  private _readStoredToken(): string | null {
     const stored = localStorage.getItem(AUTH_USER_STORAGE_KEY);
     return stored ? JSON.parse(stored) : null;
   }
 
   public isAuthenticated(): boolean {
-    const token = this._getToken();
+    const token = this._token();
     return !!token && !this._jwtHelper.isTokenExpired(token);
   }
 
   public getAuthHeaders(): HttpHeaders {
-    const token = this._getToken();
+    const token = this._token();
     if (this.isAuthenticated()) {
       return new HttpHeaders({
         'Authorization': `Bearer ${token}`,
@@ -40,11 +42,13 @@ export class AuthService {
     return new HttpHeaders({ 'Content-Type': 'application/json' });
   }
 
-  public saveAuthResponseToLocalStorage(response: any): void {
-    localStorage.setItem(AUTH_USER_STORAGE_KEY, JSON.stringify(response));
+  public saveAuthResponseToLocalStorage(token: string): void {
+    localStorage.setItem(AUTH_USER_STORAGE_KEY, JSON.stringify(token));
+    this._token.set(token);
   }
 
   public logout(): void {
     localStorage.removeItem(AUTH_USER_STORAGE_KEY);
+    this._token.set(null);
   }
 }

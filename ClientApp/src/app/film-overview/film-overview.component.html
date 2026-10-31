@@ -1,13 +1,13 @@
 <div class="container">
   <div class="row justify-content-center" id="title">
-    @if (film) {
+    @if (film(); as film) {
       <h1>{{ film.title }} ({{ film.year }})</h1>
     } @else {
       <mat-spinner [hidden]="!filmLoader"></mat-spinner>
     }
   </div>
 
-  @if (film) {
+  @if (film(); as film) {
     <div>
       <div class="row">
         <div class="col-md-5">

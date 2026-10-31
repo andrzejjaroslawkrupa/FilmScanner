@@ -7,7 +7,7 @@
         <input [matAutocomplete]="auto" matInput #search (input)="onInput(search.value)">
       </mat-form-field>
       <mat-autocomplete class="search-dropdown" #auto="matAutocomplete">
-        @if (films) {
+        @if (films(); as films) {
           <div>
             @for (film of films.searches; track film) {
               <mat-option (onSelectionChange)="selectFilm(film.imdbID)">

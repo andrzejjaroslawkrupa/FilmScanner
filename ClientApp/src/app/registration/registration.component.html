@@ -42,19 +42,19 @@
   }
   <div class="submit-button">
     <button mat-raised-button color="primary"
-      [disabled]="registering || registrationForm.invalid || registrationForm.pending || usernameFormControl.value === '' || emailFormControl.value === '' || passwordFormControl.value === '' || repeatPasswordFormControl.value === ''"
+      [disabled]="registering() || registrationForm.invalid || registrationForm.pending || usernameFormControl.value === '' || emailFormControl.value === '' || passwordFormControl.value === '' || repeatPasswordFormControl.value === ''"
       (click)="submit()">
-      @if (registering) {
+      @if (registering()) {
         <span><mat-spinner diameter="20"></mat-spinner></span>
       }
-      @if (!registering) {
+      @if (!registering()) {
         <span>Submit</span>
       }
     </button>
-    @if (showRegistered) {
+    @if (showRegistered()) {
       <span><button mat-button color="accent">You are now registered!</button></span>
     }
-    @if (errorOccured) {
+    @if (errorOccured()) {
       <span><button mat-button color="accent">There was an error during registration attempt. Please
         try
       again.</button></span>
