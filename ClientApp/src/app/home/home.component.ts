@@ -5,15 +5,17 @@ import { Router } from '@angular/router';
 import { SearchResult } from '../films/searchResult';
 import { Slide } from '../carousel/carousel.interface';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { CarouselComponent } from '../carousel/carousel.component';
 
 @Component({
-
   selector: 'app-home',
+  standalone: true,
+  imports: [CarouselComponent],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  @ViewChild('carousel', { static: false }) carousel: ElementRef;
+  @ViewChild('carousel', { static: false }) carousel!: ElementRef;
 
   filmsLoader = true;
   imageLoader = true;

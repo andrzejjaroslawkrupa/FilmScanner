@@ -12,15 +12,14 @@ describe('CarouselComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [BrowserAnimationsModule],
-      declarations: [CarouselComponent],
-      providers: [
+    imports: [BrowserAnimationsModule, CarouselComponent],
+    providers: [
         {
-          provide: Router,
-          useClass: RouterTestingModule
+            provide: Router,
+            useClass: RouterTestingModule
         }
-      ]
-    })
+    ]
+})
       .compileComponents();
   }));
 
